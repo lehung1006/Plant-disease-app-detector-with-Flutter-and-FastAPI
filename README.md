@@ -1,1 +1,1 @@
-# Plant-disease-app-detector-with-Flutter-and-FastAPI
+# Plant-disease-detection-app-with-Flutter-and-FastAPI
