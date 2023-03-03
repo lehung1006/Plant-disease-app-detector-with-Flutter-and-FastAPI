@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../router/routes.dart';
+import './my_floating_action_button.dart';
 
 class MyNavigationBar extends StatefulWidget {
   const MyNavigationBar({super.key, required this.child});
@@ -57,8 +58,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.child,
+      floatingActionButton: const MyFloatingActionButton(),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xfff05222),
+        selectedItemColor: const Color(0xff2ecc71),
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         items: tabs,

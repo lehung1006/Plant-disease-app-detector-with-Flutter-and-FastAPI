@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import './widgets/categories_bar.dart';
-import './widgets/item.dart';
 import './widgets/search_bar.dart';
-import './widgets/carousel.dart';
+import './widgets/forum_post.dart';
+import '../../widgets/my_search_delegate.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +21,12 @@ class _HomePageState extends State<HomePage> {
 
   final TextEditingController _controller = TextEditingController();
 
+  final BoxDecoration appBarColor = const BoxDecoration(
+      gradient: LinearGradient(
+          begin: FractionalOffset(0.5, 0.5),
+          end: FractionalOffset(0.5, 1.0),
+          colors: [Color(0xff2ecc71), Color(0xff55efc4)]));
+
   @override
   void initState() {
     searchBar = SearchBar(controller: _controller);
@@ -33,89 +38,27 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         // backgroundColor: const Color.fromARGB(255, 245, 245, 245),
         appBar: AppBar(
-          toolbarHeight: 130,
           backgroundColor: Colors.white,
           elevation: 3.0,
           shadowColor: Colors.black,
-          flexibleSpace: SafeArea(
-            top: true,
-            bottom: false,
-            left: false,
-            right: false,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Giao đến:', style: appBarTextStyle),
-                    ListTile(
-                      dense: true,
-                      contentPadding: const EdgeInsets.all(0),
-                      leading: const FaIcon(FontAwesomeIcons.locationDot,
-                          size: 16, color: Color.fromARGB(255, 243, 87, 39)),
-                      title: Transform.translate(
-                        offset: const Offset(-30, 0),
-                        child: Text(
-                            'Số 3 Đ. Số 3, An Bình, Thành phố Biên Hòa, Đồng...',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: appBarTextStyle),
-                      ),
-                      trailing: const FaIcon(FontAwesomeIcons.chevronRight,
-                          size: 12, color: Color(0xff95a5a6)),
-                    ),
-                    searchBar,
-                  ]),
-            ),
-          ),
-        ),
-        body: Column(
-          children: <Widget>[
-            Carousel(context: context),
-            const CategoriesBar(),
-            Container(
-                width: screenWidth,
-                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Món bán chạy",
-                            style: TextStyle(
-                                color: Color(0xfff05222),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500)),
-                        Row(children: const [
-                          Text('Xem tất cả',
-                              style: TextStyle(color: Color(0xff7f8c8d))),
-                          FaIcon(FontAwesomeIcons.chevronRight,
-                              size: 12, color: Color(0xff7f8c8d))
-                        ])
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                      height: 230,
-                      child: Center(
-                        child: ListView(
-                          padding: const EdgeInsets.all(10),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: const [
-                            Item(),
-                            Item(),
-                            Item(),
-                            Item(),
-                          ],
-                        ),
-                      ))
-                ]))
+          title:
+              const Text('AppName', style: TextStyle(color: Color(0xff2ecc71))),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: MySearchDelegate());
+                },
+                iconSize: 20,
+                color: const Color(0xff7f8c8d),
+                icon: const Icon(FontAwesomeIcons.magnifyingGlass))
           ],
+        ),
+        body: ListView.separated(
+          itemCount: 10,
+          separatorBuilder: (context, index) => const SizedBox(height: 10),
+          itemBuilder: (context, index) {
+            return const ForumPost();
+          },
         ));
   }
 }
