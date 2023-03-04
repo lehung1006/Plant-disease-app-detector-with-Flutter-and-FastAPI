@@ -1,4 +1,7 @@
+import 'package:app/widgets/app_bloc/app_bloc.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:app/screens/home/home.dart';
 import 'package:app/screens/order/order.dart';
@@ -10,6 +13,7 @@ import 'package:app/screens/setting/setting.dart';
 import 'package:app/screens/login/login.dart';
 import 'package:app/screens/register/register.dart';
 import 'package:app/screens/otp-verification/otp_verification.dart';
+import 'package:app/screens/image_capture/image_capture.dart';
 import './router/routes.dart';
 import './widgets/my_navigation_bar.dart';
 
@@ -91,16 +95,31 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               path: RoutesPath.settingRoute,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: Setting())),
+          GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: RoutesPath.imageCaptureRoute,
+              pageBuilder: (context, state) {
+                final camera = state.extra as CameraDescription;
+                return NoTransitionPage(
+                    child: ImageCapture(
+                  camera: camera,
+                ));
+              })
         ]);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
-      routerConfig: goRouter,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
+      ],
+      child: MaterialApp.router(
+        theme: ThemeData(
+            scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
+        routerConfig: goRouter,
+      ),
     );
   }
 }

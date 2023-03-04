@@ -43,6 +43,11 @@ dependencies:
   dio: ^4.0.6
   cupertino_icons: ^1.0.2
   flutter_speed_dial: ^6.2.0
+  camera: ^0.10.3+2
+  path_provider: ^2.0.13
+  path: ^1.8.2
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.2
 
 dev_dependencies:
   flutter_test:

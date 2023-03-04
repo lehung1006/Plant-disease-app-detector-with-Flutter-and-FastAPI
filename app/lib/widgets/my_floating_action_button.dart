@@ -1,9 +1,28 @@
+import 'package:app/router/routes.dart';
+import 'package:app/widgets/app_bloc/app_bloc.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-class MyFloatingActionButton extends StatelessWidget {
+class MyFloatingActionButton extends StatefulWidget {
   const MyFloatingActionButton({super.key});
+
+  @override
+  State<MyFloatingActionButton> createState() => _MyFloatingActionButtonState();
+}
+
+class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
+  late final List<CameraDescription> cameras = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +35,14 @@ class MyFloatingActionButton extends StatelessWidget {
       spacing: 6,
       children: [
         SpeedDialChild(
+            onTap: () async {
+              if (cameras.isEmpty) {
+                cameras.addAll(await availableCameras());
+              }
+              // ignore: use_build_context_synchronously
+              GoRouter.of(context)
+                  .push(RoutesPath.imageCaptureRoute, extra: cameras.first);
+            },
             child:
                 const Icon(FontAwesomeIcons.disease, color: Color(0xff2ecc71)),
             labelWidget: const Padding(

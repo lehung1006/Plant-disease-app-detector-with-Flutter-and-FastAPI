@@ -10,4 +10,5 @@ class RoutesPath {
   static String loginRoute = '/login';
   static String registerRoute = '/register';
   static String otpVerificationRoute = '/otp-verification';
+  static String imageCaptureRoute = '/image-capture';
 }
