@@ -1,36 +1,61 @@
-import 'package:app/widgets/app_bloc/app_bloc.dart';
+import 'package:app/router/routes.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class ImageCapture extends StatefulWidget {
-  const ImageCapture({super.key, required this.camera});
+  const ImageCapture({super.key, required this.cameras, required this.type});
 
-  final CameraDescription camera;
+  final List<CameraDescription> cameras;
+  final int type;
 
   @override
   State<ImageCapture> createState() => _ImageCaptureState();
 }
 
 class _ImageCaptureState extends State<ImageCapture> {
-  late CameraController _cameraController;
-  late Future<void> _initializeControllerFuture;
+  late final CameraController _cameraController;
+  XFile? pictureFile;
+  late final String appBarTitle;
 
   @override
   void initState() {
     // TODO: implement initState
+    switch (widget.type) {
+      case 0:
+        {
+          appBarTitle = 'Nhận diện bệnh';
+          break;
+        }
+      case 1:
+        {
+          appBarTitle = 'Nhận diện sâu bọ';
+          break;
+        }
+      case 2:
+        {
+          appBarTitle = 'Nhận diện cây';
+          break;
+        }
+    }
     _cameraController =
-        CameraController(widget.camera, ResolutionPreset.medium);
-    _initializeControllerFuture = _cameraController.initialize();
+        CameraController(widget.cameras.first, ResolutionPreset.max);
+    _cameraController.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
     super.initState();
   }
+
+  void goToImageReview(XFile pictureFile) =>
+      context.push(RoutesPath.imageReviewRoute, extra: pictureFile.path);
 
   @override
   void dispose() {
     // TODO: implement dispose
-
     _cameraController.dispose();
     super.dispose();
   }
@@ -38,31 +63,45 @@ class _ImageCaptureState extends State<ImageCapture> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Nhận diện bệnh'),
-        leading: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.arrowLeft,
-              color: Color(0xff7f8c8d)),
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(appBarTitle),
+          leading: IconButton(
+            icon: const FaIcon(FontAwesomeIcons.arrowLeft, color: Colors.white),
+            onPressed: () => context.pop(),
+          ),
+          backgroundColor: const Color.fromRGBO(219, 215, 215, 0.0),
+          elevation: 0,
         ),
-        backgroundColor: const Color.fromRGBO(219, 215, 215, 0.0),
-        elevation: 0,
-      ),
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return CameraPreview(_cameraController);
-          } else {
-            // Otherwise, display a loading indicator.
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+        body: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: !_cameraController.value.isInitialized
+                  ? const Center(child: CircularProgressIndicator())
+                  : CameraPreview(_cameraController),
+            ),
+            Positioned(
+              bottom: 30,
+              child: ElevatedButton(
+                onPressed: () async {
+                  pictureFile = await _cameraController.takePicture();
+
+                  goToImageReview(pictureFile!);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  side: const BorderSide(width: 4, color: Colors.white),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ),
+                child: const SizedBox(width: 75, height: 75),
+              ),
+            )
+          ],
+        ));
   }
 }

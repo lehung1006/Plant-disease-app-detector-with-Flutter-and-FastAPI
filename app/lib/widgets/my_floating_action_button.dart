@@ -1,10 +1,8 @@
 import 'package:app/router/routes.dart';
-import 'package:app/widgets/app_bloc/app_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class MyFloatingActionButton extends StatefulWidget {
@@ -20,7 +18,7 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
   @override
   void initState() {
     // TODO: implement initState
-
+    // cameras.addAll(await getCameras());
     super.initState();
   }
 
@@ -33,16 +31,15 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
       overlayColor: Colors.black,
       overlayOpacity: 0.8,
       spacing: 6,
+      onOpen: () async {
+        if (cameras.isEmpty) {
+          cameras.addAll(await availableCameras());
+        }
+      },
       children: [
         SpeedDialChild(
-            onTap: () async {
-              if (cameras.isEmpty) {
-                cameras.addAll(await availableCameras());
-              }
-              // ignore: use_build_context_synchronously
-              GoRouter.of(context)
-                  .push(RoutesPath.imageCaptureRoute, extra: cameras.first);
-            },
+            onTap: () => context.pushNamed(RoutesPath.imageCaptureRoute,
+                params: {'type': '0'}, extra: cameras),
             child:
                 const Icon(FontAwesomeIcons.disease, color: Color(0xff2ecc71)),
             labelWidget: const Padding(
@@ -54,6 +51,8 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
                       fontSize: 18)),
             )),
         SpeedDialChild(
+            onTap: () => context.pushNamed(RoutesPath.imageCaptureRoute,
+                params: {'type': '1'}, extra: cameras),
             child: const Icon(FontAwesomeIcons.bug, color: Color(0xff2ecc71)),
             labelWidget: const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
@@ -64,6 +63,8 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
                       fontSize: 18)),
             )),
         SpeedDialChild(
+            onTap: () => context.pushNamed(RoutesPath.imageCaptureRoute,
+                params: {'type': '2'}, extra: cameras),
             child: const Icon(FontAwesomeIcons.pagelines,
                 color: Color(0xff2ecc71)),
             labelWidget: const Padding(

@@ -1,3 +1,4 @@
+import 'package:app/screens/image_review/image_review.dart';
 import 'package:app/widgets/app_bloc/app_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -74,35 +75,45 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.detailRoute,
               pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: Detail())),
+                  const MaterialPage(child: Detail())),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.loginRoute,
               pageBuilder: ((context, state) =>
-                  const NoTransitionPage(child: LoginScreen()))),
+                  const MaterialPage(child: LoginScreen()))),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.registerRoute,
               pageBuilder: ((context, state) =>
-                  const NoTransitionPage(child: Register()))),
+                  const MaterialPage(child: Register()))),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.otpVerificationRoute,
               pageBuilder: ((context, state) =>
-                  const NoTransitionPage(child: OtpVerification()))),
+                  const MaterialPage(child: OtpVerification()))),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.settingRoute,
               pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: Setting())),
+                  const MaterialPage(child: Setting())),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: RoutesPath.imageCaptureRoute,
+              path: '${RoutesPath.imageCaptureRoute}/:type',
+              name: RoutesPath.imageCaptureRoute,
               pageBuilder: (context, state) {
-                final camera = state.extra as CameraDescription;
-                return NoTransitionPage(
-                    child: ImageCapture(
-                  camera: camera,
+                final cameras = state.extra as List<CameraDescription>;
+                final type = int.parse(state.params['type'] as String);
+                return MaterialPage(
+                    child: ImageCapture(cameras: cameras, type: type));
+              }),
+          GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: RoutesPath.imageReviewRoute,
+              pageBuilder: (context, state) {
+                final pictureFilePath = state.extra as String;
+                return MaterialPage(
+                    child: ImageReview(
+                  pictureFilePath: pictureFilePath,
                 ));
               })
         ]);
@@ -111,15 +122,10 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
-      ],
-      child: MaterialApp.router(
-        theme: ThemeData(
-            scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
-        routerConfig: goRouter,
-      ),
+    return MaterialApp.router(
+      theme: ThemeData(
+          scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
+      routerConfig: goRouter,
     );
   }
 }

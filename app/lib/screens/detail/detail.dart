@@ -14,7 +14,6 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
-
   // final ApiServices _apiServices = ApiServices();
 
   @override
@@ -33,7 +32,8 @@ class _DetailState extends State<Detail> {
               GoRouter.of(context).pop();
             },
           ),
-          backgroundColor: const Color.fromRGBO(219, 215, 215, 0.0),
+          // backgroundColor: const Color.fromRGBO(219, 215, 215, 0.0),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Column(
