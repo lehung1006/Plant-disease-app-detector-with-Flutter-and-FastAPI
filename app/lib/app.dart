@@ -1,15 +1,15 @@
 import 'package:app/screens/image_review/image_review.dart';
+import 'package:app/screens/plant_detail/plant_detail.dart';
 import 'package:app/widgets/app_bloc/app_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:app/screens/home/home.dart';
-import 'package:app/screens/order/order.dart';
-import 'package:app/screens/favourite/favourive.dart';
+import 'package:app/screens/plants/plants.dart';
+import 'package:app/screens/insect/insect.dart';
 import 'package:app/screens/notification/notification_screen.dart';
 import 'package:app/screens/profile/profile.dart';
-import 'package:app/screens/detail/detail.dart';
 import 'package:app/screens/setting/setting.dart';
 import 'package:app/screens/login/login.dart';
 import 'package:app/screens/register/register.dart';
@@ -51,19 +51,14 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                       const NoTransitionPage(child: HomePage()),
                 ),
                 GoRoute(
-                  path: RoutesPath.orderRoute,
+                  path: RoutesPath.plantsRoute,
                   pageBuilder: (context, state) =>
-                      const NoTransitionPage(child: Order()),
+                      const NoTransitionPage(child: Plants()),
                 ),
                 GoRoute(
-                  path: RoutesPath.favouriteRoute,
+                  path: RoutesPath.insectRoute,
                   pageBuilder: (context, state) =>
-                      const NoTransitionPage(child: Favourite()),
-                ),
-                GoRoute(
-                  path: RoutesPath.notificationRoute,
-                  pageBuilder: (context, state) =>
-                      const NoTransitionPage(child: NotificationScreen()),
+                      const NoTransitionPage(child: Insect()),
                 ),
                 GoRoute(
                   path: RoutesPath.profileRoute,
@@ -73,9 +68,9 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               ]),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: RoutesPath.detailRoute,
+              path: RoutesPath.plantDetailRoute,
               pageBuilder: (context, state) =>
-                  const MaterialPage(child: Detail())),
+                  const MaterialPage(child: PlantDetail())),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.loginRoute,
