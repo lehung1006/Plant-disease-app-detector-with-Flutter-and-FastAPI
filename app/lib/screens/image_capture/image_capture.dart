@@ -89,7 +89,6 @@ class _ImageCaptureState extends State<ImageCapture> {
               child: ElevatedButton(
                 onPressed: () async {
                   pictureFile = await _cameraController.takePicture();
-
                   goToImageReview(pictureFile!);
                 },
                 style: ElevatedButton.styleFrom(

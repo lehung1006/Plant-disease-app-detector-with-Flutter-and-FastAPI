@@ -16,24 +16,19 @@ class MyNavigationBar extends StatefulWidget {
 class _MyNavigationBarState extends State<MyNavigationBar> {
   static final tabs = [
     MyNavigationBarItem(
-        label: 'Trang chủ',
+        label: 'Diễn đàn',
         initLocation: RoutesPath.homeRoute,
         icon: const FaIcon(FontAwesomeIcons.house)),
     MyNavigationBarItem(
-        label: 'Đơn hàng',
-        initLocation: RoutesPath.orderRoute,
-        icon: const FaIcon(FontAwesomeIcons.clipboard),
-        activeIcon: const FaIcon(FontAwesomeIcons.solidClipboard)),
+      label: 'Cây cối',
+      initLocation: RoutesPath.plantsRoute,
+      icon: const FaIcon(FontAwesomeIcons.plantWilt),
+    ),
     MyNavigationBarItem(
-        label: 'Yêu thích',
-        initLocation: RoutesPath.favouriteRoute,
-        icon: const FaIcon(FontAwesomeIcons.heart),
-        activeIcon: const FaIcon(FontAwesomeIcons.solidHeart)),
-    MyNavigationBarItem(
-        label: 'Thông báo',
-        initLocation: RoutesPath.notificationRoute,
-        icon: const FaIcon(FontAwesomeIcons.bell),
-        activeIcon: const FaIcon(FontAwesomeIcons.solidBell)),
+      label: 'Côn trùng',
+      initLocation: RoutesPath.insectRoute,
+      icon: const FaIcon(FontAwesomeIcons.bug),
+    ),
     MyNavigationBarItem(
         label: 'Tôi',
         initLocation: RoutesPath.profileRoute,
