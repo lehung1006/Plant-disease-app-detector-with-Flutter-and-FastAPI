@@ -17,8 +17,6 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // cameras.addAll(await getCameras());
     super.initState();
   }
 

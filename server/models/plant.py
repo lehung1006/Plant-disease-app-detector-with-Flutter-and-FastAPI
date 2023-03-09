@@ -3,6 +3,10 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
+class Item(BaseModel):
+    img: str
+
+
 class PlantSchema(BaseModel):
     id: str = Field(..., alias='_id')
     no: int

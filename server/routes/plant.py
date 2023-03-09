@@ -14,6 +14,7 @@ from server.models.plant import (
     ResponseModel,
     PlantSchema,
     UpdatePlantModel,
+    Item
 )
 from server.ultils.classify.vgg16 import classify
 from server.ultils.detect.pestdetection import detect
@@ -31,7 +32,7 @@ async def get_plants():
     return ResponseModel(plants, "Empty list returned")
 
 
-@router.get("/{no}", response_description="Plant data retrieved by no")
+@router.get("/plant/{no}", response_description="Plant data retrieved by no")
 async def get_plant_data_by_no(no):
     plant = await retrieve_plant_by_no(no)
     if plant:
@@ -39,21 +40,36 @@ async def get_plant_data_by_no(no):
     return ErrorResponseModel("An error occurred.", 404, "Plant doesn't exist.")
 
 
-@router.post("/classify/{image}", response_description="Predicted plant data retrieved")
-async def predict_image(file: UploadFile = File(...)):
-    file.filename = f"{uuid.uuid4()}.jpg"
-    contents = await file.read()
-    with open(f"{CLASSIFYDIR}/{file.filename}", "wb") as f:
-        f.write(contents)
-    plant = classify(file.filename)
+@router.post("/classify", response_description="Predicted plant data retrieved")
+async def predict_image(img64: Item):
+    img64 = img64.dict()
+    imgcode = img64['img']
+    imgdata = base64.b64decode(imgcode)
+    filename = f"{uuid.uuid4()}.jpg"
+    with open(f"{CLASSIFYDIR}/{filename}", "wb") as f:
+        f.write(imgdata)
+    plant = classify(filename)
     return ResponseModel(plant, "Plant data retrieved successfully")
 
 
-@router.post('/detect/{image}', response_description="Predicted plant data retrieved")
-async def detect_image(file: UploadFile = File(...)):
-    file.filename = f"{uuid.uuid4()}.jpg"
-    contents = await file.read()
-    with open(f"{DETECTDIR}/{file.filename}", "wb") as f:
-        f.write(contents)
-    plant = detect(file.filename)
+@router.post('/detect', response_description="Predicted plant data retrieved")
+async def detect_image(img64: Item):
+    img64 = img64.dict()
+    imgcode = img64['img']
+    imgdata = base64.b64decode(imgcode)
+    filename = f"{uuid.uuid4()}.jpg"
+    with open(f"{DETECTDIR}/{filename}", "wb") as f:
+        f.write(imgdata)
+    plant = detect(filename)
     return ResponseModel(plant, "Plant data retrieved successfully")
+
+
+# @router.post("/demo", response_description="Plant data added into the database")
+# async def demo(img64: Item):
+#     img64 = img64.dict()
+#     imgcode = img64['img']
+#     imgdata = base64.b64decode(imgcode)
+#     filename = f"{uuid.uuid4()}.jpg"
+#     with open(f"{CLASSIFYDIR}/{filename}", "wb") as f:
+#         f.write(imgdata)
+#     return ResponseModel(img64, "Plant data retrieved successfully")

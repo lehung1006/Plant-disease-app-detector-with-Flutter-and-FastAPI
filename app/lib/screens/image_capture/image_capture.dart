@@ -3,6 +3,11 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:camera/camera.dart';
+import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
 
 class ImageCapture extends StatefulWidget {
   const ImageCapture({super.key, required this.cameras, required this.type});
@@ -89,8 +94,15 @@ class _ImageCaptureState extends State<ImageCapture> {
               child: ElevatedButton(
                 onPressed: () async {
                   pictureFile = await _cameraController.takePicture();
-
-                  goToImageReview(pictureFile!);
+                  var dio = Dio();
+                  var res = await dio.post(
+                    'http://10.0.2.2:8000/plants/classify',
+                    data: {
+                      "img": base64Encode(await pictureFile!.readAsBytes()),
+                    },
+                  );
+                  // goToImageReview(pictureFile!);
+                  print(res.data);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),

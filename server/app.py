@@ -4,7 +4,7 @@ from server.routes.plant import router as PlantRouter
 
 app = FastAPI()
 
-app.include_router(PlantRouter, tags=["Plant"], prefix="/plant")
+app.include_router(PlantRouter, tags=["Plant"], prefix="/plants")
 
 
 @app.get("/", tags=["Root"])
