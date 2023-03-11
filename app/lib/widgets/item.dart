@@ -3,16 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class Item extends StatelessWidget {
-  const Item({super.key, required this.title, required this.subTitle});
+  const Item(
+      {super.key,
+      required this.title,
+      required this.subTitle,
+      required this.type});
 
   final String title;
   final String subTitle;
+  final int type; // 0 for plant, 1 for pests
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.push(RoutesPath.plantDetailRoute);
+        switch (type) {
+          case 0:
+            {
+              context.push(RoutesPath.plantDetailRoute);
+              break;
+            }
+          case 1:
+            {
+              context.push(RoutesPath.pestAndDiseaseDetailRoute);
+              break;
+            }
+        }
       },
       child: Container(
           width: MediaQuery.of(context).size.width,
@@ -45,7 +61,7 @@ class Item extends StatelessWidget {
                       children: [
                         Text(title,
                             style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 20)),
+                                fontWeight: FontWeight.w500, fontSize: 20)),
                         const SizedBox(
                           height: 10,
                         ),

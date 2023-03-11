@@ -21,12 +21,6 @@ class _HomePageState extends State<HomePage> {
 
   final TextEditingController _controller = TextEditingController();
 
-  final BoxDecoration appBarColor = const BoxDecoration(
-      gradient: LinearGradient(
-          begin: FractionalOffset(0.5, 0.5),
-          end: FractionalOffset(0.5, 1.0),
-          colors: [Color(0xff2ecc71), Color(0xff55efc4)]));
-
   @override
   void initState() {
     searchBar = SearchBar(controller: _controller);
