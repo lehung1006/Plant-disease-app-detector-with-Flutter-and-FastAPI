@@ -1,7 +1,6 @@
-PlANT_COLLECTION ="plants"
-
-from bson.objectid import ObjectId
 from database.db import get_db
+from bson.objectid import ObjectId
+PlANT_COLLECTION = "plants"
 
 
 db = get_db()
@@ -12,6 +11,7 @@ def plant_helper(plant) -> dict:
     return {
         "id": str(plant["_id"]),
         "name": plant["name"],
+        "img": plant["img"],
         "description": plant["description"],
     }
 
@@ -20,6 +20,7 @@ def plant_detail(plant) -> dict:
     return {
         "id": str(plant["_id"]),
         "name": plant["name"],
+        "img": plant["img"],
         "science_name": plant["science_name"],
         "description": plant["description"],
         "plant_type": plant["plant_type"],

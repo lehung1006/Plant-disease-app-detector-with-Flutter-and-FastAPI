@@ -6,7 +6,7 @@ from database.leafdisease.leafdisease import (
     retrieve_leafdisease_by_id,
     retrieve_leafdisease_by_label,
 )
-from models.plant import (
+from model.plant import (
     IMEI,
     ErrorResponseModel,
     ResponseModel,)
