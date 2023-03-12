@@ -1,11 +1,11 @@
 
-from os import listdir
-import torch
-import pickle
-from ultils.detect.featureextract import encode_image
-import numpy as np
-from numpy.linalg import norm
 from PIL import Image
+from numpy.linalg import norm
+import numpy as np
+from ultils.detect.featureextract import encode_image
+import pickle
+import torch
+from os import listdir
 DIR_REPO = './ultils/detect/yolov5/'
 DIR_MODEL = './ultils/detect/best.pt'
 
@@ -18,9 +18,9 @@ def get_model():
 def get_labels(vec):
     labels = []
     db = []
-    with open('img_labels.pkl', 'rb') as f:
+    with open('./ultils/detect/img_labels.pkl', 'rb') as f:
         labels = pickle.load(f)
-    with open('img_ft.pkl', 'rb') as f:
+    with open('./ultils/detect/img_ft.pkl', 'rb') as f:
         db = pickle.load(f)
     vec = np.array(vec)[0]
     db = np.array(db)

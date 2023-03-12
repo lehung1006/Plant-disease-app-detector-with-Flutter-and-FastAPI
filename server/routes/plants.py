@@ -3,7 +3,7 @@ from database.plants.plants import (
     retrieve_plants,
     retrieve_plant_by_id,
 )
-from models.plant import (
+from model.plant import (
     ErrorResponseModel,
     ResponseModel,
 )

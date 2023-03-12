@@ -6,7 +6,7 @@ from tensorflow.keras.applications.vgg16 import preprocess_input
 
 
 def get_extract_model():
-    model = load_model('featureextract.h5')
+    model = load_model('./ultils/detect/featureextract.h5')
     model.layers.pop()
     model = tf.keras.Model(inputs=model.inputs,
                            outputs=model.layers[-1].output)
