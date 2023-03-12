@@ -35,7 +35,7 @@ class _OrderState extends State<Plants> with TickerProviderStateMixin {
         padding: const EdgeInsets.all(10),
         separatorBuilder: (context, index) => const SizedBox(height: 5),
         itemBuilder: (context, index) {
-          return Item(title: title, subTitle: subTitle);
+          return Item(title: title, subTitle: subTitle, type: 0);
         },
       ),
     );

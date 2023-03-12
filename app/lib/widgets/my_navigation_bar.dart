@@ -25,9 +25,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
       icon: const FaIcon(FontAwesomeIcons.plantWilt),
     ),
     MyNavigationBarItem(
-      label: 'Côn trùng',
-      initLocation: RoutesPath.insectRoute,
-      icon: const FaIcon(FontAwesomeIcons.bug),
+      label: 'Sâu bệnh',
+      initLocation: RoutesPath.pestsAndDiseasesRoute,
+      icon: const FaIcon(FontAwesomeIcons.disease),
     ),
     MyNavigationBarItem(
         label: 'Tôi',

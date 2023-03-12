@@ -1,4 +1,6 @@
 import 'package:app/screens/image_review/image_review.dart';
+import 'package:app/screens/pest_and_disease_detail/pest_and_disease_detail.dart';
+import 'package:app/screens/pests_and_diseases/pests_and_diseases.dart';
 import 'package:app/screens/plant_detail/plant_detail.dart';
 import 'package:app/widgets/app_bloc/app_bloc.dart';
 import 'package:camera/camera.dart';
@@ -8,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:app/screens/home/home.dart';
 import 'package:app/screens/plants/plants.dart';
 import 'package:app/screens/insect/insect.dart';
-import 'package:app/screens/notification/notification_screen.dart';
 import 'package:app/screens/profile/profile.dart';
 import 'package:app/screens/setting/setting.dart';
 import 'package:app/screens/login/login.dart';
@@ -56,9 +57,9 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                       const NoTransitionPage(child: Plants()),
                 ),
                 GoRoute(
-                  path: RoutesPath.insectRoute,
+                  path: RoutesPath.pestsAndDiseasesRoute,
                   pageBuilder: (context, state) =>
-                      const NoTransitionPage(child: Insect()),
+                      const NoTransitionPage(child: PestsAndDiseases()),
                 ),
                 GoRoute(
                   path: RoutesPath.profileRoute,
@@ -71,6 +72,11 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               path: RoutesPath.plantDetailRoute,
               pageBuilder: (context, state) =>
                   const MaterialPage(child: PlantDetail())),
+          GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: RoutesPath.pestAndDiseaseDetailRoute,
+              pageBuilder: (context, state) =>
+                  const MaterialPage(child: PestAndDiseaseDetail())),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.loginRoute,

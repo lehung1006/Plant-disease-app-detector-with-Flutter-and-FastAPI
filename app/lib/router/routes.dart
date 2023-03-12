@@ -13,4 +13,7 @@ class RoutesPath {
   static String imageReviewRoute = '/image-review';
 
   static String plantDetailRoute = '/plant-detail';
+  static String pestsAndDiseasesRoute = '/pests-and-diseases';
+  
+  static String pestAndDiseaseDetailRoute = '/pest-and-disease-detail';
 }
