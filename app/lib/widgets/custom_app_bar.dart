@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
       flexibleSpace: LayoutBuilder(builder: (p0, p1) {
         var top = p1.biggest.height;
         return FlexibleSpaceBar(
-          titlePadding: const EdgeInsetsDirectional.only(start: 25, bottom: 16),
+          titlePadding: const EdgeInsetsDirectional.only(start: 20, bottom: 16),
           title: AnimatedOpacity(
               duration: const Duration(microseconds: 300),
               opacity: top <= 100 ? 1.0 : 0.0,
@@ -29,14 +29,14 @@ class CustomAppBar extends StatelessWidget {
                   child: const Icon(Icons.arrow_back),
                   onTap: () => context.pop(),
                 ),
-                const SizedBox(width: 30),
+                const SizedBox(width: 40),
                 const Text('Cam', style: TextStyle(color: Colors.black)),
               ])),
           background: Stack(children: [
             CustomeCarousel(imageAssets: imageAssets),
             Positioned(
               top: 30,
-              left: 8,
+              left: 3,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),

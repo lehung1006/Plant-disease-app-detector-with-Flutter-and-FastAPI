@@ -11,6 +11,7 @@ class RoutesPath {
   static String otpVerificationRoute = '/otp-verification';
   static String imageCaptureRoute = '/image-capture';
   static String imageReviewRoute = '/image-review';
+  static String identifyingRoute = '/identifying';
 
   static String plantDetailRoute = '/plant-detail';
   static String pestsAndDiseasesRoute = '/pests-and-diseases';

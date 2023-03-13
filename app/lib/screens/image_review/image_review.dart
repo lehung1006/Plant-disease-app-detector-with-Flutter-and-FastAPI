@@ -1,3 +1,4 @@
+import 'package:app/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -38,7 +39,8 @@ class ImageReview extends StatelessWidget {
                     size: 30, color: Colors.red),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => context.push(RoutesPath.identifyingRoute,
+                    extra: pictureFilePath),
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(12),
                     shape: const CircleBorder(),

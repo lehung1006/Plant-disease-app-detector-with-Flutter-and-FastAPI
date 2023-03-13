@@ -1,3 +1,4 @@
+import 'package:app/screens/identifying/identifying.dart';
 import 'package:app/screens/image_review/image_review.dart';
 import 'package:app/screens/pest_and_disease_detail/pest_and_disease_detail.dart';
 import 'package:app/screens/pests_and_diseases/pests_and_diseases.dart';
@@ -114,6 +115,16 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                 final pictureFilePath = state.extra as String;
                 return MaterialPage(
                     child: ImageReview(
+                  pictureFilePath: pictureFilePath,
+                ));
+              }),
+          GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: RoutesPath.identifyingRoute,
+              pageBuilder: (context, state) {
+                final pictureFilePath = state.extra as String;
+                return MaterialPage(
+                    child: Identifying(
                   pictureFilePath: pictureFilePath,
                 ));
               })

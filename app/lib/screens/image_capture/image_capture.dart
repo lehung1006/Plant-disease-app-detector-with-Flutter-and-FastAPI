@@ -94,15 +94,8 @@ class _ImageCaptureState extends State<ImageCapture> {
               child: ElevatedButton(
                 onPressed: () async {
                   pictureFile = await _cameraController.takePicture();
-                  var dio = Dio();
-                  var res = await dio.post(
-                    'http://10.0.2.2:8000/plants/classify',
-                    data: {
-                      "img": base64Encode(await pictureFile!.readAsBytes()),
-                    },
-                  );
-                  // goToImageReview(pictureFile!);
-                  print(res.data);
+
+                  goToImageReview(pictureFile!);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
