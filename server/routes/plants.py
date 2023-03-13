@@ -17,7 +17,7 @@ async def get_plants():
     return ResponseModel(plants, "Empty list returned")
 
 
-@router.get("/plants/plant/{id}", response_description="get info of plant by id")
+@router.get("/plants/plant/", response_description="get info of plant by id")
 async def get_plant_data_by_id(id: str):
     plant = await retrieve_plant_by_id(id)
     if plant:
