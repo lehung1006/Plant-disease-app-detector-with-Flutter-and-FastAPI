@@ -1,9 +1,13 @@
+
+from PIL import Image
+from numpy.linalg import norm
+import numpy as np
+from ultils.detect.featureextract import encode_image
+import pickle
 import torch
-import os
-from tensorflow.keras.preprocessing import image
-DIR_REPO = './server/ultils/detect/yolov5/'
-DIR_MODEL = './server/ultils/detect/best.pt'
-DIR_IMG = './server/ultils/detect/images/'
+from os import listdir
+DIR_REPO = './ultils/detect/yolov5/'
+DIR_MODEL = './ultils/detect/best.pt'
 
 
 def get_model():
@@ -11,11 +15,34 @@ def get_model():
     return model
 
 
-def detect(imgname):
+def get_labels(vec):
+    labels = []
+    db = []
+    with open('./ultils/detect/img_labels.pkl', 'rb') as f:
+        labels = pickle.load(f)
+    with open('./ultils/detect/img_ft.pkl', 'rb') as f:
+        db = pickle.load(f)
+    vec = np.array(vec)[0]
+    db = np.array(db)
+    db = db.reshape(db.shape[0], 102)
+    cosines = np.dot(db, vec)/(norm(db, axis=1)*norm(vec))
+    cos_lb = [(cosines[i], labels[i]) for i in range(len(cosines))]
+    cos_lb.sort(reverse=True, key=lambda x: x[0])
+    res = [i[1] for i in cos_lb[:5]]
+    return list(set(res))
+
+
+def detect(im):
+    '''
+    Detects objects in an image
+    :param image: image to detect objects in
+    :return: labels of objects detected'''
     model = get_model()
-    img = image.load_img(DIR_IMG + imgname, target_size=(416, 416))
-    results = model(img)
-    results.save()
+    results = model(im)
     if len(results.xyxy[0]) > 0:
-        return True
-    return False
+        cropimage = results.crop(save=False)
+        img = Image.fromarray(cropimage[0]['im'])
+        img = img.convert('RGB')
+        vec = encode_image(img)
+        return get_labels(vec)
+    return []
