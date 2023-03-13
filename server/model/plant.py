@@ -6,10 +6,9 @@ class IMEI(BaseModel):
     img: str
 
 
-
 def ResponseModel(data, message):
     return {
-        "data": [data],
+        "data": data,
         "code": 200,
         "message": message,
     }
