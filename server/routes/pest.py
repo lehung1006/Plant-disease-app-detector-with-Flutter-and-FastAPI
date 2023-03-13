@@ -23,7 +23,7 @@ async def get_pests():
     return ResponseModel(pests, "Empty list returned")
 
 
-@router.get("/pests/pest/{id}", response_description="get info of pest by id")
+@router.get("/pests/pest/", response_description="get info of pest by id")
 async def get_pest_data_by_id(id: str):
     pest = await retrieve_pest_by_id(id)
     if pest:

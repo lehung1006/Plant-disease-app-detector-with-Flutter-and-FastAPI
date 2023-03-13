@@ -22,7 +22,7 @@ async def get_leafdisease():
     return ResponseModel(leafdisease, "Empty list returned")
 
 
-@router.get("/leafdisease/{id}", response_description="get info of leafdisease by id")
+@router.get("/leafdisease/", response_description="get info of leafdisease by id")
 async def get_leafdisease_data_by_id(id: str):
     leafdisease = await retrieve_leafdisease_by_id(id)
     if leafdisease:
@@ -30,7 +30,7 @@ async def get_leafdisease_data_by_id(id: str):
     return ErrorResponseModel("An error occurred.", 404, "leafdisease doesn't exist.")
 
 
-@router.get("/leafdisease/labels/{label}", response_description="get all leafdisease: name and description")
+@router.get("/leafdisease/labels/", response_description="get all leafdisease: name and description")
 async def get_leafdisease_by_label(label: str):
     leafdisease = await retrieve_leafdisease_by_label(label)
     if leafdisease:
