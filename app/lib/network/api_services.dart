@@ -10,7 +10,7 @@ class ApiServices {
 
   Future<Response> getProductDetail() async {
     try {
-      final Response response = await dioClient.get(ApiPaths.getListProduct);
+      final Response response = await dioClient.get(ApiPaths.getPlantList);
       return response;
     } catch (e) {
       rethrow;
