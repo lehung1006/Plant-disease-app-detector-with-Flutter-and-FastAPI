@@ -1,17 +1,13 @@
+import 'package:app/models/item.dart';
 import 'package:app/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Item extends StatelessWidget {
-  const Item(
-      {super.key,
-      required this.title,
-      required this.subTitle,
-      required this.type});
+class ItemWidget extends StatelessWidget {
+  const ItemWidget({super.key, required this.item, required this.type});
 
-  final String title;
-  final String subTitle;
-  final int type; // 0 for plant, 1 for pests
+  final Item item;
+  final int type;
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +55,14 @@ class Item extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(title,
+                        Text(item.name ?? '',
                             style: const TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 20)),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          subTitle,
+                          item.description ?? '',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(

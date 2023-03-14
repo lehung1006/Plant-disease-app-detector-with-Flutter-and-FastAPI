@@ -1,6 +1,6 @@
 import 'package:app/router/routes.dart';
 import 'package:app/widgets/custom_app_bar.dart';
-import 'package:app/widgets/item.dart';
+import 'package:app/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';

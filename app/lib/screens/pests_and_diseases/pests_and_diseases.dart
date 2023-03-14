@@ -1,7 +1,8 @@
+import 'package:app/models/item.dart';
 import 'package:app/widgets/my_search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:app/widgets/item.dart';
+import 'package:app/widgets/item_widget.dart';
 
 class PestsAndDiseases extends StatefulWidget {
   const PestsAndDiseases({super.key});
@@ -14,9 +15,7 @@ class _PestsAndDiseasesState extends State<PestsAndDiseases>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
-  String title = 'Sâu cuốn lá';
-  String subTitle =
-      'Sâu cuốn lá hay sâu ăn lá gây hại chủ yếu trên các loại cây họ dưa, bầu bí, cà chua và một số loại rau xanh, cây ăn quả, lúa,';
+  Item item = Item(name: 'Sâu cuốn lá', description: 'Sâu cuốn lá hay sâu ăn lá gây hại chủ yếu trên các loại cây họ dưa, bầu bí, cà chua và một số loại rau xanh, cây ăn quả, lúa,');
 
   List<int> arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   @override
@@ -79,7 +78,7 @@ class _PestsAndDiseasesState extends State<PestsAndDiseases>
           child: Column(
             children: [
               for (var e in arr) ...[
-                Item(title: title, subTitle: subTitle, type: 1),
+                ItemWidget(item: item, type: 1),
                 SizedBox(height: 5)
               ]
             ],

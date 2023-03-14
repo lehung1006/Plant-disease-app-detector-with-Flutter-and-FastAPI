@@ -1,5 +1,8 @@
+import 'package:app/repository/repos.dart';
+import 'package:app/screens/plants/bloc/plants_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:app/widgets/item.dart';
+import 'package:app/widgets/item_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Plants extends StatefulWidget {
   const Plants({super.key});
@@ -9,12 +12,9 @@ class Plants extends StatefulWidget {
 }
 
 class _OrderState extends State<Plants> with TickerProviderStateMixin {
-  late final _tabController;
-
   @override
   void initState() {
     // TODO: implement initState
-    _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -29,14 +29,23 @@ class _OrderState extends State<Plants> with TickerProviderStateMixin {
           backgroundColor: Colors.white,
           title: const Text('Cây cối',
               style: TextStyle(color: Color(0xff2ecc71)))),
-      body: ListView.separated(
-        itemCount: 15,
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(10),
-        separatorBuilder: (context, index) => const SizedBox(height: 5),
-        itemBuilder: (context, index) {
-          return Item(title: title, subTitle: subTitle, type: 0);
-        },
+      body: BlocProvider(
+        create: (BuildContext context) => PlantsBloc()..add(GetPlantsEvent()),
+        child: BlocBuilder<PlantsBloc, PlantsState>(builder: (context, state) {
+          if (state is GetPlantsSuccess) {
+            final list = state.plants;
+            return ListView.separated(
+              itemCount: list.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(10),
+              separatorBuilder: (context, index) => const SizedBox(height: 5),
+              itemBuilder: (context, index) {
+                return ItemWidget(item: list[index], type: 0);
+              },
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        }),
       ),
     );
   }
