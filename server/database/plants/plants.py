@@ -54,3 +54,9 @@ async def retrieve_plant_by_id(id: str) -> dict:
     plant = await plant_collection.find_one({"_id": ObjectId(id)})
     if plant:
         return plant_detail(plant)
+
+
+async def retrieve_plant_by_name(name: str) -> dict:
+    plant = await plant_collection.find_one({"name": name})
+    if plant:
+        return plant_detail(plant)

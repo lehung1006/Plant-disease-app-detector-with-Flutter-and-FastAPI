@@ -31,7 +31,6 @@ def get_labels(vec):
     res = [i[1] for i in cos_lb[:5]]
     return list(set(res))
 
-
 def detect(im):
     '''
     Detects objects in an image
@@ -46,3 +45,4 @@ def detect(im):
         vec = encode_image(img)
         return get_labels(vec)
     return []
+

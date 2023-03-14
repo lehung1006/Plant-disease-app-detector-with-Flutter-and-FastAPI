@@ -1,12 +1,18 @@
 from routes.root import router
+import base64
+from io import BytesIO
+from PIL import Image
 from database.plants.plants import (
     retrieve_plants,
     retrieve_plant_by_id,
+    retrieve_plant_by_name,
 )
 from model.plant import (
     ErrorResponseModel,
     ResponseModel,
+    IMEI
 )
+from ultils.classify.plants.plantsclassify import classify
 
 
 @router.get("/plants", response_description="get all plants: name and description")
@@ -25,25 +31,15 @@ async def get_plant_data_by_id(id: str):
     return ErrorResponseModel("An error occurred.", 404, "Plant doesn't exist.")
 
 
-# @router.post("/classify", response_description="Predicted plant data retrieved")
-# async def predict_image(img64: Item):
-#     img64 = img64.dict()
-#     imgcode = img64['img']
-#     imgdata = base64.b64decode(imgcode)
-#     filename = f"{uuid.uuid4()}.jpg"
-#     with open(f"{CLASSIFYDIR}/{filename}", "wb") as f:
-#         f.write(imgdata)
-#     plant = classify(filename)
-#     return ResponseModel(plant, "Plant data retrieved successfully")
-
-
-# @router.post('/detect', response_description="Predicted plant data retrieved")
-# async def detect_image(img64: Item):
-#     img64 = img64.dict()
-#     imgcode = img64['img']
-#     imgdata = base64.b64decode(imgcode)
-#     filename = f"{uuid.uuid4()}.jpg"
-#     with open(f"{DETECTDIR}/{filename}", "wb") as f:
-#         f.write(imgdata)
-#     plant = detect(filename)
-#     return ResponseModel(plant, "Plant data retrieved successfully")
+@router.post("/plants_classify", response_description="plants classify")
+async def classify_plants(im: IMEI):
+    img64 = im.dict()
+    imgcode = img64['img']
+    imgdata = base64.b64decode(imgcode)
+    im_file = BytesIO(imgdata)
+    img = Image.open(im_file)
+    label = classify(img)
+    plant = await retrieve_plant_by_name(label)
+    if plant:
+        return ResponseModel(plant, "classify successfully")
+    return ResponseModel(plant, "Empty list returned")
