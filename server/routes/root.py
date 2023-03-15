@@ -3,4 +3,3 @@ CLASSIFYDIR = "./ultils/classify/images"
 DETECTDIR = "./ultils/detect/images"
 router = APIRouter()
 
-
