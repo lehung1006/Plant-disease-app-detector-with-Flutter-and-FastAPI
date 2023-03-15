@@ -1,9 +1,10 @@
 import 'package:app/screens/identifying/identifying.dart';
 import 'package:app/screens/image_review/image_review.dart';
 import 'package:app/screens/pest_and_disease_detail/pest_and_disease_detail.dart';
+import 'package:app/screens/pests_and_diseases/bloc/pests_and_diseases_bloc.dart';
 import 'package:app/screens/pests_and_diseases/pests_and_diseases.dart';
 import 'package:app/screens/plant_detail/plant_detail.dart';
-import 'package:app/widgets/app_bloc/app_bloc.dart';
+import 'package:app/screens/plants/bloc/plants_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,10 +135,20 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
-      routerConfig: goRouter,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (BuildContext context) =>
+                PlantsBloc()..add(GetPlantsEvent())),
+        BlocProvider(
+            create: (BuildContext context) =>
+                PestsAndDiseasesBloc()..add(GetDiseasesEvent()))
+      ],
+      child: MaterialApp.router(
+        theme: ThemeData(
+            scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
+        routerConfig: goRouter,
+      ),
     );
   }
 }

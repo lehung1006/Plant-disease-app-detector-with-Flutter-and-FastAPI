@@ -16,7 +16,7 @@ class PlantsBloc extends Bloc<PlantsEvent, PlantsState> {
           emit(GetPlantsSuccess(plants: results));
         }
       } on Exception catch (e) {
-        emit(GetPlantsFailure());
+        emit(GetPlantsFailure(errorMessage: e.toString()));
       }
     });
   }

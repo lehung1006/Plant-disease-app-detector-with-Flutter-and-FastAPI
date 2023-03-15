@@ -1,4 +1,5 @@
-import 'package:app/repository/repos.dart';
+import 'package:app/widgets/show_toast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:app/screens/plants/bloc/plants_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:app/widgets/item_widget.dart';
@@ -27,10 +28,14 @@ class _OrderState extends State<Plants> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Text('Cây cối',
+          title: const Text('Thực vật',
               style: TextStyle(color: Color(0xff2ecc71)))),
-      body: BlocProvider(
-        create: (BuildContext context) => PlantsBloc()..add(GetPlantsEvent()),
+      body: BlocListener<PlantsBloc, PlantsState>(
+        listener: (context, state) {
+          if (state is GetPlantsFailure) {
+            showToast(state.errorMessage);
+          }
+        },
         child: BlocBuilder<PlantsBloc, PlantsState>(builder: (context, state) {
           if (state is GetPlantsSuccess) {
             final list = state.plants;
@@ -44,7 +49,10 @@ class _OrderState extends State<Plants> with TickerProviderStateMixin {
               },
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Color(0xff2ecc71),
+          ));
         }),
       ),
     );

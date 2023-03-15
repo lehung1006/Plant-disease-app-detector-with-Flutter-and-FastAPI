@@ -16,7 +16,7 @@ class PlantsRepoImpl extends PlantsRepo {
   @override
   Future<List<Item>> getPlantList() async {
     try {
-      final response = await _apiServices.getProductDetail();
+      final response = await _apiServices.getPlantList();
       var data = response.data["data"];
       List<Item> result = [];
       for(var json in data) {
@@ -25,7 +25,7 @@ class PlantsRepoImpl extends PlantsRepo {
       return result;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      throw errorMessage;
+      throw Exception(errorMessage);
     }
   }
 }

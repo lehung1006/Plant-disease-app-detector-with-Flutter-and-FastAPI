@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/models/item.dart';
 import 'package:app/router/routes.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +44,12 @@ class ItemWidget extends StatelessWidget {
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(5),
                           bottomLeft: Radius.circular(5)),
-                      child: Image.asset(
-                        'lib/images/orange.jpg',
-                        fit: BoxFit.cover,
-                      )),
+                      child: item.img != null
+                          ? Image.memory(
+                              base64Decode(item.img!),
+                              fit: BoxFit.cover,
+                            )
+                          : const SizedBox.shrink()),
                 ),
               ),
               Expanded(
