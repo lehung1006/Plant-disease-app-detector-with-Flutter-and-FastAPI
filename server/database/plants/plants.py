@@ -1,4 +1,4 @@
-from database.db import get_db
+from database.db import get_db, get_image
 from bson.objectid import ObjectId
 PlANT_COLLECTION = "plants"
 
@@ -11,7 +11,7 @@ def plant_helper(plant) -> dict:
     return {
         "id": str(plant["_id"]),
         "name": plant["name"],
-        "img": plant["img"],
+        "img": [get_image(plant["imgpath"])[0]],
         "description": plant["description"],
     }
 
@@ -20,7 +20,7 @@ def plant_detail(plant) -> dict:
     return {
         "id": str(plant["_id"]),
         "name": plant["name"],
-        "img": plant["img"],
+        "img": get_image(plant["imgpath"]),
         "science_name": plant["science_name"],
         "description": plant["description"],
         "plant_type": plant["plant_type"],
@@ -30,13 +30,17 @@ def plant_detail(plant) -> dict:
         "spread": plant["spread"],
         "habitat": plant["habitat"],
         "difficulty_rating": plant["difficulty_rating"],
+        "sunlight": plant["sunlight"],
+        "hardiness": plant["hardness"],
+        "hardiness_zone": plant["hardness_zone"],
         "soil": plant["soil"],
         "water": plant["water"],
-        "sunlight": plant["sunlight"],
         "fertilization": plant["fertilization"],
         "planting_time": plant["planting_time"],
         "harvest_time": plant["harvest_time"],
         "propagation": plant["propagation"],
+        "pests": plant["pests"],
+        "disease": plant["diseases"],
         "uses": plant["uses"],
     }
 # get list of plants include id, name, description
