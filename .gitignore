@@ -2,3 +2,4 @@
 __pyache__
 __pyache__*
 *.pyc
+app/pubspec.lock
