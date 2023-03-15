@@ -3,3 +3,4 @@ __pyache__
 __pyache__*
 *.pyc
 app/pubspec.lock
+server/ultils/classify/plants/plantsclassify.hdf5
