@@ -1,4 +1,4 @@
-from database.db import get_db
+from database.db import get_db, get_image
 from bson.objectid import ObjectId
 LEAF_DISEAE_COLLECTION = "leafdisease"
 
@@ -6,14 +6,22 @@ db = get_db()
 leaf_disease_collection = db.get_collection(LEAF_DISEAE_COLLECTION)
 
 
-def leaf_disease_helper(plant) -> dict:
+def leaf_disease_detail(plant) -> dict:
     return {
         "id": str(plant["_id"]),
-        "name": plant["vi_name"],
+        "name": plant["name"],
+        "img": get_image(plant["imgpath"]),
         "overview": plant["overview"],
         "solutions": plant["solutions"],
         "prevention": plant["prevention"],
-        "images": [plant['im1'], plant['im2'], plant['im3']],
+    }
+
+
+def leaf_disease_helper(plant) -> dict:
+    return{
+        "id": str(plant["_id"]),
+        "name": plant["name"],
+        "img": [get_image(plant["imgpath"])[0]],
     }
 
 
@@ -28,10 +36,10 @@ async def retrieve_leaf_diseaes():
 async def retrieve_leafdisease_by_id(id: str) -> dict:
     plant = await leaf_disease_collection.find_one({"_id": ObjectId(id)})
     if plant:
-        return leaf_disease_helper(plant)
+        return leaf_disease_detail(plant)
 
 
 async def retrieve_leafdisease_by_label(label: str) -> dict:
     plant = await leaf_disease_collection.find_one({"labels": label})
     if plant:
-        return leaf_disease_helper(plant)
+        return leaf_disease_detail(plant)
