@@ -71,9 +71,12 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               ]),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: RoutesPath.plantDetailRoute,
-              pageBuilder: (context, state) =>
-                  const MaterialPage(child: PlantDetail())),
+              path: '${RoutesPath.plantDetailRoute}/:plantId',
+              name: RoutesPath.plantDetailRoute,
+              pageBuilder: (context, state) {
+                final plantId = state.params['plantId'] as String;
+                return MaterialPage(child: PlantDetail(plantId: plantId));
+              }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.pestAndDiseaseDetailRoute,

@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
-      {super.key, required this.imageAssets, required this.context});
+      {super.key, required this.imgs, required this.context});
 
-  final List<String> imageAssets;
+  final List<String> imgs;
   final BuildContext context;
 
   @override
@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
                 const Text('Cam', style: TextStyle(color: Colors.black)),
               ])),
           background: Stack(children: [
-            CustomeCarousel(imageAssets: imageAssets),
+            CustomeCarousel(imgs: imgs),
             Positioned(
               top: 30,
               left: 3,

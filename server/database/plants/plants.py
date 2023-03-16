@@ -33,10 +33,13 @@ def plant_detail(plant) -> dict:
         "soil": plant["soil"],
         "water": plant["water"],
         "sunlight": plant["sunlight"],
+        "hardiness": plant["hardiness"],
+        "hardiness_zone": plant["hardiness_zone"],
         "fertilization": plant["fertilization"],
         "planting_time": plant["planting_time"],
         "harvest_time": plant["harvest_time"],
         "propagation": plant["propagation"],
+        "pests": plant["pests"],
         "uses": plant["uses"],
     }
 # get list of plants include id, name, description
@@ -51,6 +54,6 @@ async def retrieve_plants():
 
 
 async def retrieve_plant_by_id(id: str) -> dict:
-    plant = await plant_collection.find_one({"_id": ObjectId(id)})
+    plant = await plant_collection.find_one({"_id": id})
     if plant:
         return plant_detail(plant)

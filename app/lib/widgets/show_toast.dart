@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void showToast(String errorMessage) {
+void showToast(Exception e) {
   late String msg;
 
-  if (errorMessage == "Exception: No Internet") {
+  if (e.toString() == "Exception: No Internet") {
     msg = "Không có kết nối mạng";
   } else {
     msg = "Đã có lỗi xảy ra";

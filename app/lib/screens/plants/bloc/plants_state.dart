@@ -19,10 +19,10 @@ class GetPlantsSuccess extends PlantsState {
 }
 
 class GetPlantsFailure extends PlantsState {
-  final String errorMessage;
+  final Exception e;
 
-  const GetPlantsFailure({required this.errorMessage});
+  const GetPlantsFailure({required this.e});
 
   @override
-  List<Object> get props => [errorMessage];
+  List<Object> get props => [e];
 }

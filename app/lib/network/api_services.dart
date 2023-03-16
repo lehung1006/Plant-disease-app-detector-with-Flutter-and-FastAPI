@@ -25,4 +25,14 @@ class ApiServices {
       rethrow;
     }
   }
+
+  Future<Response> getPlantDetail(String plantId) async {
+    try {
+      final Response response = await dioClient
+          .get(ApiPaths.getPlantDetail, queryParameters: {'id': plantId});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

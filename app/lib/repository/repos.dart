@@ -12,7 +12,7 @@ class ApiRepository {
   static final ApiServices _apiServices =
       ApiServices(dioClient: DioClient(Dio()));
 
-  static PlantsRepo get productPlantsRepo =>
+  static PlantsRepo get plantsRepo =>
       _plantsRepo ??= PlantsRepoImpl(_apiServices);
 
   static PestAndDiseaseRepo get pestAndDiseaseRepo =>

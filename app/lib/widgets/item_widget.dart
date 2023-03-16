@@ -18,7 +18,8 @@ class ItemWidget extends StatelessWidget {
         switch (type) {
           case 0:
             {
-              context.push(RoutesPath.plantDetailRoute);
+              context.pushNamed(RoutesPath.plantDetailRoute,
+                  params: {"plantId": item.id ?? ''});
               break;
             }
           case 1:

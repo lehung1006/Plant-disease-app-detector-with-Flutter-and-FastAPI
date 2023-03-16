@@ -1,5 +1,4 @@
 import 'package:app/widgets/show_toast.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:app/screens/plants/bloc/plants_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:app/widgets/item_widget.dart';
@@ -33,7 +32,7 @@ class _OrderState extends State<Plants> with TickerProviderStateMixin {
       body: BlocListener<PlantsBloc, PlantsState>(
         listener: (context, state) {
           if (state is GetPlantsFailure) {
-            showToast(state.errorMessage);
+            showToast(state.e);
           }
         },
         child: BlocBuilder<PlantsBloc, PlantsState>(builder: (context, state) {
