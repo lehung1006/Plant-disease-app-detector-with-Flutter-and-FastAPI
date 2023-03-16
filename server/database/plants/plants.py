@@ -42,7 +42,7 @@ def plant_detail(plant) -> dict:
         "planting_time": plant["planting_time"],
         "harvest_time": plant["harvest_time"],
         "propagation": plant["propagation"],
-        "disease": plant["diseases"],
+        "pests_diseases": plant["pests_diseases"],
         "uses": plant["uses"],
     }
 # get list of plants include id, name, description
