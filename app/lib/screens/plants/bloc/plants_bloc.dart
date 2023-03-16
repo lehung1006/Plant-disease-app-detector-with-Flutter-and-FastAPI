@@ -11,12 +11,12 @@ class PlantsBloc extends Bloc<PlantsEvent, PlantsState> {
     on<GetPlantsEvent>((event, emit) async {
       try {
         final List<Item> results =
-            await ApiRepository.productPlantsRepo.getPlantList();
+            await ApiRepository.plantsRepo.getPlantList();
         if (results.isNotEmpty) {
           emit(GetPlantsSuccess(plants: results));
         }
       } on Exception catch (e) {
-        emit(GetPlantsFailure());
+        emit(GetPlantsFailure(e: e));
       }
     });
   }

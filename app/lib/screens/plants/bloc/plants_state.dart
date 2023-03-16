@@ -14,8 +14,15 @@ class GetPlantsSuccess extends PlantsState {
 
   const GetPlantsSuccess({required this.plants});
 
-  @override
-  List<Object> get props => [plants];
+  // @override
+  // List<Object> get props => [plants];
 }
 
-class GetPlantsFailure extends PlantsState {}
+class GetPlantsFailure extends PlantsState {
+  final Exception e;
+
+  const GetPlantsFailure({required this.e});
+
+  @override
+  List<Object> get props => [e];
+}

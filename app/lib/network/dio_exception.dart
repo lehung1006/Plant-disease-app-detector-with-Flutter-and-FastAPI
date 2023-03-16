@@ -57,4 +57,9 @@ class DioExceptions implements Exception {
 
   @override
   String toString() => message;
+
+  static Exception toException(DioError e) {
+    final errorMessage = DioExceptions.fromDioError(e).toString();
+    return Exception(errorMessage); 
+  }
 }

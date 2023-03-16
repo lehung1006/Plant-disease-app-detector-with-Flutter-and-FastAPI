@@ -41,7 +41,7 @@ class PestAndDiseaseDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(slivers: [
-        CustomAppBar(imageAssets: imageAssets, context: context),
+        CustomAppBar(imgs: const [], context: context),
         SliverToBoxAdapter(
           child: Column(children: [
             const Padding(
