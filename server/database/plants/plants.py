@@ -16,6 +16,14 @@ def plant_helper(plant) -> dict:
     }
 
 
+def plant_classify_helper(plant) -> dict:
+    return {
+        "id": str(plant["_id"]),
+        "name": plant["name"],
+        "description": plant["description"],
+    }
+
+
 def plant_detail(plant) -> dict:
     return {
         "id": str(plant["_id"]),
@@ -64,4 +72,4 @@ async def retrieve_plant_by_id(id: str) -> dict:
 async def retrieve_plant_by_name(name: str) -> dict:
     plant = await plant_collection.find_one({"name": name})
     if plant:
-        return plant_detail(plant)
+        return plant_classify_helper(plant)

@@ -25,6 +25,14 @@ def leaf_disease_helper(plant) -> dict:
     }
 
 
+def leaf_disease_classify_helper(plant) -> dict:
+    return{
+        "id": str(plant["_id"]),
+        "name": plant["name"],
+        "overview": plant["overview"],
+    }
+
+
 async def retrieve_leaf_diseaes():
     leaf_disease = []
     async for disease in leaf_disease_collection.find():
@@ -42,4 +50,4 @@ async def retrieve_leafdisease_by_id(id: str) -> dict:
 async def retrieve_leafdisease_by_label(label: str) -> dict:
     plant = await leaf_disease_collection.find_one({"labels": label})
     if plant:
-        return leaf_disease_detail(plant)
+        return leaf_disease_classify_helper(plant)
