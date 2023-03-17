@@ -40,8 +40,8 @@ async def classify_plants(im: IMEI):
     im_file = BytesIO(imgdata)
     img = Image.open(im_file)
     label = classify(img)
+    print(label)
     plant = await retrieve_plant_by_name(label)
     if plant:
         return ResponseModel(plant, "classify successfully")
     return ResponseModel(plant, "Empty list returned")
-
