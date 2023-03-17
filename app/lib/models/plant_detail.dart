@@ -1,7 +1,7 @@
 class PlantDetail {
   String? id;
   String? name;
-  String? imgs;
+  List<dynamic>? imgs;
   String? scienceName;
   String? description;
   String? plantType;
@@ -20,7 +20,7 @@ class PlantDetail {
   String? plantingTime;
   String? harvestTime;
   String? propagation;
-  String? pests;
+  String? pestsDiseases;
   String? uses;
 
   PlantDetail(
@@ -45,7 +45,7 @@ class PlantDetail {
       this.plantingTime,
       this.harvestTime,
       this.propagation,
-      this.pests,
+      this.pestsDiseases,
       this.uses});
 
   factory PlantDetail.fromJson(json) {
@@ -71,7 +71,7 @@ class PlantDetail {
         plantingTime: json['planting_time'],
         harvestTime: json['harvest_time'],
         propagation: json['propagation'],
-        pests: json['pests'],
+        pestsDiseases: json['pests_diseases'],
         uses: json['uses']);
   }
 }

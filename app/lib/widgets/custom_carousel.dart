@@ -6,7 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 class CustomeCarousel extends StatefulWidget {
   const CustomeCarousel({super.key, required this.imgs});
 
-  final List<String> imgs;
+  final List<dynamic> imgs;
 
   @override
   State<CustomeCarousel> createState() => _CustomeCarouselState();
