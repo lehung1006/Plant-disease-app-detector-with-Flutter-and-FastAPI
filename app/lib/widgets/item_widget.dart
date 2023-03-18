@@ -13,23 +13,8 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        switch (type) {
-          case 0:
-            {
-              context.pushNamed(RoutesPath.plantDetailRoute,
-                  params: {"plantId": item.id ?? ''});
-              break;
-            }
-          case 1:
-            {
-              context.push(RoutesPath.pestAndDiseaseDetailRoute);
-              break;
-            }
-        }
-      },
-      child: Container(
+    return Stack(children: [
+      Container(
           width: MediaQuery.of(context).size.width,
           height: 120,
           decoration: BoxDecoration(
@@ -79,7 +64,27 @@ class ItemWidget extends StatelessWidget {
                   )),
             ],
           )),
-    );
+      Positioned.fill(
+          child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  switch (type) {
+                    case 0:
+                      {
+                        context.pushNamed(RoutesPath.plantDetailRoute,
+                            params: {"plantId": item.id ?? ''});
+                        break;
+                      }
+                    case 1:
+                      {
+                        context.push(RoutesPath.pestAndDiseaseDetailRoute);
+                        break;
+                      }
+                  }
+                },
+              )))
+    ]);
     ;
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:app/router/routes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -6,9 +9,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class ImageReview extends StatelessWidget {
-  const ImageReview({super.key, required this.pictureFilePath});
+  const ImageReview({super.key, required this.imgBytes});
 
-  final String pictureFilePath;
+  final Uint8List imgBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,8 @@ class ImageReview extends StatelessWidget {
         SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: Image.file(
-              File(pictureFilePath),
+            child: Image.memory(
+              imgBytes,
               fit: BoxFit.fill,
             )),
         Positioned(
@@ -40,7 +43,7 @@ class ImageReview extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () => context.push(RoutesPath.identifyingRoute,
-                    extra: pictureFilePath),
+                    extra: imgBytes),
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(12),
                     shape: const CircleBorder(),

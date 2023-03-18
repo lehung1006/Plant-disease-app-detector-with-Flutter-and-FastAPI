@@ -9,6 +9,8 @@ class RoutesPath {
   static String loginRoute = '/login';
   static String registerRoute = '/register';
   static String otpVerificationRoute = '/otp-verification';
+
+  static String imageGalleryRoute = '/image-gallery';
   static String imageCaptureRoute = '/image-capture';
   static String imageReviewRoute = '/image-review';
   static String identifyingRoute = '/identifying';

@@ -5,5 +5,5 @@ class ApiPaths {
   static const String getPlantList = '/plants';
   static const String getPlantDetail = '/plants/plant';
   
-  static const String getDiseaseList = '/leafdisease';
+  static const String getDiseaseList = '/leafdiseases';
 }

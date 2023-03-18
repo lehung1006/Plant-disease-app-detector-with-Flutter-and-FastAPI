@@ -6,7 +6,7 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
       {super.key, required this.imgs, required this.context});
 
-  final List<String> imgs;
+  final List<dynamic> imgs;
   final BuildContext context;
 
   @override

@@ -40,10 +40,9 @@ class PlantDetail extends StatelessWidget {
             builder: (context, state) {
               if (state is GetPlantDetailSuccess) {
                 final plant = state.plantDetail;
-                print(plant.imgs);
                 return CustomScrollView(
                   slivers: [
-                    CustomAppBar(imgs: [plant.imgs ?? ''], context: context),
+                    CustomAppBar(imgs: plant.imgs ?? [], context: context),
                     SliverToBoxAdapter(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,14 +130,14 @@ class PlantDetail extends StatelessWidget {
                                 ),
                                 CharacteristicsItem(
                                     left: 'Chiều cao',
-                                    right: plant.plantHeight ?? ''),
+                                    right: '${plant.plantHeight ?? ""} m'),
                                 const Divider(
                                   thickness: 1,
                                   height: 1,
                                 ),
                                 CharacteristicsItem(
                                     left: 'Lan rộng',
-                                    right: plant.spread ?? ''),
+                                    right:  '${plant.spread ?? ""} m'),
                                 const Divider(
                                   thickness: 1,
                                   height: 1,
@@ -184,6 +183,15 @@ class PlantDetail extends StatelessWidget {
                                     title: 'Nhiệt độ chịu đựng',
                                     subTitle:
                                         '${plant.hardiness ?? ""} \u00B0C'),
+                                const Divider(
+                                  thickness: 1,
+                                  height: 1,
+                                ),
+                                CustomListTile(
+                                    leading: FontAwesomeIcons.locationDot,
+                                    title: 'Vùng độ cứng',
+                                    subTitle:
+                                        plant.hardinessZone ?? ''),
                                 const Divider(
                                   thickness: 1,
                                   height: 1,
@@ -266,7 +274,7 @@ class PlantDetail extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.fromLTRB(15, 0, 15, 15),
                                   child: Text(
-                                    plant.pests ?? '',
+                                    plant.pestsDiseases ?? '',
                                     style: const TextStyle(
                                         fontSize: 16, color: Color(0xff636e72)),
                                   ),
