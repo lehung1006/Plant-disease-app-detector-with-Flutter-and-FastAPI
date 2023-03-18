@@ -3,11 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:camera/camera.dart';
-import 'package:dio/dio.dart';
-import 'dart:convert';
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
 
 class ImageCapture extends StatefulWidget {
   const ImageCapture({super.key, required this.cameras, required this.type});
@@ -55,8 +51,8 @@ class _ImageCaptureState extends State<ImageCapture> {
     super.initState();
   }
 
-  void goToImageReview(XFile pictureFile) =>
-      context.push(RoutesPath.imageReviewRoute, extra: pictureFile.path);
+  void goToImageReview(Uint8List imgBytes) =>
+      context.push(RoutesPath.imageReviewRoute, extra: imgBytes);
 
   @override
   void dispose() {
@@ -71,7 +67,7 @@ class _ImageCaptureState extends State<ImageCapture> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(appBarTitle),
+          title: Text(appBarTitle, style: const TextStyle(color: Colors.white)),
           leading: IconButton(
             icon: const FaIcon(FontAwesomeIcons.arrowLeft, color: Colors.white),
             onPressed: () => context.pop(),
@@ -94,8 +90,9 @@ class _ImageCaptureState extends State<ImageCapture> {
               child: ElevatedButton(
                 onPressed: () async {
                   pictureFile = await _cameraController.takePicture();
+                  Uint8List imgBytes = await pictureFile!.readAsBytes();
 
-                  goToImageReview(pictureFile!);
+                  goToImageReview(imgBytes);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),

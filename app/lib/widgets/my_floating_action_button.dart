@@ -1,4 +1,5 @@
 import 'package:app/router/routes.dart';
+import 'package:app/widgets/my_modal_bottom_sheet.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -36,8 +37,8 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
       },
       children: [
         SpeedDialChild(
-            onTap: () => context.pushNamed(RoutesPath.imageCaptureRoute,
-                params: {'type': '0'}, extra: cameras),
+            onTap: () => MyModalBottomSheet.showModal(context, '0', cameras),
+            shape: const CircleBorder(),
             child:
                 const Icon(FontAwesomeIcons.disease, color: Color(0xff2ecc71)),
             labelWidget: const Padding(
@@ -49,8 +50,8 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
                       fontSize: 18)),
             )),
         SpeedDialChild(
-            onTap: () => context.pushNamed(RoutesPath.imageCaptureRoute,
-                params: {'type': '1'}, extra: cameras),
+            onTap: () => MyModalBottomSheet.showModal(context, '1', cameras),
+            shape: const CircleBorder(),
             child: const Icon(FontAwesomeIcons.bug, color: Color(0xff2ecc71)),
             labelWidget: const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
@@ -61,10 +62,12 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
                       fontSize: 18)),
             )),
         SpeedDialChild(
-            onTap: () => context.pushNamed(RoutesPath.imageCaptureRoute,
-                params: {'type': '2'}, extra: cameras),
-            child: const Icon(FontAwesomeIcons.pagelines,
-                color: Color(0xff2ecc71)),
+            onTap: () => MyModalBottomSheet.showModal(context, '2', cameras),
+            shape: const CircleBorder(),
+            child: const Icon(
+              FontAwesomeIcons.pagelines,
+              color: Color(0xff2ecc71),
+            ),
             labelWidget: const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
               child: Text('Nhận diện cây',

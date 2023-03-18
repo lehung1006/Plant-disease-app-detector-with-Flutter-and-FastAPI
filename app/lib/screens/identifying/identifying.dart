@@ -1,12 +1,12 @@
 import 'package:app/router/routes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:io';
 
 class Identifying extends StatefulWidget {
-  const Identifying({super.key, required this.pictureFilePath});
+  const Identifying({super.key, required this.imgBytes});
 
-  final String pictureFilePath;
+  final Uint8List imgBytes;
 
   @override
   State<Identifying> createState() => _IdentifyingState();
@@ -40,8 +40,8 @@ class _IdentifyingState extends State<Identifying> {
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width,
-                  child: Image.file(
-                    File(widget.pictureFilePath),
+                  child: Image.memory(
+                    widget.imgBytes,
                     fit: BoxFit.cover,
                   )),
             ),
