@@ -3,6 +3,5 @@ __pyache__
 __pyache__*
 *.pyc
 app/pubspec.lock
-server/ultils/classify/plants/plantsclassify.hdf5
 server/ultils/detect/__pycache__/pestdetection.cpython-310.pyc
 *.pyc
