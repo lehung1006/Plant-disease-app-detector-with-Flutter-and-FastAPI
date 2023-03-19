@@ -1,5 +1,4 @@
 from database.db import get_db, get_image
-from bson.objectid import ObjectId
 LEAF_DISEAE_COLLECTION = "leafdisease"
 
 db = get_db()
@@ -42,7 +41,7 @@ async def retrieve_leaf_diseaes():
 
 
 async def retrieve_leafdisease_by_id(id: str) -> dict:
-    plant = await leaf_disease_collection.find_one({"_id": ObjectId(id)})
+    plant = await leaf_disease_collection.find_one({"_id": id})
     if plant:
         return leaf_disease_detail(plant)
 

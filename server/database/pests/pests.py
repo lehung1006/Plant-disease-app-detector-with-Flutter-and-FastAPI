@@ -1,5 +1,4 @@
 from database.db import get_db
-from bson.objectid import ObjectId
 PEST_COLLECTION = "pests"
 
 
@@ -35,7 +34,7 @@ async def retrieve_pests():
 
 
 async def retrieve_pest_by_id(id: str) -> dict:
-    pest = await pest_collection.find_one({"_id": ObjectId(id)})
+    pest = await pest_collection.find_one({"_id": id})
     if pest:
         return pest_detail(pest)
 

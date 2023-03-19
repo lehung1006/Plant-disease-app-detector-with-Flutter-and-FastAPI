@@ -1,5 +1,4 @@
 from database.db import get_db, get_image
-from bson.objectid import ObjectId
 PlANT_COLLECTION = "plants"
 
 
