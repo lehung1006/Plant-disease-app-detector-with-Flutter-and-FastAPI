@@ -1,5 +1,4 @@
 from database.db import get_db, get_image
-from bson.objectid import ObjectId
 PlANT_COLLECTION = "plants"
 
 
@@ -28,7 +27,6 @@ def plant_detail(plant) -> dict:
     return {
         "id": str(plant["_id"]),
         "name": plant["name"],
-        "img": get_image(plant["imgpath"]),
         "science_name": plant["science_name"],
         "description": plant["description"],
         "plant_type": plant["plant_type"],
@@ -50,6 +48,7 @@ def plant_detail(plant) -> dict:
         "propagation": plant["propagation"],
         "pests_diseases": plant["pests_diseases"],
         "uses": plant["uses"],
+        "img": get_image(plant["imgpath"]),
     }
 # get list of plants include id, name, description
 
