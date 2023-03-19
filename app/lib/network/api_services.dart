@@ -35,4 +35,24 @@ class ApiServices {
       rethrow;
     }
   }
+
+  Future<Response> getPlantsClassifyResult(String imgBase64) async {
+    try {
+      final Response response = await dioClient
+          .post(ApiPaths.plantsClassify, data: {'img': imgBase64});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Response> getDiseasesClassifyResult(String imgBase64) async {
+    try {
+      final Response response = await dioClient
+          .post(ApiPaths.diseasesClassify, data: {'img': imgBase64});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

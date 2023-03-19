@@ -68,8 +68,9 @@ class _GridGalleryState extends State<GridGallery> {
                           child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () => asset.originBytes.then((value) => context
-                              .push(RoutesPath.identifyingRoute, extra: value)),
+                          onTap: () => asset.originBytes.then((value) =>
+                              context.push(RoutesPath.identificationRoute,
+                                  extra: value)),
                         ),
                       ))
                     ]),
@@ -98,7 +99,7 @@ class _GridGalleryState extends State<GridGallery> {
         _handleScrollEvent(scroll);
         return false;
       },
-      child: _mediaList.length > 1
+      child: _mediaList.isNotEmpty
           ? GridView.builder(
               controller: widget.scrollCtr,
               itemCount: _mediaList.length,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../router/routes.dart';
-import './my_floating_action_button.dart';
+import 'my_floating_action_button/my_floating_action_button.dart';
 
 class MyNavigationBar extends StatefulWidget {
   const MyNavigationBar({super.key, required this.child});

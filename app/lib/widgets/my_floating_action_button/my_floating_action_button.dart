@@ -1,10 +1,12 @@
 import 'package:app/router/routes.dart';
+import 'package:app/widgets/my_floating_action_button/bloc/floating_action_button_bloc.dart';
 import 'package:app/widgets/my_modal_bottom_sheet.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyFloatingActionButton extends StatefulWidget {
   const MyFloatingActionButton({super.key});
@@ -37,7 +39,12 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
       },
       children: [
         SpeedDialChild(
-            onTap: () => MyModalBottomSheet.showModal(context, '0', cameras),
+            onTap: () {
+              context
+                  .read<FloatingActionButtonBloc>()
+                  .add(DiseaseIdentificationTap());
+              MyModalBottomSheet.showModal(context, cameras);
+            },
             shape: const CircleBorder(),
             child:
                 const Icon(FontAwesomeIcons.disease, color: Color(0xff2ecc71)),
@@ -50,7 +57,12 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
                       fontSize: 18)),
             )),
         SpeedDialChild(
-            onTap: () => MyModalBottomSheet.showModal(context, '1', cameras),
+            onTap: () {
+              context
+                  .read<FloatingActionButtonBloc>()
+                  .add(PestIdentificationTap());
+              MyModalBottomSheet.showModal(context, cameras);
+            },
             shape: const CircleBorder(),
             child: const Icon(FontAwesomeIcons.bug, color: Color(0xff2ecc71)),
             labelWidget: const Padding(
@@ -62,7 +74,12 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
                       fontSize: 18)),
             )),
         SpeedDialChild(
-            onTap: () => MyModalBottomSheet.showModal(context, '2', cameras),
+            onTap: () {
+              context
+                  .read<FloatingActionButtonBloc>()
+                  .add(PlantIdentificationTap());
+              MyModalBottomSheet.showModal(context, cameras);
+            },
             shape: const CircleBorder(),
             child: const Icon(
               FontAwesomeIcons.pagelines,

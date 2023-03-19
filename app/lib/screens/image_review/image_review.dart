@@ -42,7 +42,7 @@ class ImageReview extends StatelessWidget {
                     size: 30, color: Colors.red),
               ),
               ElevatedButton(
-                onPressed: () => context.push(RoutesPath.identifyingRoute,
+                onPressed: () => context.push(RoutesPath.identificationRoute,
                     extra: imgBytes),
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(12),

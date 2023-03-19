@@ -1,15 +1,16 @@
 import 'package:app/router/routes.dart';
+import 'package:app/widgets/my_floating_action_button/bloc/floating_action_button_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:typed_data';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImageCapture extends StatefulWidget {
-  const ImageCapture({super.key, required this.cameras, required this.type});
+  const ImageCapture({super.key, required this.cameras});
 
   final List<CameraDescription> cameras;
-  final int type;
 
   @override
   State<ImageCapture> createState() => _ImageCaptureState();
@@ -23,23 +24,7 @@ class _ImageCaptureState extends State<ImageCapture> {
   @override
   void initState() {
     // TODO: implement initState
-    switch (widget.type) {
-      case 0:
-        {
-          appBarTitle = 'Nhận diện bệnh';
-          break;
-        }
-      case 1:
-        {
-          appBarTitle = 'Nhận diện sâu bọ';
-          break;
-        }
-      case 2:
-        {
-          appBarTitle = 'Nhận diện cây';
-          break;
-        }
-    }
+    appBarTitle = context.read<FloatingActionButtonBloc>().getTitle();
     _cameraController =
         CameraController(widget.cameras.first, ResolutionPreset.max);
     _cameraController.initialize().then((_) {

@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 abstract class PestAndDiseaseRepo {
   // Future<List<Item>> getPestList();
   Future<List<Item>> getDiseaseList();
+  Future<Item> getDiseasesClassifyResult(String imgBase64);
 }
 
 class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
@@ -31,6 +32,17 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
       throw Exception(errorMessage);
+    }
+  }
+
+  @override
+  Future<Item> getDiseasesClassifyResult(String imgBase64) async {
+    try {
+      final response = await _apiServices.getDiseasesClassifyResult(imgBase64);
+      var data = response.data["data"];
+      return Item.fromJson(data);
+    } on DioError catch (e) {
+      throw DioExceptions.toException(e);
     }
   }
 }

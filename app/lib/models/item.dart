@@ -9,7 +9,7 @@ class Item {
   factory Item.fromJson(json) {
     return Item(
         id: json['id'],
-        img: json['img'].first,
+        img: json['img'] != null ? json['img'].first : '',
         name: json['name'],
         description: json['description']);
   }

@@ -1,4 +1,5 @@
-import 'package:app/screens/identifying/identifying.dart';
+import 'package:app/screens/identification/bloc/identification_bloc.dart';
+import 'package:app/screens/identification/identification.dart';
 import 'package:app/screens/image_gallery/image_gallery.dart';
 import 'package:app/screens/image_review/image_review.dart';
 import 'package:app/screens/pest_and_disease_detail/pest_and_disease_detail.dart';
@@ -6,6 +7,7 @@ import 'package:app/screens/pests_and_diseases/bloc/pests_and_diseases_bloc.dart
 import 'package:app/screens/pests_and_diseases/pests_and_diseases.dart';
 import 'package:app/screens/plant_detail/plant_detail.dart';
 import 'package:app/screens/plants/bloc/plants_bloc.dart';
+import 'package:app/widgets/my_floating_action_button/bloc/floating_action_button_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -106,21 +108,15 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                   const MaterialPage(child: Setting())),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: '${RoutesPath.imageGalleryRoute}/:type',
-              name: RoutesPath.imageGalleryRoute,
-              pageBuilder: (context, state) {
-                final type = int.parse(state.params['type'] as String);
-                return MaterialPage(child: ImageGallery(type: type));
-              }),
+              path: RoutesPath.imageGalleryRoute,
+              pageBuilder: (context, state) =>
+                  const MaterialPage(child: ImageGallery())),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: '${RoutesPath.imageCaptureRoute}/:type',
-              name: RoutesPath.imageCaptureRoute,
+              path: RoutesPath.imageCaptureRoute,
               pageBuilder: (context, state) {
                 final cameras = state.extra as List<CameraDescription>;
-                final type = int.parse(state.params['type'] as String);
-                return MaterialPage(
-                    child: ImageCapture(cameras: cameras, type: type));
+                return MaterialPage(child: ImageCapture(cameras: cameras));
               }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
@@ -134,11 +130,11 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: RoutesPath.identifyingRoute,
+              path: RoutesPath.identificationRoute,
               pageBuilder: (context, state) {
                 final imgBytes = state.extra as Uint8List;
                 return MaterialPage(
-                    child: Identifying(
+                    child: Identification(
                   imgBytes: imgBytes,
                 ));
               })
@@ -155,7 +151,10 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                 PlantsBloc()..add(GetPlantsEvent())),
         BlocProvider(
             create: (BuildContext context) =>
-                PestsAndDiseasesBloc()..add(GetDiseasesEvent()))
+                PestsAndDiseasesBloc()..add(GetDiseasesEvent())),
+        BlocProvider(
+            create: (BuildContext context) => FloatingActionButtonBloc()),
+        BlocProvider(create: (BuildContext context) => IdentificationBloc())
       ],
       child: MaterialApp.router(
         theme: ThemeData(

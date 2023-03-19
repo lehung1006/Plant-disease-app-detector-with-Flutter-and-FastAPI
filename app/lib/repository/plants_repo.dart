@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 abstract class PlantsRepo {
   Future<List<Item>> getPlantList();
   Future<PlantDetail> getPlantDetail(String plantId);
+  Future<Item> getPlantClassifyResult(String imgBase64);
 }
 
 class PlantsRepoImpl extends PlantsRepo {
@@ -36,6 +37,18 @@ class PlantsRepoImpl extends PlantsRepo {
       final response = await _apiServices.getPlantDetail(plantId);
       var data = response.data["data"];
       return PlantDetail.fromJson(data);
+    } on DioError catch (e) {
+      throw DioExceptions.toException(e);
+    }
+  }
+
+  @override
+  Future<Item> getPlantClassifyResult(String imgBase64) async {
+    try {
+      final response = await _apiServices.getPlantsClassifyResult(imgBase64);
+      print(response.data);
+      var data = response.data["data"];
+      return Item.fromJson(data);
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }

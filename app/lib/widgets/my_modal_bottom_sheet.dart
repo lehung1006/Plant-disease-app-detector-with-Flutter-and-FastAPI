@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 class MyModalBottomSheet {
   static void showModal(
-          BuildContext context, String type, List<CameraDescription> cameras) =>
+          BuildContext context, List<CameraDescription> cameras) =>
       showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -26,8 +26,8 @@ class MyModalBottomSheet {
                         child: InkWell(
                             onTap: () {
                               Navigator.of(context).pop();
-                              context.pushNamed(RoutesPath.imageCaptureRoute,
-                                  params: {'type': type}, extra: cameras);
+                              context.push(RoutesPath.imageCaptureRoute,
+                                  extra: cameras);
                             },
                             child: const Center(
                                 child: Text('Chụp ảnh từ Camera',
@@ -42,8 +42,9 @@ class MyModalBottomSheet {
                         child: InkWell(
                             onTap: () {
                               Navigator.of(context).pop();
-                              context.pushNamed(RoutesPath.imageGalleryRoute,
-                                  params: {'type': type});
+                              context.push(
+                                RoutesPath.imageGalleryRoute,
+                              );
                             },
                             child: const Center(
                                 child: Text('Chọn ảnh từ Thư viện',
