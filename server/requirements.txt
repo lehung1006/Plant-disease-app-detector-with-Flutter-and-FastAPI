@@ -3,3 +3,4 @@ uvicorn[standard]
 motor
 pillow
 keras
+tensorflow
