@@ -32,7 +32,7 @@ class PlantDetail extends StatelessWidget {
       child: BlocListener<PlantDetailBloc, PlantDetailState>(
         listener: (context, state) {
           if (state is GetPlantDetailFailure) {
-            showToast(state.e);
+            print(state.e);
           }
         },
         child: Scaffold(
@@ -137,7 +137,7 @@ class PlantDetail extends StatelessWidget {
                                 ),
                                 CharacteristicsItem(
                                     left: 'Lan rộng',
-                                    right:  '${plant.spread ?? ""} m'),
+                                    right: '${plant.spread ?? ""} m'),
                                 const Divider(
                                   thickness: 1,
                                   height: 1,
@@ -190,8 +190,7 @@ class PlantDetail extends StatelessWidget {
                                 CustomListTile(
                                     leading: FontAwesomeIcons.locationDot,
                                     title: 'Vùng độ cứng',
-                                    subTitle:
-                                        plant.hardinessZone ?? ''),
+                                    subTitle: plant.hardinessZone ?? ''),
                                 const Divider(
                                   thickness: 1,
                                   height: 1,

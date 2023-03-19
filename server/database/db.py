@@ -4,9 +4,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 from os import listdir
-MONGO_DETAILS = "mongodb://localhost:27017"
-
-
+MONGO_DETAILS = "mongodb+srv://hancao509:ZFusyatSnBhLssxy@plants.m72durs.mongodb.net/?retryWrites=true&w=majority"
 def get_db():
     client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
     database = client.Plants
