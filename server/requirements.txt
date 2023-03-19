@@ -4,3 +4,4 @@ motor
 pillow
 keras
 tensorflow
+torch
