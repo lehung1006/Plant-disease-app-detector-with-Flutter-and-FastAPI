@@ -5,3 +5,4 @@ pillow
 keras
 tensorflow
 torch
+numpy
