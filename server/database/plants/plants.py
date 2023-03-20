@@ -19,6 +19,7 @@ def plant_classify_helper(plant) -> dict:
     return {
         "id": str(plant["_id"]),
         "name": plant["name"],
+        "science_name": plant["science_name"],
         "description": plant["description"],
     }
 
