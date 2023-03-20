@@ -2,6 +2,7 @@ from routes.root import router
 from PIL import Image
 from io import BytesIO
 import base64
+import json
 from database.pests.pests import (
     retrieve_pests,
     retrieve_pest_by_id,
@@ -38,12 +39,21 @@ async def pest_detection(im: IMEI):
     imgdata = base64.b64decode(imgcode)
     im_file = BytesIO(imgdata)
     img = Image.open(im_file)
-    pest = detect(img)
-    if pest:
-        data = []
-        for l in pest:
-            pest = await retrieve_pest_by_label(l)
-            data.append(pest)
-        return ResponseModel(data, "Pest data retrieved successfully")
+    im, res = detect(img)
+    pests = []
+    if len(res) > 0:
+        for labels in res:
+            tmp = []
+            for label in labels:
+                print(label)
+                pest = await retrieve_pest_by_label(label)
+                tmp.append(pest)
+            pests.append(tmp)
+        result = {
+            'pests': pests,
+            'image': im
+        }
+        # convert dict to json
+        return ResponseModel(result, "Pest data retrieved successfully")
 
-    return ResponseModel(pest, "Empty list returned")
+    return ResponseModel([], "Empty list returned")
