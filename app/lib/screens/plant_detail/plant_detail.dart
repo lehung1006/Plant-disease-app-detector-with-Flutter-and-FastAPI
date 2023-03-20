@@ -15,15 +15,6 @@ class PlantDetail extends StatelessWidget {
 
   final String plantId;
 
-  static const imageAssets = [
-    'lib/images/orange.jpg',
-    'lib/images/apple.jpg',
-  ];
-
-  static String title = 'Sâu cuốn lá';
-  static String subTitle =
-      'Sâu cuốn lá hay sâu ăn lá gây hại chủ yếu trên các loại cây họ dưa, bầu bí, cà chua và một số loại rau xanh, cây ăn quả, lúa,';
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -32,7 +23,7 @@ class PlantDetail extends StatelessWidget {
       child: BlocListener<PlantDetailBloc, PlantDetailState>(
         listener: (context, state) {
           if (state is GetPlantDetailFailure) {
-            print(state.e);
+            showToast(state.e);
           }
         },
         child: Scaffold(
@@ -42,7 +33,7 @@ class PlantDetail extends StatelessWidget {
                 final plant = state.plantDetail;
                 return CustomScrollView(
                   slivers: [
-                    CustomAppBar(imgs: plant.imgs ?? [], context: context),
+                    CustomAppBar(name: plant.name ?? '', imgs: plant.imgs ?? [], context: context),
                     SliverToBoxAdapter(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

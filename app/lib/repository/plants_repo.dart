@@ -46,9 +46,11 @@ class PlantsRepoImpl extends PlantsRepo {
   Future<Item> getPlantClassifyResult(String imgBase64) async {
     try {
       final response = await _apiServices.getPlantsClassifyResult(imgBase64);
-      print(response.data);
       var data = response.data["data"];
-      return Item.fromJson(data);
+      if (data != null) {
+        return Item.fromJson(data);
+      }
+      return Item();
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }

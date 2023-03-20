@@ -4,8 +4,12 @@ import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
-      {super.key, required this.imgs, required this.context});
+      {super.key,
+      required this.name,
+      required this.imgs,
+      required this.context});
 
+  final String name;
   final List<dynamic> imgs;
   final BuildContext context;
 
@@ -30,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
                   onTap: () => context.pop(),
                 ),
                 const SizedBox(width: 40),
-                const Text('Cam', style: TextStyle(color: Colors.black)),
+                Text(name, style: const TextStyle(color: Colors.black)),
               ])),
           background: Stack(children: [
             CustomeCarousel(imgs: imgs),
