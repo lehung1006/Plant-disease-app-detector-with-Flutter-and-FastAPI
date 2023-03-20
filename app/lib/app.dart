@@ -154,7 +154,6 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                 PestsAndDiseasesBloc()..add(GetDiseasesEvent())),
         BlocProvider(
             create: (BuildContext context) => FloatingActionButtonBloc()),
-        BlocProvider(create: (BuildContext context) => IdentificationBloc())
       ],
       child: MaterialApp.router(
         theme: ThemeData(
