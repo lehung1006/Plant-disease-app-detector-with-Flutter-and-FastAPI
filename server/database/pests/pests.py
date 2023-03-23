@@ -1,4 +1,4 @@
-from database.db import get_db
+from database.db import get_db, get_image
 PEST_COLLECTION = "pests"
 
 
@@ -11,7 +11,7 @@ def pest_helper(pest) -> dict:
     return {
         "id": str(pest["_id"]),
         "name": pest["vi_name"],
-        "img": pest["img"],
+        "img": get_image(pest["imgpath"])[0],
         "description": pest["Living_habits_and_harmful_ways"],
     }
 
@@ -20,7 +20,7 @@ def pest_detail(pest) -> dict:
     return {
         "id": str(pest["_id"]),
         "name": pest["vi_name"],
-        "img": pest["img"],
+        "img": get_image(pest["imgpath"]),
         "description": pest["Living_habits_and_harmful_ways"],
         "prevention": pest["Preventive_measures"],
     }
@@ -42,4 +42,4 @@ async def retrieve_pest_by_id(id: str) -> dict:
 async def retrieve_pest_by_label(name: str) -> dict:
     pest = await pest_collection.find_one({"label": name})
     if pest:
-        return pest_detail(pest)
+        return pest_helper(pest)

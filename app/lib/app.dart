@@ -156,6 +156,7 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
             create: (BuildContext context) => FloatingActionButtonBloc()),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
             useMaterial3: true,
             scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245)),
