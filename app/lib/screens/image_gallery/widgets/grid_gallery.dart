@@ -46,6 +46,8 @@ class _GridGalleryState extends State<GridGallery> {
       List<AssetEntity> media = await albums[0]
           .getAssetListPaged(size: 60, page: currentPage); //preloading files
       List<Widget> temp = [];
+      print(media.length);
+      print(media);
       for (var asset in media) {
         temp.add(
           FutureBuilder(

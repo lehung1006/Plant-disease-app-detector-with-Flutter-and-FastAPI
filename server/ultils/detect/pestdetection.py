@@ -5,7 +5,9 @@ import numpy as np
 from ultils.detect.featureextract import encode_image
 import pickle
 import torch
-from os import listdir
+import cv2 as cv
+import base64
+from io import BytesIO
 DIR_REPO = './ultils/detect/yolov5/'
 DIR_MODEL = './ultils/detect/best.pt'
 
@@ -31,6 +33,7 @@ def get_labels(vec):
     res = [i[1] for i in cos_lb[:5]]
     return list(set(res))
 
+
 def detect(im):
     '''
     Detects objects in an image
@@ -38,11 +41,35 @@ def detect(im):
     :return: labels of objects detected'''
     model = get_model()
     results = model(im)
+    im = np.array(im)
+    color = (84, 0, 236)
+    thickness = 2  # set thickness to -1 to fill rectangle
+    linetype = cv.LINE_AA
+    i = 1
+    res = []
     if len(results.xyxy[0]) > 0:
         cropimage = results.crop(save=False)
-        img = Image.fromarray(cropimage[0]['im'])
-        img = img.convert('RGB')
-        vec = encode_image(img)
-        return get_labels(vec)
-    return []
+        for bbx in cropimage:
+            # convert list tensor to numpy array
+            img = Image.fromarray(cropimage[0]['im'])
+            img = img.convert('RGB')
+            vec = encode_image(img)
+            res.append(get_labels(vec))
+            xmin, ymin, xmax, ymax = bbx['box']
+            xmin, ymin, xmax, ymax = int(xmin), int(ymin), int(xmax), int(ymax)
+            im = cv.rectangle(im, (xmin, ymin), (xmax, ymax),
+                              color, thickness, linetype)
+            # create background for text
+            im = cv.rectangle(im, (xmin, ymin-12), (xmin + 20, ymin),
+                              color, -1, linetype)
 
+            im = cv.putText(im, str(i), (xmin+5, ymin-2),
+                            cv.FONT_HERSHEY_SIMPLEX, .4, (255, 255, 255), 1, cv.LINE_AA)
+            i += 1
+        im = cv.cvtColor(im, cv.COLOR_BGR2RGB)
+        # convert numpy array to base64
+        _, im = cv.imencode('.jpg', im)
+        im = base64.b64encode(im)
+        im = im.decode('utf-8')
+        return im, res
+    return [], []
