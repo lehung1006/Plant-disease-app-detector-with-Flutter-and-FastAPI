@@ -1,4 +1,3 @@
-import 'package:app/screens/identification/bloc/identification_bloc.dart';
 import 'package:app/screens/identification/identification.dart';
 import 'package:app/screens/image_gallery/image_gallery.dart';
 import 'package:app/screens/image_review/image_review.dart';
@@ -15,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:app/screens/home/home.dart';
 import 'package:app/screens/plants/plants.dart';
-import 'package:app/screens/insect/insect.dart';
 import 'package:app/screens/profile/profile.dart';
 import 'package:app/screens/setting/setting.dart';
 import 'package:app/screens/login/login.dart';

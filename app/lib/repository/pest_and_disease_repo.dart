@@ -1,4 +1,5 @@
 import 'package:app/models/item.dart';
+import 'package:app/models/pest_detection.dart';
 import 'package:app/network/api_services.dart';
 import 'package:app/network/dio_exception.dart';
 import 'package:dio/dio.dart';
@@ -7,6 +8,7 @@ abstract class PestAndDiseaseRepo {
   // Future<List<Item>> getPestList();
   Future<List<Item>> getDiseaseList();
   Future<Item> getDiseasesClassifyResult(String imgBase64);
+  Future<PestDetection> getPestDetectionResult(String imgBase64);
 }
 
 class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
@@ -41,6 +43,17 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
       final response = await _apiServices.getDiseasesClassifyResult(imgBase64);
       var data = response.data["data"];
       return Item.fromJson(data);
+    } on DioError catch (e) {
+      throw DioExceptions.toException(e);
+    }
+  }
+
+  @override
+  Future<PestDetection> getPestDetectionResult(String imgBase64) async {
+    try {
+      final response = await _apiServices.getPestDetectionResult(imgBase64);
+      print(response.data);
+      return PestDetection();
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }

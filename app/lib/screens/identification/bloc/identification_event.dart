@@ -8,10 +8,15 @@ abstract class IdentificationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetIdentificationResultEvent extends IdentificationEvent {
+class GetClassifyResultEvent extends IdentificationEvent {
   final String imgBase64;
   final int type;
-  const GetIdentificationResultEvent(
-      {required this.imgBase64, required this.type});
 
+  const GetClassifyResultEvent({required this.imgBase64, required this.type});
+}
+
+class GetPestDetectionResultEvent extends IdentificationEvent {
+  final String imgBase64;
+
+  const GetPestDetectionResultEvent({required this.imgBase64});
 }

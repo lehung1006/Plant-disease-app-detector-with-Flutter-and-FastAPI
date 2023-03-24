@@ -15,12 +15,12 @@ class _OrderState extends State<Plants> with TickerProviderStateMixin {
   @override
   void initState() {
     // TODO: implement initState
+    var plantBloc = context.read<PlantsBloc>();
+    if (plantBloc.state is! GetPlantsSuccess) {
+      plantBloc.add(GetPlantsEvent());
+    }
     super.initState();
   }
-
-  String title = 'Táo';
-  String subTitle =
-      'Cam là quả của nhiều loài cây có múi khác nhau thuộc họ Cửu lý hương (Rutaceae) (xem danh sách các loài thực vật được gọi là cam)';
 
   @override
   Widget build(BuildContext context) {

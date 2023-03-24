@@ -55,4 +55,14 @@ class ApiServices {
       rethrow;
     }
   }
+
+  Future<Response> getPestDetectionResult(String imgBase64) async {
+    try {
+      final Response response = await dioClient
+          .post(ApiPaths.pestDetectionRoute, data: {"img": imgBase64});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

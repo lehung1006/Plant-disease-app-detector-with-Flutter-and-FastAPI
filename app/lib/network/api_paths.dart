@@ -7,4 +7,6 @@ class ApiPaths {
 
   static const String getDiseaseList = '/leafdiseases';
   static const String diseasesClassify = '/leafdiseases_classify';
+
+  static const String pestDetectionRoute = '/detection';
 }
