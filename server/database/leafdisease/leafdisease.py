@@ -10,7 +10,7 @@ def leaf_disease_detail(plant) -> dict:
         "id": str(plant["_id"]),
         "name": plant["name"],
         "img": get_image(plant["imgpath"]),
-        "overview": plant["overview"],
+        "description": plant["overview"],
         "solutions": plant["solutions"],
         "prevention": plant["prevention"],
     }
@@ -21,7 +21,7 @@ def leaf_disease_helper(plant) -> dict:
         "id": str(plant["_id"]),
         "name": plant["name"],
         "img": [get_image(plant["imgpath"])[0]],
-        "description": plant["overview"]
+        "description": plant["overview"],
     }
 
 
@@ -29,7 +29,7 @@ def leaf_disease_classify_helper(plant) -> dict:
     return{
         "id": str(plant["_id"]),
         "name": plant["name"],
-        "overview": plant["overview"],
+        "description": plant["overview"],
     }
 
 
