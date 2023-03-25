@@ -42,7 +42,7 @@ def detect(im):
     model = get_model()
     results = model(im)
     im = np.array(im)
-    color = (84, 0, 236)
+    color = (46, 204, 113)
     thickness = 2  # set thickness to -1 to fill rectangle
     linetype = cv.LINE_AA
     i = 1
