@@ -21,6 +21,7 @@ def leaf_disease_helper(plant) -> dict:
         "id": str(plant["_id"]),
         "name": plant["name"],
         "img": [get_image(plant["imgpath"])[0]],
+        "description": plant["overview"]
     }
 
 
