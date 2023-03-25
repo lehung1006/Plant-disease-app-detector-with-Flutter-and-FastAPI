@@ -33,7 +33,7 @@ class PlantDetail extends StatelessWidget {
                 final plant = state.plantDetail;
                 return CustomScrollView(
                   slivers: [
-                    CustomAppBar(name: plant.name ?? '', imgs: plant.imgs ?? [], context: context),
+                    CustomAppBar(title: plant.name ?? '', imgs: plant.imgs ?? [], context: context),
                     SliverToBoxAdapter(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

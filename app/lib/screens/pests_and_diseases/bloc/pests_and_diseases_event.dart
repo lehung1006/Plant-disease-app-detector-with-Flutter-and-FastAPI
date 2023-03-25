@@ -8,6 +8,4 @@ abstract class PestsAndDiseasesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetPestsEvent extends PestsAndDiseasesEvent {}
-
-class GetDiseasesEvent extends PestsAndDiseasesEvent {}
+class GetPestsAndDiseasesEvent extends PestsAndDiseasesEvent {}

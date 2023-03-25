@@ -10,15 +10,19 @@ part 'pests_and_diseases_state.dart';
 class PestsAndDiseasesBloc
     extends Bloc<PestsAndDiseasesEvent, PestsAndDiseasesState> {
   PestsAndDiseasesBloc() : super(PestsAndDiseasesInitial()) {
-    on<GetDiseasesEvent>((event, emit) async {
-      try {
-        final List<Item> result =
-            await ApiRepository.pestAndDiseaseRepo.getDiseaseList();
-        if (result.isNotEmpty) {
-          emit(GetDiseasesSuccess(diseases: result));
+    on<PestsAndDiseasesEvent>((event, emit) async {
+      if (event is GetPestsAndDiseasesEvent) {
+        try {
+          final List<Item> pests =
+              await ApiRepository.pestAndDiseaseRepo.getPestList();
+          final List<Item> diseases =
+              await ApiRepository.pestAndDiseaseRepo.getDiseaseList();
+          if (pests.isNotEmpty && diseases.isNotEmpty) {
+            emit(GetPestsAndDiseasesSuccess(pests: pests, diseases: diseases));
+          }
+        } on Exception catch (e) {
+          emit(GetPestsOrDiseasesFailure(e: e));
         }
-      } on Exception catch (e) {
-        emit(GetDiseasesFailure(errorMessage: e.toString()));
       }
     });
   }

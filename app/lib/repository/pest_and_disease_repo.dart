@@ -19,7 +19,7 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
   @override
   Future<List<Item>> getPestList() async {
     try {
-      final response = await _apiServices.getDiseaseList();
+      final response = await _apiServices.getPestList();
       var data = response.data['data'];
       List<Item> result = [];
       for (var json in data) {

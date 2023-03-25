@@ -47,7 +47,7 @@ class ItemWidget extends StatelessWidget {
                       children: [
                         Text(item.name ?? '',
                             style: const TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 20)),
+                                fontWeight: FontWeight.w500, fontSize: 19)),
                         const SizedBox(
                           height: 10,
                         ),
