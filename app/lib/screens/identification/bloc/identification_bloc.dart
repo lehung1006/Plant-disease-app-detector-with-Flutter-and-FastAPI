@@ -25,6 +25,7 @@ class IdentificationBloc
           final PestDetection pestDetection = await ApiRepository
               .pestAndDiseaseRepo
               .getPestDetectionResult(event.imgBase64);
+          emit(GetPestDetectionResultSuccess(pestDetection: pestDetection));
         } on Exception catch (e) {
           emit(GetClassifyResultFailure(e: e));
         }

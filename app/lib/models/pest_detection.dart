@@ -1,7 +1,7 @@
-import 'package:app/models/item.dart';
+import 'package:app/models/pest_item.dart';
 
 class PestDetection {
-  Map<String, List<Item>>? pests;
+  Map<String, dynamic>? pests;
   String? img;
 
   PestDetection({this.pests, this.img});
@@ -10,8 +10,9 @@ class PestDetection {
     List detectionList = data["pests"];
     String image = data["image"];
     final Map<String, dynamic> pests = {};
-    for (var i = 1; i <= detectionList.length; i++) {
-      pests[i.toString()] = detectionList[i].map((e) => Item.fromJson(e));
+    for (var i = 0; i < detectionList.length; i++) {
+      pests[(i + 1).toString()] =
+          detectionList[i].map((e) => PestItem.fromJson(e)).toList();
     }
     return {"pests": pests, "img": image};
   }

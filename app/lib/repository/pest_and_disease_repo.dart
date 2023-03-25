@@ -52,8 +52,12 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
   Future<PestDetection> getPestDetectionResult(String imgBase64) async {
     try {
       final response = await _apiServices.getPestDetectionResult(imgBase64);
-      print(response.data);
-      return PestDetection();
+
+      var data = response.data["data"];
+      final Map<String, dynamic> dataParsed =
+          PestDetection.pestDetectionJsonParser(data);
+      print(PestDetection.fromMap(dataParsed).img);
+      return PestDetection.fromMap(dataParsed);
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }

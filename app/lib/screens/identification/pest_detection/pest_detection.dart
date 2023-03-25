@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/screens/identification/widgets/loading_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:app/screens/identification/bloc/identification_bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -29,6 +30,25 @@ class _PestDetectionState extends State<PestDetection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<IdentificationBloc, IdentificationState>(
+      builder: (context, state) {
+        if (state is GetPestDetectionResultSuccess) {
+          return Column(children: [
+            SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                child: Image.memory(base64Decode(state.pestDetection.img!),
+                    fit: BoxFit.cover))
+          ]);
+        }
+        return Column(children: [
+          SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              child: Image.memory(widget.imgBytes, fit: BoxFit.cover)),
+          const LoadingWidget()
+        ]);
+      },
+    );
   }
 }
