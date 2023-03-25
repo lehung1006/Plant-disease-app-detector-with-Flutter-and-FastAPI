@@ -26,6 +26,15 @@ class ApiServices {
     }
   }
 
+  Future<Response> getPestList() async {
+    try {
+      final Response response = await dioClient.get(ApiPaths.getPestList);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<Response> getPlantDetail(String plantId) async {
     try {
       final Response response = await dioClient

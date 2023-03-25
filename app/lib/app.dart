@@ -149,7 +149,7 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
                 PlantsBloc()..add(GetPlantsEvent())),
         BlocProvider(
             create: (BuildContext context) =>
-                PestsAndDiseasesBloc()..add(GetDiseasesEvent())),
+                PestsAndDiseasesBloc()..add(GetPestsAndDiseasesEvent())),
         BlocProvider(
             create: (BuildContext context) => FloatingActionButtonBloc()),
       ],

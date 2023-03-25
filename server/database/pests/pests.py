@@ -11,7 +11,7 @@ def pest_helper(pest) -> dict:
     return {
         "id": str(pest["_id"]),
         "name": pest["vi_name"],
-        "img": get_image(pest["imgpath"])[0],
+        "img": [get_image(pest["imgpath"])[0]],
         "description": pest["Living_habits_and_harmful_ways"],
     }
 
