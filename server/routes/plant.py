@@ -1,4 +1,4 @@
-from routes.root import router
+from fastapi import APIRouter
 import base64
 from io import BytesIO
 from PIL import Image
@@ -6,17 +6,17 @@ from database.plants.plants import (
     retrieve_plants,
     retrieve_plant_by_id,
     retrieve_plant_by_name,
-    get_image
 )
 from model.plant import (
     ErrorResponseModel,
     ResponseModel,
-    IMEI
+    Im
 )
 from ultils.classify.plants.plantsclassify import classify
+router = APIRouter()
 
 
-@router.get("/plants", response_description="get all plants: name and description")
+@router.get("/", response_description="get all plants: name and description")
 async def get_plants():
     plants = await retrieve_plants()
     if plants:
@@ -24,7 +24,7 @@ async def get_plants():
     return ResponseModel(plants, "Empty list returned")
 
 
-@router.get("/plants/plant/", response_description="get info of plant by id")
+@router.get("/plant/", response_description="get info of plant by id")
 async def get_plant_data_by_id(id: str):
     plant = await retrieve_plant_by_id(id)
     if plant:
@@ -33,7 +33,7 @@ async def get_plant_data_by_id(id: str):
 
 
 @router.post("/plants_classify", response_description="plants classify")
-async def classify_plants(im: IMEI):
+async def classify_plants(im: Im):
     img64 = im.dict()
     imgcode = img64['img']
     imgdata = base64.b64decode(imgcode)

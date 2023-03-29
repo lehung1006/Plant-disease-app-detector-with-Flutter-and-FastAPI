@@ -1,22 +1,23 @@
-from routes.root import router
+from fastapi import APIRouter
 from PIL import Image
 from io import BytesIO
 import base64
-import json
 from database.pests.pests import (
     retrieve_pests,
     retrieve_pest_by_id,
     retrieve_pest_by_label
 )
 from model.plant import (
-    IMEI,
+    Im,
     ErrorResponseModel,
     ResponseModel,
 )
 from ultils.detect.pestdetection import detect
 
+router = APIRouter()
 
-@router.get("/pests", response_description="get all pests: name and description")
+
+@router.get("/", response_description="get all pests: name and description")
 async def get_pests():
     pests = await retrieve_pests()
     if pests:
@@ -24,7 +25,7 @@ async def get_pests():
     return ResponseModel(pests, "Empty list returned")
 
 
-@router.get("/pests/pest/", response_description="get info of pest by id")
+@router.get("/pest/", response_description="get info of pest by id")
 async def get_pest_data_by_id(id: str):
     pest = await retrieve_pest_by_id(id)
     if pest:
@@ -33,7 +34,7 @@ async def get_pest_data_by_id(id: str):
 
 
 @router.post("/detection", response_description="pest detection")
-async def pest_detection(im: IMEI):
+async def pest_detection(im: Im):
     img64 = im.dict()
     imgcode = img64['img']
     imgdata = base64.b64decode(imgcode)

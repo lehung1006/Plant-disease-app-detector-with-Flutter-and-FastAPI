@@ -1,14 +1,12 @@
 from fastapi import FastAPI
-from routes.root import router as RootRouter
-from routes.plants import router as PlantRouter
-from routes.leafdisease import router as LeafDiseaseRouter
-from routes.pest import router as PestRouter
-app = FastAPI()
-app.include_router(RootRouter, tags=["Root"], prefix="")
-app.include_router(PlantRouter)
-app.include_router(PestRouter)
-app.include_router(LeafDiseaseRouter)
+from routes import plant, leafdisease, pest
 
+app = FastAPI()
+
+app.include_router(plant.router, prefix="/plants", tags=["Plants"])
+app.include_router(leafdisease.router,
+                   prefix="/leafdiseases", tags=["Leafdisease"])
+app.include_router(pest.router, prefix="/pests", tags=["Pest"])
 
 @app.get("/", tags=["Root"])
 async def read_root():

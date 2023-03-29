@@ -1,4 +1,4 @@
-from routes.root import router
+from fastapi import APIRouter
 import base64
 from io import BytesIO
 from PIL import Image
@@ -8,14 +8,15 @@ from database.leafdisease.leafdisease import (
     retrieve_leafdisease_by_label,
 )
 from model.plant import (
-    IMEI,
+    Im,
     ErrorResponseModel,
     ResponseModel,)
 from ultils.classify.leafdisease.leafdiseaseclassify import classify
 CLASSIFYDIR = "./ultils/classify/images"
 
+router = APIRouter()
 
-@router.get("/leafdiseases", response_description="get all leafdisease: name and description")
+@router.get("/", response_description="get all leafdisease: name and description")
 async def get_leafdisease():
     leafdisease = await retrieve_leaf_diseaes()
     if leafdisease:
@@ -23,7 +24,7 @@ async def get_leafdisease():
     return ResponseModel(leafdisease, "Empty list returned")
 
 
-@router.get("/leafdiseases/leafdisease/", response_description="get info of leafdisease by id")
+@router.get("/leafdisease/", response_description="get info of leafdisease by id")
 async def get_leafdisease_data_by_id(id: str):
     leafdisease = await retrieve_leafdisease_by_id(id)
     if leafdisease:
@@ -31,7 +32,7 @@ async def get_leafdisease_data_by_id(id: str):
     return ErrorResponseModel("An error occurred.", 404, "leafdisease doesn't exist.")
 
 
-@router.get("/leafdisease/labels/", response_description="get all leafdisease: name and description")
+@router.get("/labels/", response_description="get all leafdisease: name and description")
 async def get_leafdisease_by_label(label: str):
     leafdisease = await retrieve_leafdisease_by_label(label)
     if leafdisease:
@@ -40,7 +41,7 @@ async def get_leafdisease_by_label(label: str):
 
 
 @router.post("/leafdisease_classify", response_description="get all leafdisease: name and description")
-async def leafdisease_classify(im: IMEI):
+async def leafdisease_classify(im: Im):
     img64 = im.dict()
     imgcode = img64['img']
     imgdata = base64.b64decode(imgcode)
