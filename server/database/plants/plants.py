@@ -1,9 +1,9 @@
 from database.db import get_db, get_image
-PlANT_COLLECTION = "plants"
+from config import settings
 
 
 db = get_db()
-plant_collection = db.get_collection(PlANT_COLLECTION)
+plants_collection = db.get_collection(settings.PLANTS_COLLECTION)
 
 
 def plant_helper(plant) -> dict:
@@ -56,20 +56,19 @@ def plant_detail(plant) -> dict:
 
 async def retrieve_plants():
     plants = []
-    async for plant in plant_collection.find():
+    async for plant in plants_collection.find():
         plants.append(plant_helper(plant))
     return plants
 # get info of plant by id
 
 
 async def retrieve_plant_by_id(id: str) -> dict:
-    plant = await plant_collection.find_one({"_id": id})
-    print(plant)
+    plant = await plants_collection.find_one({"_id": id})
     if plant:
         return plant_detail(plant)
 
 
 async def retrieve_plant_by_name(name: str) -> dict:
-    plant = await plant_collection.find_one({"name": name})
+    plant = await plants_collection.find_one({"name": name})
     if plant:
         return plant_classify_helper(plant)

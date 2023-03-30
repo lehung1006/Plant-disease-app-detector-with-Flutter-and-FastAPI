@@ -1,13 +1,14 @@
-from bson.objectid import ObjectId
+from config import settings
 import motor.motor_asyncio
 import base64
 from io import BytesIO
 from PIL import Image
 from os import listdir
-MONGO_DETAILS = "mongodb+srv://hancao509:ZFusyatSnBhLssxy@plants.m72durs.mongodb.net/?retryWrites=true&w=majority"
+
+
 def get_db():
-    client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
-    database = client.Plants
+    client = motor.motor_asyncio.AsyncIOMotorClient(settings.DATABASE_URL)
+    database = client[settings.MONGO_INITDB_DATABASE]
     return database
 
 

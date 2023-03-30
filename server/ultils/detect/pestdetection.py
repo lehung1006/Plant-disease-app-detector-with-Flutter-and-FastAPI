@@ -8,21 +8,21 @@ import torch
 import cv2 as cv
 import base64
 from io import BytesIO
-DIR_REPO = './ultils/detect/yolov5/'
-DIR_MODEL = './ultils/detect/best.pt'
+from config import settings
 
 
 def get_model():
-    model = torch.hub.load(DIR_REPO, 'custom', path=DIR_MODEL, source='local')
+    model = torch.hub.load(settings.YOLO_REPO_PATH, 'custom',
+                           path=settings.YOLO_WEIGHTS_PATH, source='local')
     return model
 
 
 def get_labels(vec):
     labels = []
     db = []
-    with open('./ultils/detect/img_labels.pkl', 'rb') as f:
+    with open(settings.ENCODER_LABELS_PATH, 'rb') as f:
         labels = pickle.load(f)
-    with open('./ultils/detect/img_ft.pkl', 'rb') as f:
+    with open(settings.ENCODER_PATH, 'rb') as f:
         db = pickle.load(f)
     vec = np.array(vec)[0]
     db = np.array(db)

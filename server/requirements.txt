@@ -6,3 +6,5 @@ keras
 tensorflow
 torch
 numpy
+passlib[bcrypt]
+fastapi-jwt-auth[asymmetric]

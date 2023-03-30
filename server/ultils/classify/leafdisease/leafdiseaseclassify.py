@@ -1,11 +1,11 @@
 from keras.models import load_model
 import numpy as np
-
+from config import settings
 
 
 def read_labels():
     labels = []
-    with open('./ultils/classify/leafdisease/labels.txt') as f:
+    with open(settings.LEAF_DISEASE_CLASSIFY_LABELS_PATH) as f:
         for line in f:
             labels.append(line.strip())
     return labels
@@ -15,7 +15,8 @@ labels = read_labels()
 
 
 def get_model():
-    model = load_model('./ultils/classify/leafdisease/model.h5', compile=False)
+    model = load_model(
+        settings.LEAF_DISEASE_CLASSIFY_MODEL_PATH, compile=False)
     return model
 
 

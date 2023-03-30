@@ -1,10 +1,10 @@
 from database.db import get_db, get_image
-PEST_COLLECTION = "pests"
+from config import settings
 
 
 db = get_db()
 
-pest_collection = db.get_collection(PEST_COLLECTION)
+pest_collection = db.get_collection(settings.PESTS_COLLECTION)
 
 
 def pest_helper(pest) -> dict:
