@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: const FaIcon(FontAwesomeIcons.arrowLeft,
-                color: Color.fromARGB(255, 243, 87, 39), size: 20),
+                color: Color(0xff2ecc71), size: 20),
             onPressed: () {
               GoRouter.of(context).pop();
             },
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      backgroundColor: const Color.fromARGB(255, 243, 87, 39),
+                      backgroundColor: const Color(0xff2ecc71),
                       minimumSize: const Size.fromHeight(40),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(2))),

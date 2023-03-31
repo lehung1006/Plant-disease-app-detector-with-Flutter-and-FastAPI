@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+// ignore: must_be_immutable
 class ProfileItem extends StatelessWidget {
-  const ProfileItem(
+  ProfileItem(
       {super.key,
-      required this.iconData,
-      required this.iconColor,
+      this.iconData,
+      this.image,
+      this.color,
       required this.label,
       required this.path});
 
-  final IconData iconData;
-  final Color iconColor;
+  IconData? iconData;
+  Color? color;
+  Image? image;
   final String label;
   final String path;
 
@@ -19,11 +22,11 @@ class ProfileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).push(path);
+        
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-        leading: FaIcon(iconData, color: iconColor),
+        leading: image ?? FaIcon(iconData, color: color),
         title: Text(label, style: const TextStyle(fontWeight: FontWeight.w400)),
         trailing: const FaIcon(FontAwesomeIcons.chevronRight,
             size: 14, color: Color(0xff95a5a6)),
