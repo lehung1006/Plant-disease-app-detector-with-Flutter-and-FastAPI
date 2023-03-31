@@ -1,10 +1,11 @@
 from keras.models import load_model
 import numpy as np
+from config import settings
 
 
 def get_labels():
     labels = []
-    with open("./ultils/classify/plants/labels.txt", "r", encoding="utf-8") as f:
+    with open(settings.PLANT_CLASSIFY_LABELS_PATH, "r", encoding="utf-8") as f:
         for line in f:
             labels.append(line.strip())
     return labels
@@ -15,7 +16,7 @@ labels = get_labels()
 
 def get_model():
     model = load_model(
-        './ultils/classify/plants/plantsclassify.hdf5', compile=False)
+        settings.PLANT_CLASSIFY_MODEL_PATH, compile=False)
     return model
 
 
@@ -27,4 +28,3 @@ def classify(img):
     x = x/255.0
     pred = model.predict(x)
     return labels[np.argmax(pred)]
-

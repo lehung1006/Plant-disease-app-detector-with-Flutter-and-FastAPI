@@ -1,8 +1,8 @@
 from database.db import get_db, get_image
-LEAF_DISEAE_COLLECTION = "leafdisease"
+from config import settings
 
 db = get_db()
-leaf_disease_collection = db.get_collection(LEAF_DISEAE_COLLECTION)
+leaf_disease_collection = db.get_collection(settings.LEAF_DISEASE_COLLECTION)
 
 
 def leaf_disease_detail(plant) -> dict:

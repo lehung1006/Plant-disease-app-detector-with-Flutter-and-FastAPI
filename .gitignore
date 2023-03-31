@@ -1,7 +1,3 @@
-*.pyc
 __pyache__
-__pyache__*
 *.pyc
 app/pubspec.lock
-server/ultils/detect/__pycache__/pestdetection.cpython-310.pyc
-*.pyc
