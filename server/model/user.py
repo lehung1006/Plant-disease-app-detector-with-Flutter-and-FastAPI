@@ -6,7 +6,7 @@ class UserBaseSchema(BaseModel):
     name: str
     email: str
     photo: str
-    role: str 
+    role: str
     created_at: datetime
     updated_at: datetime
 

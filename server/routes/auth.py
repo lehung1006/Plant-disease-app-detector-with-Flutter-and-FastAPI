@@ -2,11 +2,13 @@ from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 from fastapi import APIRouter, Response, status, Depends, HTTPException
 
-from model.user import UserBaseSchema, CreateUserSchema, UserResponse, LoginUserSchema, UserResponseSchema
+from model.user import (
+    CreateUserSchema,
+    UserResponse,
+    LoginUserSchema)
 from database.user.user import (
     userResponseEntity,
     userEntity,
-    userListEntity,
     insert_user,
     get_user_by_id,
     is_email_exist
