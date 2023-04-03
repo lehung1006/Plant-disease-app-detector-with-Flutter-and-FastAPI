@@ -22,7 +22,7 @@ class ProfileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        
+        context.push(path);
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),

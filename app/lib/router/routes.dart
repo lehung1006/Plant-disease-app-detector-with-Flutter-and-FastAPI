@@ -19,4 +19,5 @@ class RoutesPath {
   static String pestsAndDiseasesRoute = '/pests-and-diseases';
   
   static String pestAndDiseaseDetailRoute = '/pest-and-disease-detail';
+  static String identifyHistoryRoute = '/identify-history';
 }

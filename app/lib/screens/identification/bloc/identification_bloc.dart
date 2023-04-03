@@ -1,5 +1,6 @@
+import 'package:app/models/classify_result.dart';
 import 'package:app/models/item.dart';
-import 'package:app/models/pest_detection.dart';
+import 'package:app/models/pest_detection_result.dart';
 import 'package:app/repository/repos.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -14,21 +15,23 @@ class IdentificationBloc
     on<IdentificationEvent>((event, emit) async {
       if (event is GetClassifyResultEvent) {
         try {
-          final Item item = await ApiRepository.plantsRepo
+          final ClassifyResult result = await ApiRepository.plantsRepo
               .getPlantClassifyResult(event.imgBase64);
-          emit(GetClassifyResultSuccess(item: item));
+          emit(GetClassifyResultSuccess(result: result));
         } on Exception catch (e) {
           emit(GetClassifyResultFailure(e: e));
         }
       } else if (event is GetPestDetectionResultEvent) {
         try {
-          final PestDetection pestDetection = await ApiRepository
+          final PestDetectionResult result = await ApiRepository
               .pestAndDiseaseRepo
               .getPestDetectionResult(event.imgBase64);
-          emit(GetPestDetectionResultSuccess(pestDetection: pestDetection));
+          emit(GetPestDetectionResultSuccess(pestDetectionResult: result));
         } on Exception catch (e) {
           emit(GetClassifyResultFailure(e: e));
-        }
+        } 
+      } else if (event is IdentifyResetEvent) {
+        emit(IdentificationInitial());
       }
     });
   }

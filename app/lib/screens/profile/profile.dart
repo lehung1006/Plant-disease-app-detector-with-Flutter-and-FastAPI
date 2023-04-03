@@ -88,7 +88,7 @@ class _ProfileState extends State<Profile> {
                     iconData: FontAwesomeIcons.clockRotateLeft,
                     color: const Color(0xff2980b9),
                     label: 'Lịch sử nhận diện',
-                    path: ''),
+                    path: RoutesPath.identifyHistoryRoute),
               ])),
           const SizedBox(height: 10),
           Material(

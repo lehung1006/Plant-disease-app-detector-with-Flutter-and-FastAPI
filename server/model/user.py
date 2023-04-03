@@ -6,9 +6,9 @@ class UserBaseSchema(BaseModel):
     name: str
     email: str
     photo: str
-    role: str | None = None
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
+    role: str 
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True

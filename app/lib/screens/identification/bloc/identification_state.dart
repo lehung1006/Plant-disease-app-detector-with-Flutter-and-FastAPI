@@ -11,9 +11,9 @@ abstract class IdentificationState extends Equatable {
 class IdentificationInitial extends IdentificationState {}
 
 class GetClassifyResultSuccess extends IdentificationState {
-  final Item item;
+  final ClassifyResult result;
 
-  const GetClassifyResultSuccess({required this.item});
+  const GetClassifyResultSuccess({required this.result});
 }
 
 class GetClassifyResultFailure extends IdentificationState {
@@ -23,9 +23,9 @@ class GetClassifyResultFailure extends IdentificationState {
 }
 
 class GetPestDetectionResultSuccess extends IdentificationState {
-  final PestDetection pestDetection;
+  final PestDetectionResult pestDetectionResult;
 
-  const GetPestDetectionResultSuccess({required this.pestDetection});
+  const GetPestDetectionResultSuccess({required this.pestDetectionResult});
 }
 
 class GetPestDetectionResultFailure extends IdentificationState {

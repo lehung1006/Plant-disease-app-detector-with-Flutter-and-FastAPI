@@ -1,15 +1,12 @@
 import 'dart:convert';
 
-import 'package:app/models/item.dart';
-import 'package:app/router/routes.dart';
+import 'package:app/models/history_item.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class ItemWidget extends StatelessWidget {
-  const ItemWidget({super.key, required this.item, required this.type});
+class HistoryItemWidget extends StatelessWidget {
+  const HistoryItemWidget({super.key, required this.historyItem});
 
-  final Item item;
-  final int type;
+  final HistoryItem historyItem;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +27,9 @@ class ItemWidget extends StatelessWidget {
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(5),
                           bottomLeft: Radius.circular(5)),
-                      child: item.img != null
+                      child: historyItem.img != null
                           ? Image.memory(
-                              base64Decode(item.img!),
+                              base64Decode(historyItem.img!),
                               fit: BoxFit.cover,
                             )
                           : const SizedBox.shrink()),
@@ -45,20 +42,24 @@ class ItemWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item.name ?? '',
+                        Text(historyItem.title ?? '',
                             style: const TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 19)),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          item.description ?? '',
-                          maxLines: 2,
+                          historyItem.subTitle ?? '',
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 91, 100, 100),
                               fontSize: 15),
-                        )
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(historyItem.date ?? '')
                       ],
                     ),
                   )),
@@ -69,19 +70,7 @@ class ItemWidget extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  switch (type) {
-                    case 0:
-                      {
-                        context.pushNamed(RoutesPath.plantDetailRoute,
-                            params: {"plantId": item.id ?? ''});
-                        break;
-                      }
-                    case 1:
-                      {
-                        context.push(RoutesPath.pestAndDiseaseDetailRoute);
-                        break;
-                      }
-                  }
+                  
                 },
               )))
     ]);

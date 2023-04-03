@@ -3,11 +3,11 @@ class ApiPaths {
 
   static const String getPlantList = '/plants';
   static const String getPlantDetail = '/plants/plant';
-  static const String plantsClassify = '/plants_classify';
+  static const String plantsClassify = '/plants/plants_classify';
 
   static const String getDiseaseList = '/leafdiseases';
-  static const String diseasesClassify = '/leafdiseases_classify';
+  static const String diseasesClassify = '/leafdiseases/leafdisease_classify';
 
   static const String getPestList = '/pests';
-  static const String pestDetectionRoute = '/detection';
+  static const String pestDetectionRoute = '/pests/detection';
 }

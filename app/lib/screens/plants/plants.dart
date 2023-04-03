@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/widgets/show_toast.dart';
 import 'package:app/screens/plants/bloc/plants_bloc.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +10,15 @@ class Plants extends StatefulWidget {
   const Plants({super.key});
 
   @override
-  State<Plants> createState() => _OrderState();
+  State<Plants> createState() => _PlantsState();
 }
 
-class _OrderState extends State<Plants> with TickerProviderStateMixin {
+class _PlantsState extends State<Plants> with TickerProviderStateMixin {
   @override
   void initState() {
     // TODO: implement initState
     var plantBloc = context.read<PlantsBloc>();
-    if (plantBloc.state is! GetPlantsSuccess) {
+    if (plantBloc.state is GetPlantsFailure) {
       plantBloc.add(GetPlantsEvent());
     }
     super.initState();
