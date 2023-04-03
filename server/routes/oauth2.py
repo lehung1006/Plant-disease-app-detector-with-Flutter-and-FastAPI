@@ -3,7 +3,6 @@ from typing import List
 from fastapi import Depends, HTTPException, status
 from fastapi_jwt_auth import AuthJWT
 from pydantic import BaseModel
-from bson.objectid import ObjectId
 
 from database.user.user import (
     userEntity,
