@@ -49,7 +49,7 @@ class PlantsRepoImpl extends PlantsRepo {
     try {
       final response = await _apiServices.getPlantsClassifyResult(imgBase64);
       var data = response.data["data"];
-      return ClassifyResult.fromJson(data, 2);
+      return ClassifyResult.fromJson(data, 2, imgBase64);
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }

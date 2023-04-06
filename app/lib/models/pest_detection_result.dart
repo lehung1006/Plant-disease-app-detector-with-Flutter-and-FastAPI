@@ -1,3 +1,4 @@
+import 'package:app/models/history_item.dart';
 import 'package:app/models/item.dart';
 
 class PestDetectionResult {
@@ -25,19 +26,28 @@ class PestDetectionResult {
     return PestDetectionResult(pests: map["pests"], img: map["img"]);
   }
 
-  Map<String, String> toJson() {
+  Map<String, dynamic> toJson() {
     return {
-      'pests': pests != null ? pests.toString() : [].toString(),
-      'img': img ?? ''
+      'pests':
+          pests!.map((list) => list.map((e) => e.toJson()).toList()).toList(),
+      'img': img
     };
   }
 
-  Map<String, String> toHistoryItemJson() {
+  Map<String, dynamic> toHistoryItemJson() {
+    var key = HistoryItem.generateKey(img!);
+
+    DateTime now = DateTime.now();
+    DateTime date = DateTime(now.year, now.month, now.day);
+
     return {
-      'img': img ?? '',
-      'title': 'Kết quả nhận diện sâu bọ',
-      'sub_title': 'Phát hiện được ${pests!.length.toString()} đối tượng',
-      'type': '1'
+      "key": key,
+      "img": img,
+      "title": "Kết quả nhận diện sâu bệnh",
+      "sub_title": "Phát hiện được ${pests!.length} đối tượng",
+      "type": 1,
+      "date":
+          '${date.day.toString()}/${date.month.toString()}/${date.year.toString()}'
     };
   }
 }

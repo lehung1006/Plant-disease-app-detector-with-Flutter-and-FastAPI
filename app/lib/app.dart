@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/screens/identification/bloc/identification_bloc.dart';
 import 'package:app/screens/identification/identification.dart';
 import 'package:app/screens/identify_history/identify_history.dart';
@@ -130,13 +132,18 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: RoutesPath.identificationRoute,
+              path: '${RoutesPath.identificationRoute}/:img',
+              name: RoutesPath.identificationRoute,
               pageBuilder: (context, state) {
-                final imgBytes = state.extra as Uint8List;
+                var imgBytes = base64Decode(state.params['img']!);
+                
                 return MaterialPage(
-                    child: Identification(
-                  imgBytes: imgBytes,
-                ));
+                    child: state.extra == null
+                        ? Identification(imgBytes: imgBytes)
+                        : Identification(
+                            imgBytes: imgBytes,
+                            type: state.extra as int,
+                          ));
               }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,

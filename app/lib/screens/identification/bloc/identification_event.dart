@@ -21,16 +21,15 @@ class GetPestDetectionResultEvent extends IdentificationEvent {
   const GetPestDetectionResultEvent({required this.imgBase64});
 }
 
-class GetClassifyHistoryEvent extends IdentificationEvent {
-  final String key;
-  
-  const GetClassifyHistoryEvent({required this.key});
-}
+class GetIdentifyHistoryListEvent extends IdentificationEvent {}
 
-class GetPestDetectionHistoryEvent extends IdentificationEvent {
+class GetIdentifyHistoryDetailEvent extends IdentificationEvent {
   final String key;
-  
-  const GetPestDetectionHistoryEvent({required this.key});
+  final int type;
+
+  const GetIdentifyHistoryDetailEvent({required this.key, required this.type});
 }
 
 class IdentifyResetEvent extends IdentificationEvent {}
+
+class ClearAllHistoryEvent extends IdentificationEvent {}

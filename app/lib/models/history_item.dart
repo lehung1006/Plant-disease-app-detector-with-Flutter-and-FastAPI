@@ -12,19 +12,13 @@ class HistoryItem {
       {this.key, this.img, this.title, this.subTitle, this.type, this.date});
 
   factory HistoryItem.fromJson(json) {
-    var key = generateKey(json["img"]);
-
-    DateTime now = DateTime.now();
-    DateTime date = DateTime(now.year, now.month, now.day);
-
     return HistoryItem(
-        key: key,
+        key: json["key"],
         img: json["img"],
         title: json["title"],
         subTitle: json["sub_title"],
-        type: json['type'].toInt(),
-        date:
-            '${date.day.toString()}/${date.month.toString()}/${date.year.toString()}');
+        type: json["type"],
+        date: json["date"]);
   }
 
   Map<String, dynamic> toJson() {

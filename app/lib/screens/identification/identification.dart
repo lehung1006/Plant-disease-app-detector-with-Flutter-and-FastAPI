@@ -22,14 +22,16 @@ class Identification extends StatefulWidget {
 }
 
 class _IdentificationState extends State<Identification> {
+  late final int type;
 
   @override
   void initState() {
     // TODO: implement initState
     var identifyBloc = context.read<IdentificationBloc>();
-    if (identifyBloc.state is! GetClassifyResultSuccess ||
-        identifyBloc.state is! GetPestDetectionResultSuccess) {
-      widget.type ??= context.read<FloatingActionButtonBloc>().type;
+    type = widget.type ??= context.read<FloatingActionButtonBloc>().type;
+    if (identifyBloc.state is! GetClassifyResultSuccess &&
+        identifyBloc.state is! GetPestDetectionResultSuccess &&
+        identifyBloc.state is! GetIdentifyHistoryDetailEvent) {
       var imgBase64 = base64Encode(widget.imgBytes);
       if (widget.type == 1) {
         identifyBloc.add(GetPestDetectionResultEvent(imgBase64: imgBase64));
@@ -65,10 +67,7 @@ class _IdentificationState extends State<Identification> {
         body: BlocBuilder<IdentificationBloc, IdentificationState>(
           builder: (context, state) {
             if (state is GetClassifyResultSuccess) {
-              return Classify(
-                  result: state.result,
-                  imgBytes: widget.imgBytes,
-                  type: widget.type!);
+              return Classify(result: state.result, type: type);
             } else if (state is GetPestDetectionResultSuccess) {
               return Detect(pestDetectionResult: state.pestDetectionResult);
             }

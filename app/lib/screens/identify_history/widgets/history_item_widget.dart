@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:app/models/history_item.dart';
+import 'package:app/router/routes.dart';
+import 'package:app/screens/identification/bloc/identification_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HistoryItemWidget extends StatelessWidget {
   const HistoryItemWidget({super.key, required this.historyItem});
@@ -70,7 +74,12 @@ class HistoryItemWidget extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  
+                  context.read<IdentificationBloc>().add(
+                      GetIdentifyHistoryDetailEvent(
+                          key: historyItem.key!, type: historyItem.type!));
+                  context.pushNamed(RoutesPath.identificationRoute,
+                      params: {'img': historyItem.img!},
+                      extra: historyItem.type);
                 },
               )))
     ]);

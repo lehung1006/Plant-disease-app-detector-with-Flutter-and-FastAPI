@@ -42,8 +42,9 @@ class ImageReview extends StatelessWidget {
                     size: 30, color: Colors.red),
               ),
               ElevatedButton(
-                onPressed: () => context.push(RoutesPath.identificationRoute,
-                    extra: imgBytes),
+                onPressed: () => context.pushNamed(
+                    RoutesPath.identificationRoute,
+                    params: {"img": base64Encode(imgBytes)}),
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(12),
                     shape: const CircleBorder(),

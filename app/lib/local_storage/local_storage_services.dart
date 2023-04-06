@@ -1,62 +1,88 @@
 import 'dart:convert';
 
+import 'package:app/models/classify_result.dart';
 import 'package:app/models/history_item.dart';
-import 'package:app/models/item.dart';
 import 'package:app/models/pest_detection_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageServices {
-  late final SharedPreferences prefs;
+  static SharedPreferences? prefs;
 
-  LocalStorageServices() {
-    _initPrefs();
-  }
+  LocalStorageServices();
 
-  static const _identificationKey = 'identification_history';
+  static const _identifyHistoryKey = 'identify_history_list';
 
-  void _initPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-  }
+  // static Future<LocalStorageServices> create() async {
+  //   var prefs = await SharedPreferences.getInstance();
+  //   return LocalStorageServices(prefs: prefs);
+  // }
 
-  List<String> getHistoryList() {
+  Future<List<String>> getIdentifyHistoryList() async {
     try {
-      var identificationHistory = prefs.getStringList(_identificationKey) ?? [];
-      return identificationHistory;
+      prefs ??= await SharedPreferences.getInstance();
+      var identifyHistoryList = prefs!.getStringList(_identifyHistoryKey) ?? [];
+      return identifyHistoryList;
     } catch (e) {
       rethrow;
     }
   }
 
-  void addClassifyHistory(Item classifyResult) async {
+  void saveClassifyHistory(ClassifyResult classifyResult) async {
     try {
-      HistoryItem historyItem = HistoryItem.fromJson(classifyResult.toJson());
-      var identificationHistory = getHistoryList();
-      identificationHistory.add(jsonEncode(historyItem.toJson()));
-      await prefs.setStringList(_identificationKey, identificationHistory);
-      await prefs.setString(
-          historyItem.key!, jsonEncode(classifyResult.toJson()));
+      prefs ??= await SharedPreferences.getInstance();
+      var historyItemJson = classifyResult.toHistoryItemJson();
+      var identifyHistoryList = await getIdentifyHistoryList();
+      identifyHistoryList.add(jsonEncode(historyItemJson));
+      await prefs!.setStringList(_identifyHistoryKey, identifyHistoryList);
+      await prefs!.setString(
+          historyItemJson["key"], jsonEncode(classifyResult.toJson()));
     } catch (e) {
       rethrow;
     }
   }
 
-  void addDetectionHistory(PestDetectionResult detectionResult) async {
+  void saveDetectionHistory(PestDetectionResult detectionResult) async {
     try {
-      HistoryItem historyItem = HistoryItem.fromJson(detectionResult.toJson());
-      var identificationHistory = getHistoryList();
-      identificationHistory.add(jsonEncode(historyItem.toJson()));
-      await prefs.setStringList(_identificationKey, identificationHistory);
-      await prefs.setString(
-          historyItem.key!, jsonEncode(detectionResult.toJson()));
+      prefs ??= await SharedPreferences.getInstance();
+      var historyItemJson = detectionResult.toHistoryItemJson();
+      var identifyHistoryList = await getIdentifyHistoryList();
+      identifyHistoryList.add(jsonEncode(historyItemJson));
+      await prefs!.setStringList(_identifyHistoryKey, identifyHistoryList);
+      await prefs!.setString(
+          historyItemJson["key"], jsonEncode(detectionResult.toJson()));
     } catch (e) {
       rethrow;
     }
   }
 
-  String? getHistoryDetail(String key) {
+  Future<String?> getIdentifyHistoryDetail(String key) async {
     try {
-      final identificationHistory = prefs.getString(key);
-      return identificationHistory;
+      prefs ??= await SharedPreferences.getInstance();
+      final identifyHistory = prefs!.getString(key);
+      return identifyHistory;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  void _clearHistoryDetailWithKey(String key) async {
+    try {
+      prefs ??= await SharedPreferences.getInstance();
+      prefs!.remove(key);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  void clearAllHistory() async {
+    try {
+      prefs ??= await SharedPreferences.getInstance();
+      var historyList = await getIdentifyHistoryList();
+      var historyKeyList = historyList.map((e) => jsonDecode(e)["key"]);
+      for (var key in historyKeyList) {
+        _clearHistoryDetailWithKey(key);
+      }
+      prefs!.remove(_identifyHistoryKey);
     } catch (e) {
       rethrow;
     }

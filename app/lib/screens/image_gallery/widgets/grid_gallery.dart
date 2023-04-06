@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:app/router/routes.dart';
+import 'package:app/widgets/my_floating_action_button/bloc/floating_action_button_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'dart:typed_data';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GridGallery extends StatefulWidget {
   final ScrollController scrollCtr;
@@ -68,9 +72,9 @@ class _GridGalleryState extends State<GridGallery> {
                           child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () => asset.originBytes.then((value) =>
-                              context.push(RoutesPath.identificationRoute,
-                                  extra: value)),
+                          onTap: () => asset.originBytes.then((value) => context
+                              .pushNamed(RoutesPath.identificationRoute,
+                                  params: {'img': base64Encode(value!)})),
                         ),
                       ))
                     ]),

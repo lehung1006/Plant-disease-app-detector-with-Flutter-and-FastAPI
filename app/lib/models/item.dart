@@ -10,27 +10,17 @@ class Item {
   factory Item.fromJson(json) {
     return Item(
         id: json['id'],
-        img: json['img'] != null ? json['img'].first : '',
+        img: json['img'].first,
         name: json['name'],
         description: json['description']);
   }
 
-  Map<String, String> toJson() {
+  Map<String,dynamic> toJson() {
     return {
-      'id': id ?? '',
-      'img': img ?? '',
-      'name': name ?? '',
-      'science_name': scienceName ?? '',
-      'description': description ?? ''
-    };
-  }
-
-  Map<String, String> toHistoryItemJson() {
-    return {
-      'img': img ?? '',
-      'title': name ?? '',
-      'sub_title': description ?? '',
-      'type': '0'
+      "id": id,
+      "img": [img],
+      "name": name,
+      "description": description
     };
   }
 }

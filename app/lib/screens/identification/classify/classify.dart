@@ -14,14 +14,9 @@ import '../widgets/custom_container.dart';
 import '../widgets/loading_widget.dart';
 
 class Classify extends StatelessWidget {
-  const Classify(
-      {super.key,
-      required this.result,
-      required this.imgBytes,
-      required this.type});
+  const Classify({super.key, required this.result, required this.type});
 
   final ClassifyResult result;
-  final Uint8List imgBytes;
   final int type;
 
   @override
@@ -39,7 +34,7 @@ class Classify extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 300,
                 child: Image.memory(
-                  imgBytes,
+                  base64Decode(result.img!),
                   fit: BoxFit.cover,
                 )),
             Column(children: [
