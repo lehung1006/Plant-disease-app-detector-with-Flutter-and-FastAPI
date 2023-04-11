@@ -25,6 +25,8 @@ class _GridGalleryState extends State<GridGallery> {
   int currentPage = 0;
   int? lastPage;
 
+  var _albumsIsEmpty = false;
+
   @override
   void initState() {
     super.initState();
@@ -47,49 +49,56 @@ class _GridGalleryState extends State<GridGallery> {
 //load the album list
       List<AssetPathEntity> albums =
           await PhotoManager.getAssetPathList(onlyAll: true);
-      List<AssetEntity> media = await albums[0]
-          .getAssetListPaged(size: 60, page: currentPage); //preloading files
-      List<Widget> temp = [];
-      for (var asset in media) {
-        temp.add(
-          FutureBuilder(
-            future: asset.thumbnailDataWithSize(
-                const ThumbnailSize(200, 200)), //resolution of thumbnail
-            builder:
-                (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (asset.type == AssetType.image) {
-                  return Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: Stack(children: [
-                      Positioned.fill(
-                        child: Image.memory(
-                          snapshot.data!,
-                          fit: BoxFit.cover,
+      if (albums.isNotEmpty) {
+        List<AssetEntity> media = await albums[0]
+            .getAssetListPaged(size: 60, page: currentPage); //preloading files
+        List<Widget> temp = [];
+        for (var asset in media) {
+          temp.add(
+            FutureBuilder(
+              future: asset.thumbnailDataWithSize(
+                  const ThumbnailSize(200, 200)), //resolution of thumbnail
+              builder:
+                  (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (asset.type == AssetType.image) {
+                    return Padding(
+                      padding: const EdgeInsets.all(1),
+                      child: Stack(children: [
+                        Positioned.fill(
+                          child: Image.memory(
+                            snapshot.data!,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      Positioned.fill(
-                          child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () => asset.originBytes.then((value) => context
-                              .pushNamed(RoutesPath.identificationRoute,
-                                  params: {'img': base64Encode(value!)})),
-                        ),
-                      ))
-                    ]),
-                  );
+                        Positioned.fill(
+                            child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => asset.originBytes.then((value) =>
+                                context.pushNamed(
+                                    RoutesPath.identificationRoute,
+                                    params: {'img': base64Encode(value!)})),
+                          ),
+                        ))
+                      ]),
+                    );
+                  }
                 }
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        );
+                return const SizedBox.shrink();
+              },
+            ),
+          );
+        }
+        setState(() {
+          _mediaList.addAll(temp);
+          currentPage++;
+        });
+      } else {
+        setState(() {
+          _albumsIsEmpty = true;
+        });
       }
-      setState(() {
-        _mediaList.addAll(temp);
-        currentPage++;
-      });
     } else {
       // fail
       /// if result is fail, you can call `PhotoManager.openSetting();`  to open android/ios applicaton's setting to get permission
@@ -112,10 +121,15 @@ class _GridGalleryState extends State<GridGallery> {
               itemBuilder: (BuildContext context, int index) {
                 return _mediaList[index];
               })
-          : const Center(
-              child: CircularProgressIndicator(
-              color: Color(0xff2ecc71),
-            )),
+          : _albumsIsEmpty
+              ? const Center(
+                  child: Text(
+                  'Bạn không có tấm ảnh nào',
+                ))
+              : const Center(
+                  child: CircularProgressIndicator(
+                  color: Color(0xff2ecc71),
+                )),
     );
   }
 }

@@ -39,15 +39,22 @@ class _IdentifyHistoryState extends State<IdentifyHistory> {
             'Lịch sử nhận diện',
           ),
           actions: [
-            IconButton(onPressed: () {
-              context.read<IdentificationBloc>().add(ClearAllHistoryEvent());
-            }, icon: const Icon(Icons.clear))
+            IconButton(
+                onPressed: () {
+                  context
+                      .read<IdentificationBloc>()
+                      .add(ClearAllHistoryEvent());
+                },
+                icon: const Icon(Icons.clear))
           ],
         ),
         body: BlocBuilder<IdentificationBloc, IdentificationState>(
           builder: (context, state) {
             if (state is GetIdentifyHistoryListSuccess) {
               var historyList = state.historyList;
+              if (historyList.isEmpty) {
+                return const Center(child: Text('Lịch sử nhận diện trống'));
+              }
               return ListView.separated(
                 padding: const EdgeInsets.all(10),
                 itemCount: historyList.length,
