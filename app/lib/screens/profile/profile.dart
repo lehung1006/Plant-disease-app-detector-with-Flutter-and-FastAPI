@@ -16,7 +16,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 243, 87, 39),
+          backgroundColor: const Color(0xff2ecc71),
           toolbarHeight: 130,
           elevation: 0,
           flexibleSpace: Container(
@@ -33,8 +33,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(50)),
                       child: const Center(
                           child: FaIcon(FontAwesomeIcons.solidUser,
-                              size: 30,
-                              color: Color.fromARGB(255, 243, 87, 39)))),
+                              size: 30, color: Color(0xff2ecc71)))),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white, elevation: 0),
@@ -43,7 +42,7 @@ class _ProfileState extends State<Profile> {
                     },
                     child: const Text(
                       'Đăng nhập / Đăng ký',
-                      style: TextStyle(color: Color.fromARGB(255, 243, 87, 39)),
+                      style: TextStyle(color: Color(0xff2ecc71)),
                     ),
                   )
                 ]),
@@ -65,52 +64,63 @@ class _ProfileState extends State<Profile> {
           ),
       body: Column(
         children: [
-          Container(
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Column(children: const [
+          Material(
+              color: Colors.white,
+              child: Column(children: [
                 ProfileItem(
                     iconData: FontAwesomeIcons.user,
-                    iconColor: Color.fromARGB(255, 243, 87, 39),
+                    color: const Color(0xff2ecc71),
                     label: 'Thông tin người dùng',
                     path: ''),
-                Divider(thickness: 1, height: 1),
+                const Divider(thickness: 1, height: 1),
                 ProfileItem(
-                    iconData: FontAwesomeIcons.locationDot,
-                    iconColor: Color(0xff0984e3),
-                    label: 'Địa chỉ giao hàng',
+                    // iconData: Icons.follow_the_signs,
+                    // color: const Color(0xff0984e3),
+                    image: Image.asset(
+                      'lib/images/flower.png',
+                      width: 24,
+                      height: 24,
+                    ),
+                    label: 'Vườn của tôi',
                     path: ''),
+                const Divider(thickness: 1, height: 1),
+                ProfileItem(
+                    iconData: FontAwesomeIcons.clockRotateLeft,
+                    color: const Color(0xff2980b9),
+                    label: 'Lịch sử nhận diện',
+                    path: RoutesPath.identifyHistoryRoute),
               ])),
           const SizedBox(height: 10),
-          Container(
-              decoration: const BoxDecoration(color: Colors.white),
+          Material(
+              color: Colors.white,
               child: Column(
-                children: const [
+                children: [
                   ProfileItem(
-                      iconData: FontAwesomeIcons.circleQuestion,
-                      iconColor: Color(0xff00b894),
-                      label: 'Trung tâm trợ giúp',
-                      path: ''),
-                  Divider(thickness: 1, height: 1),
-                  ProfileItem(
-                      iconData: FontAwesomeIcons.utensils,
-                      iconColor: Color.fromARGB(255, 243, 87, 39),
+                      iconData: FontAwesomeIcons.pagelines,
+                      color: const Color(0xff2ecc71),
                       label: 'Về ứng dụng',
                       path: ''),
-                  Divider(thickness: 1, height: 1),
+                  const Divider(thickness: 1, height: 1),
+                  ProfileItem(
+                      iconData: FontAwesomeIcons.circleQuestion,
+                      color: const Color(0xfffbc40b),
+                      label: 'Trung tâm trợ giúp',
+                      path: ''),
+                  const Divider(thickness: 1, height: 1),
                   ProfileItem(
                       iconData: FontAwesomeIcons.noteSticky,
-                      iconColor: Color(0xff0984e3),
+                      color: const Color(0xff2980b9),
                       label: 'Chính sách',
                       path: ''),
                 ],
               )),
           const SizedBox(height: 10),
-          Container(
-            decoration: const BoxDecoration(color: Colors.white),
+          Material(
+            color: Colors.white,
             child: Column(children: [
               ProfileItem(
                 iconData: FontAwesomeIcons.gear,
-                iconColor: Color(0xff00b894),
+                color: const Color(0xff2ecc71),
                 label: 'Cài đặt',
                 path: RoutesPath.settingRoute,
               ),
@@ -119,11 +129,11 @@ class _ProfileState extends State<Profile> {
           Expanded(
               child: Container(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    backgroundColor: const Color.fromARGB(255, 243, 87, 39),
+                    backgroundColor: const Color(0xff2ecc71),
                     minimumSize: const Size.fromHeight(40),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(2))),

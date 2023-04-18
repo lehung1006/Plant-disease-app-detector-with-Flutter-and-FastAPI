@@ -1,6 +1,5 @@
 import 'package:app/widgets/my_floating_action_button/bloc/floating_action_button_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'widgets/grid_gallery.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

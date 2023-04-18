@@ -22,7 +22,7 @@ class _PestsAndDiseasesState extends State<PestsAndDiseases>
     // TODO: implement initState
     _tabController = TabController(length: 2, vsync: this);
     var pestsAndDiseasesBloc = context.read<PestsAndDiseasesBloc>();
-    if (pestsAndDiseasesBloc.state is! GetPestsAndDiseasesSuccess) {
+    if (pestsAndDiseasesBloc.state is GetPestsOrDiseasesFailure) {
       pestsAndDiseasesBloc.add(GetPestsAndDiseasesEvent());
     }
     super.initState();
