@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import base64
 from io import BytesIO
 from PIL import Image
@@ -29,7 +29,7 @@ async def get_leafdisease_data_by_id(id: str):
     leafdisease = await retrieve_leafdisease_by_id(id)
     if leafdisease:
         return ResponseModel(leafdisease, "leafdisease data retrieved successfully")
-    return ErrorResponseModel("An error occurred.", 404, "leafdisease doesn't exist.")
+    raise HTTPException(status_code=404, detail="leafdisease doesn't exist")
 
 
 @router.get("/labels/", response_description="get all leafdisease: name and description")
@@ -37,7 +37,7 @@ async def get_leafdisease_by_label(label: str):
     leafdisease = await retrieve_leafdisease_by_label(label)
     if leafdisease:
         return ResponseModel(leafdisease, "leafdisease data retrieved successfully")
-    return ResponseModel(leafdisease, "Empty list returned")
+    raise HTTPException(status_code=404, detail="leafdisease doesn't exist")
 
 
 @router.post("/leafdisease_classify", response_description="get all leafdisease: name and description")

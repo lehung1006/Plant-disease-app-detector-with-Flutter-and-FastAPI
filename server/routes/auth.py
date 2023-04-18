@@ -6,7 +6,7 @@ from model.user import (
     CreateUserSchema,
     UserResponse,
     LoginUserSchema)
-from database.user.user import (
+from database.users.user import (
     userResponseEntity,
     userEntity,
     insert_user,
@@ -58,12 +58,19 @@ async def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT
                             detail='Incorrect Email or Password')
 
     # Create access token
+    #create payload
+    payLoad = {
+        "id": str(user["id"]),
+        "role": user["role"],
+        "email": user["email"],
+        "verified": user["verified"]
+    }
     access_token = Authorize.create_access_token(
-        subject=str(user["id"]), expires_time=timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN))
+        subject=str(payLoad), expires_time=timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN))
 
     # Create refresh token
     refresh_token = Authorize.create_refresh_token(
-        subject=str(user["id"]), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
+        subject=str(payLoad), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
 
     # Store refresh and access tokens in cookie
     response.set_cookie('access_token', access_token, ACCESS_TOKEN_EXPIRES_IN * 60,
