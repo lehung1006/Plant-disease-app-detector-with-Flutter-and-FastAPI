@@ -7,25 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class IdentifyHistory extends StatefulWidget {
   const IdentifyHistory({super.key});
 
-  static DateTime date =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
   @override
   State<IdentifyHistory> createState() => _IdentifyHistoryState();
 }
 
 class _IdentifyHistoryState extends State<IdentifyHistory> {
-  late final HistoryItem historyItem;
+  List<HistoryItem>? historyList;
 
   @override
   void initState() {
     // TODO: implement initState
-    historyItem = HistoryItem(
-        title: 'Dừa cạn',
-        subTitle:
-            'Dừa cạn là cây thân thảo hoặc cây bụi nhỏ thường xanh, cao tới 1m',
-        date:
-            '${IdentifyHistory.date.day.toString()}/${IdentifyHistory.date.month.toString()}/${IdentifyHistory.date.year.toString()}');
     context.read<IdentificationBloc>().add(GetIdentifyHistoryListEvent());
     super.initState();
   }
@@ -33,41 +24,43 @@ class _IdentifyHistoryState extends State<IdentifyHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text(
-            'Lịch sử nhận diện',
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  context
-                      .read<IdentificationBloc>()
-                      .add(ClearAllHistoryEvent());
-                },
-                icon: const Icon(Icons.clear))
-          ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Lịch sử nhận diện',
         ),
-        body: BlocBuilder<IdentificationBloc, IdentificationState>(
-          builder: (context, state) {
-            if (state is GetIdentifyHistoryListSuccess) {
-              var historyList = state.historyList;
-              if (historyList.isEmpty) {
-                return const Center(child: Text('Lịch sử nhận diện trống'));
-              }
-              return ListView.separated(
-                padding: const EdgeInsets.all(10),
-                itemCount: historyList.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 5),
-                itemBuilder: (context, index) =>
-                    HistoryItemWidget(historyItem: historyList[index]),
-              );
-            }
-            return const Center(
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<IdentificationBloc>().add(ClearAllHistoryEvent());
+              },
+              icon: const Icon(Icons.clear))
+        ],
+      ),
+      body: BlocListener<IdentificationBloc, IdentificationState>(
+        listener: (context, state) {
+          if (state is GetIdentifyHistoryListSuccess) {
+            setState(() {
+              historyList = state.historyList;
+            });
+          }
+        },
+        child: historyList != null
+            ? historyList!.isNotEmpty
+                ? ListView.separated(
+                    padding: const EdgeInsets.all(10),
+                    itemCount: historyList!.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 5),
+                    itemBuilder: (context, index) =>
+                        HistoryItemWidget(historyItem: historyList![index]),
+                  )
+                : const Center(child: Text('Bạn chưa có lịch sử'))
+            : const Center(
                 child: CircularProgressIndicator(
-              color: Color(0xff2ecc71),
-            ));
-          },
-        ));
+                color: Color(0xff2ecc71),
+              )),
+      ),
+    );
   }
 }

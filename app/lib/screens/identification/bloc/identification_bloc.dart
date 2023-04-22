@@ -15,7 +15,6 @@ class IdentificationBloc
   IdentificationBloc() : super(IdentificationInitial()) {
     on<IdentificationEvent>((event, emit) async {
       if (event is GetClassifyResultEvent) {
-        print(1);
         try {
           final ClassifyResult result = await ApiRepository.plantsRepo
               .getPlantClassifyResult(event.imgBase64);
@@ -46,7 +45,7 @@ class IdentificationBloc
         }
       } else if (event is GetIdentifyHistoryDetailEvent) {
         try {
-          print("type ${event.type}");
+
           final detail = await ApiRepository.identifyHistoryRepo
               .getIdentifyHistoryDetail(event.key, event.type);
           if (event.type == 1) {
@@ -56,7 +55,7 @@ class IdentificationBloc
             emit(GetClassifyResultSuccess(result: detail as ClassifyResult));
           }
         } on Exception catch (e) {
-          if(event.type == 1) {
+          if (event.type == 1) {
             emit(GetPestDetectionResultFailure(e: e));
           } else {
             emit(GetClassifyResultFailure(e: e));
