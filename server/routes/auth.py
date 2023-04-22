@@ -79,9 +79,16 @@ async def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT
                         REFRESH_TOKEN_EXPIRES_IN * 60, REFRESH_TOKEN_EXPIRES_IN * 60, '/', None, False, True, 'lax')
     response.set_cookie('logged_in', 'True', ACCESS_TOKEN_EXPIRES_IN * 60,
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
+    token = {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "logged_in": "True",
+        "token_type": "Bearer",
+        "expires_in": ACCESS_TOKEN_EXPIRES_IN * 60,
 
+    }
     # Send both access
-    return {'status': 'success', 'access_token': access_token}
+    return {'status': 'success', "data": token}
 
 
 @router.get('/refresh')
