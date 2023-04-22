@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import base64
 from io import BytesIO
 from PIL import Image
@@ -29,7 +29,7 @@ async def get_plant_data_by_id(id: str):
     plant = await retrieve_plant_by_id(id)
     if plant:
         return ResponseModel(plant, "Plant data retrieved successfully")
-    return ErrorResponseModel("An error occurred.", 404, "Plant doesn't exist.")
+    raise HTTPException(status_code=404, detail="Plant doesn't exist")
 
 
 @router.post("/plants_classify", response_description="plants classify")

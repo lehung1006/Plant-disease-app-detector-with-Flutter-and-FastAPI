@@ -1,4 +1,4 @@
-from database.db import get_db, get_image
+from database.db import get_db
 from config import settings
 from bson.objectid import ObjectId
 db = get_db()
@@ -46,6 +46,7 @@ def userListEntity(users) -> list:
 
 
 async def get_user_by_id(id: str) -> dict:
+    print("------------------", id)
     user = await users_collection.find_one({"_id": ObjectId(id)})
     if user:
         return user

@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from PIL import Image
 from io import BytesIO
 import base64
@@ -9,7 +9,6 @@ from database.pests.pests import (
 )
 from model.plant import (
     Im,
-    ErrorResponseModel,
     ResponseModel,
 )
 from ultils.detect.pestdetection import detect
@@ -30,7 +29,7 @@ async def get_pest_data_by_id(id: str):
     pest = await retrieve_pest_by_id(id)
     if pest:
         return ResponseModel(pest, "Pest data retrieved successfully")
-    return ErrorResponseModel("An error occurred.", 404, "Pest doesn't exist.")
+    raise HTTPException(status_code=404, detail="Pest doesn't exist")
 
 
 @router.post("/detection", response_description="pest detection")

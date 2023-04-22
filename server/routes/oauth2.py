@@ -3,8 +3,7 @@ from typing import List
 from fastapi import Depends, HTTPException, status
 from fastapi_jwt_auth import AuthJWT
 from pydantic import BaseModel
-
-from database.user.user import (
+from database.users.user import (
     userEntity,
     get_user_by_id
 )
@@ -41,7 +40,11 @@ async def require_user(Authorize: AuthJWT = Depends()):
     try:
         Authorize.jwt_required()
         user_id = Authorize.get_jwt_subject()
-        user = userEntity(await get_user_by_id(user_id))
+        #convert to dict
+        user_id = eval(user_id)
+        id = user_id["id"]
+        user = userEntity(await get_user_by_id(str(id)))
+        print(user)
 
         if not user:
             raise UserNotFound('User no longer exist')

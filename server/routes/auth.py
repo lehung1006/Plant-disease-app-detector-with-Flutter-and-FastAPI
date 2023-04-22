@@ -6,7 +6,7 @@ from model.user import (
     CreateUserSchema,
     UserResponse,
     LoginUserSchema)
-from database.user.user import (
+from database.users.user import (
     userResponseEntity,
     userEntity,
     insert_user,
@@ -58,12 +58,19 @@ async def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT
                             detail='Incorrect Email or Password')
 
     # Create access token
+    #create payload
+    payLoad = {
+        "id": str(user["id"]),
+        "role": user["role"],
+        "email": user["email"],
+        "verified": user["verified"]
+    }
     access_token = Authorize.create_access_token(
-        subject=str(user["id"]), expires_time=timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN))
+        subject=str(payLoad), expires_time=timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN))
 
     # Create refresh token
     refresh_token = Authorize.create_refresh_token(
-        subject=str(user["id"]), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
+        subject=str(payLoad), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
 
     # Store refresh and access tokens in cookie
     response.set_cookie('access_token', access_token, ACCESS_TOKEN_EXPIRES_IN * 60,
@@ -72,9 +79,16 @@ async def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT
                         REFRESH_TOKEN_EXPIRES_IN * 60, REFRESH_TOKEN_EXPIRES_IN * 60, '/', None, False, True, 'lax')
     response.set_cookie('logged_in', 'True', ACCESS_TOKEN_EXPIRES_IN * 60,
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
+    token = {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "logged_in": "True",
+        "token_type": "Bearer",
+        "expires_in": ACCESS_TOKEN_EXPIRES_IN * 60,
 
+    }
     # Send both access
-    return {'status': 'success', 'access_token': access_token}
+    return {'status': 'success', "data": token}
 
 
 @router.get('/refresh')
