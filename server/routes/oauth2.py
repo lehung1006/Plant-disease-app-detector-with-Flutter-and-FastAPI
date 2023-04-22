@@ -40,12 +40,12 @@ async def require_user(Authorize: AuthJWT = Depends()):
     try:
         Authorize.jwt_required()
         user_id = Authorize.get_jwt_subject()
-        #convert to dict
         user_id = eval(user_id)
+        print(user_id)
         id = user_id["id"]
+        # print(user_id)
+        # print(type(user_id["expires_in"]))
         user = userEntity(await get_user_by_id(str(id)))
-        print(user)
-
         if not user:
             raise UserNotFound('User no longer exist')
 
