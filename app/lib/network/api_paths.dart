@@ -10,4 +10,7 @@ class ApiPaths {
 
   static const String getPestList = '/pests';
   static const String pestDetectionRoute = '/pests/detection';
+
+  static const String requestLogin = '/auth/login';
+  static const String requestRegister = '/auth/register';
 }

@@ -1,11 +1,17 @@
 class Token {
-  String? _access;
-  String? _refresh;
-  String? _type;
-  int? _expireIn;
+  final String? access;
+  final String? refresh;
+  final String? type;
+  final int? expireIn;
+
+  Token({this.access, this.refresh, this.type, this.expireIn});
 
   @override
   String toString() {
-    return "{'access': $_access, 'refresh': $_refresh, 'type': $_type, 'expireIn': $_expireIn}";
+    return "{'access': $access, 'refresh': $refresh, 'type': $type, 'expireIn': $expireIn}";
+  }
+
+  factory Token.fromJson(Map<String,dynamic> json) {
+    return Token();
   }
 }
