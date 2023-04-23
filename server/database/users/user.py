@@ -46,7 +46,6 @@ def userListEntity(users) -> list:
 
 
 async def get_user_by_id(id: str) -> dict:
-    print("------------------", id)
     user = await users_collection.find_one({"_id": ObjectId(id)})
     if user:
         return user

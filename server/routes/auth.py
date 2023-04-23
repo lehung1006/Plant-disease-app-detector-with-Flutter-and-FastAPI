@@ -63,7 +63,7 @@ async def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT
         "id": str(user["id"]),
         "role": user["role"],
         "email": user["email"],
-        "verified": user["verified"]
+        "verified": user["verified"],
     }
     access_token = Authorize.create_access_token(
         subject=str(payLoad), expires_time=timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN))
@@ -84,7 +84,7 @@ async def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT
         "refresh_token": refresh_token,
         "logged_in": "True",
         "token_type": "Bearer",
-        "expires_in": ACCESS_TOKEN_EXPIRES_IN * 60,
+        "expires_in": str(datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN)),
 
     }
     # Send both access
