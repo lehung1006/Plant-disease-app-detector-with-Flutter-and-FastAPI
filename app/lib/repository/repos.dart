@@ -1,6 +1,7 @@
 import 'package:app/local_storage/local_storage_services.dart';
 import 'package:app/network/dio_client.dart';
 import 'package:app/repository/pest_and_disease_repo.dart';
+import 'package:app/repository/account_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../network/api_services.dart';
@@ -12,6 +13,7 @@ class ApiRepository {
   static PlantsRepo? _plantsRepo;
   static PestAndDiseaseRepo? _pestAndDiseaseRepo;
   static IdentifyHistoryRepo? _identifyHistoryRepo;
+  static AccountRepo? _accountRepo;
 
   static final ApiServices _apiServices =
       ApiServices(dioClient: DioClient(Dio()));
@@ -27,4 +29,7 @@ class ApiRepository {
 
   static IdentifyHistoryRepo get identifyHistoryRepo =>
       _identifyHistoryRepo ??= IdentifyHistoryRepoImpl(_localStorageServices);
+
+  static AccountRepo get accountRepo =>
+      _accountRepo ??= AccountRepoImpl(_apiServices);
 }
