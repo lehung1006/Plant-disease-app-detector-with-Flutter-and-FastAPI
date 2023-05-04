@@ -74,4 +74,14 @@ class ApiServices {
       rethrow;
     }
   }
+
+  Future<Response> requestLogin(String email, String password) async {
+    try {
+      final response = await dioClient.post(ApiPaths.requestLogin,
+          data: {"email": email, "password": password});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

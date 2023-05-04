@@ -10,4 +10,9 @@ class Profile {
   String toString() {
     return "{'isLogged': $_isLogged, 'loggedUserId': $_loggedUserId, 'loggedUserName': $_loggedUserName, ${_token.toString()}}";
   }
+
+  void setIsLogged({saveToDisk = true}) {
+
+  }
+
 }

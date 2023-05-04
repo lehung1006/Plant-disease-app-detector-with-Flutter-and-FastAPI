@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import './api_paths.dart';
 
@@ -10,6 +13,12 @@ class DioClient {
   static const receiveTimeout = 15000;
 
   DioClient(this._dio) {
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
     _dio
       ..options.baseUrl = ApiPaths.baseUrl
       ..options.connectTimeout = connectionTimeout
