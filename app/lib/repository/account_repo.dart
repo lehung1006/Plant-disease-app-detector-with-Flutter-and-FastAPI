@@ -16,7 +16,6 @@ class AccountRepoImpl extends AccountRepo {
   Future<Token> requestLogin(String email, String password) async {
     try {
       final response = await _apiServices.requestLogin(email, password);
-      print(response.data);
       var data = response.data["data"];
       return Token.fromJson(data);
     } on DioError catch (e) {

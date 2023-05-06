@@ -56,6 +56,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
       floatingActionButton: const MyFloatingActionButton(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xff2ecc71),
+        iconSize: 20.0,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         items: tabs,

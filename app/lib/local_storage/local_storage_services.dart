@@ -30,7 +30,8 @@ class LocalStorageServices {
   void saveClassifyHistory(ClassifyResult classifyResult) async {
     try {
       prefs ??= await SharedPreferences.getInstance();
-      var historyItemJson = classifyResult.toHistoryItemJson();
+      var historyItemJson =
+          (classifyResult as ClassifySuccessResult).toHistoryItemJson();
       var identifyHistoryList = await getIdentifyHistoryList();
       identifyHistoryList.add(jsonEncode(historyItemJson));
       await prefs!.setStringList(_identifyHistoryKey, identifyHistoryList);

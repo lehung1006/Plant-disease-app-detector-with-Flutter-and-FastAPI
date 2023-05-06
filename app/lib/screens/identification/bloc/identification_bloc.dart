@@ -19,7 +19,9 @@ class IdentificationBloc
           final ClassifyResult result = await ApiRepository.plantsRepo
               .getPlantClassifyResult(event.imgBase64);
           emit(GetClassifyResultSuccess(result: result));
-          ApiRepository.identifyHistoryRepo.saveClassifyHistory(result);
+          if (result is ClassifySuccessResult) {
+            ApiRepository.identifyHistoryRepo.saveClassifyHistory(result);
+          }
         } on Exception catch (e) {
           emit(GetClassifyResultFailure(e: e));
         }
@@ -45,7 +47,6 @@ class IdentificationBloc
         }
       } else if (event is GetIdentifyHistoryDetailEvent) {
         try {
-
           final detail = await ApiRepository.identifyHistoryRepo
               .getIdentifyHistoryDetail(event.key, event.type);
           if (event.type == 1) {

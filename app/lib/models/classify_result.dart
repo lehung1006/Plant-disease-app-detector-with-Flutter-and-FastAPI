@@ -1,30 +1,36 @@
 import 'package:app/models/history_item.dart';
 
-class ClassifyResult {
-  final int type;
+abstract class ClassifyResult {
   String? img;
+
+  ClassifyResult(this.img);
+}
+
+class ClassifySuccessResult extends ClassifyResult {
+  final int type;
   String? name;
   String? objectId;
   String? scienceName;
   String? description;
 
-  ClassifyResult(
+  ClassifySuccessResult(
       {required this.type,
-      this.img,
+      String? img,
       this.name,
       this.objectId,
       this.scienceName,
-      this.description});
+      this.description})
+      : super(img);
 
-  factory ClassifyResult.fromJson(
+  factory ClassifySuccessResult.fromJson(
       Map<String, dynamic> json, int type, String? imgBase64) {
-    return ClassifyResult(
+    return ClassifySuccessResult(
         type: type,
         img: imgBase64 ?? json['img'],
         name: json['name'],
         objectId: json['id'],
         scienceName: json['science_name'] ?? '',
-        description: json['description']);
+        description: json['description'] ?? '');
   }
 
   Map<String, dynamic> toJson() {
@@ -38,7 +44,7 @@ class ClassifyResult {
     };
   }
 
-  Map<String,dynamic> toHistoryItemJson() {
+  Map<String, dynamic> toHistoryItemJson() {
     var key = HistoryItem.generateKey(img!);
 
     DateTime now = DateTime.now();
@@ -50,7 +56,20 @@ class ClassifyResult {
       "title": name,
       "sub_title": description,
       "type": type,
-      "date": '${date.day.toString()}/${date.month.toString()}/${date.year.toString()}',
+      "date":
+          '${date.day.toString()}/${date.month.toString()}/${date.year.toString()}',
     };
   }
 }
+
+class ClassifyFailedResult extends ClassifyResult {
+  ClassifyFailedResult(String? img) : super(img);
+}
+
+class NoPlantInImageResult extends ClassifyResult {
+  NoPlantInImageResult(String? img) : super(img);
+}
+
+class HealthyPlantResult extends ClassifyResult {
+  HealthyPlantResult(String? img) : super(img);
+} // Case for Diseases classify
