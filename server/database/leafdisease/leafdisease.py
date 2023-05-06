@@ -38,7 +38,6 @@ async def retrieve_leaf_diseaes():
     async for disease in leaf_disease_collection.find():
         leaf_disease.append(leaf_disease_helper(disease))
     return leaf_disease
-# get info of plant by id
 
 
 async def retrieve_leafdisease_by_id(id: str) -> dict:

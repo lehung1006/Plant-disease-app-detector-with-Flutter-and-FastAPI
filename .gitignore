@@ -3,5 +3,4 @@ __pyache__
 app/pubspec.lock
 server/__pycache__/app.cpython-310.pyc
 *.pyc
-server/__pycache__/app.cpython-310.pyc
 *.pyc

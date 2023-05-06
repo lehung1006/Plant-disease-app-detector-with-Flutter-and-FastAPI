@@ -11,7 +11,7 @@ from model.plant import (
     Im,
     ErrorResponseModel,
     ResponseModel,)
-from ultils.classify.leafdisease.leafdiseaseclassify import classify
+from utils.classify.leafdisease.leafdiseaseclassify import classify
 CLASSIFYDIR = "./ultils/classify/images"
 
 router = APIRouter()
@@ -48,7 +48,12 @@ async def leafdisease_classify(im: Im):
     im_file = BytesIO(imgdata)
     img = Image.open(im_file)
     label = classify(img)
-    disease = await retrieve_leafdisease_by_label(label)
-    if disease:
-        return ResponseModel(disease, "leafdisease data retrieved successfully")
-    return ResponseModel(disease, "Empty list returned")
+    if label == "Uknown":
+        return ResponseModel({}, "Not sure")
+    elif label == "NULL":
+        return ResponseModel(None, "No leaf in picture")
+    elif label =="healthy":
+        return ResponseModel("", "healthy")
+    else:
+        leafdisease = await retrieve_leafdisease_by_label(label)
+        return ResponseModel(leafdisease, "classify successfully")

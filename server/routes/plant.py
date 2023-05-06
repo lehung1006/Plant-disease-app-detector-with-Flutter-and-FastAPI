@@ -12,7 +12,7 @@ from model.plant import (
     ResponseModel,
     Im
 )
-from ultils.classify.plants.plantsclassify import classify
+from utils.classify.plants.plantsclassify import classify
 router = APIRouter()
 
 
@@ -40,8 +40,10 @@ async def classify_plants(im: Im):
     im_file = BytesIO(imgdata)
     img = Image.open(im_file)
     label = classify(img)
-    print(label)
-    plant = await retrieve_plant_by_name(label)
-    if plant:
+    if label == "Uknown":
+        return ResponseModel({}, "classify successfully")
+    elif label == "NULL":
+        return ResponseModel(None, "classify successfully")
+    else:
+        plant = await retrieve_plant_by_name(label)
         return ResponseModel(plant, "classify successfully")
-    return ResponseModel(plant, "Empty list returned")
