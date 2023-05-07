@@ -68,7 +68,7 @@ class _IdentificationState extends State<Identification> {
             if (state is GetClassifyResultSuccess) {
               return Classify(result: state.result, type: type);
             } else if (state is GetPestDetectionResultSuccess) {
-              return Detect(pestDetectionResult: state.pestDetectionResult);
+              return Detect(result: state.pestDetectionResult);
             }
             return Column(children: [
               SizedBox(

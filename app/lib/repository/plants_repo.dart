@@ -49,11 +49,11 @@ class PlantsRepoImpl extends PlantsRepo {
     try {
       final response = await _apiServices.getPlantsClassifyResult(imgBase64);
       var data = response.data["data"];
-      if(data == null) {
+      if (data == null) {
         return NoPlantInImageResult(imgBase64);
       } else if (data == "") {
         return HealthyPlantResult(imgBase64);
-      } else if (data == {}) {
+      } else if (data.isEmpty) {
         return ClassifyFailedResult(imgBase64);
       }
       return ClassifySuccessResult.fromJson(data, 2, imgBase64);

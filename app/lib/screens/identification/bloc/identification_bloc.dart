@@ -16,8 +16,15 @@ class IdentificationBloc
     on<IdentificationEvent>((event, emit) async {
       if (event is GetClassifyResultEvent) {
         try {
-          final ClassifyResult result = await ApiRepository.plantsRepo
-              .getPlantClassifyResult(event.imgBase64);
+          late final ClassifyResult result;
+          if (event.type == 0) {
+            result = await ApiRepository.pestAndDiseaseRepo
+                .getDiseasesClassifyResult(event.imgBase64);
+          } else {
+            result = await ApiRepository.plantsRepo
+                .getPlantClassifyResult(event.imgBase64);
+          }
+
           emit(GetClassifyResultSuccess(result: result));
           if (result is ClassifySuccessResult) {
             ApiRepository.identifyHistoryRepo.saveClassifyHistory(result);
@@ -31,7 +38,9 @@ class IdentificationBloc
               .pestAndDiseaseRepo
               .getPestDetectionResult(event.imgBase64);
           emit(GetPestDetectionResultSuccess(pestDetectionResult: result));
-          ApiRepository.identifyHistoryRepo.saveDetectionHistory(result);
+          if (result is PestDetectingSuccess) {
+            ApiRepository.identifyHistoryRepo.saveDetectionHistory(result);
+          }
         } on Exception catch (e) {
           emit(GetClassifyResultFailure(e: e));
         }

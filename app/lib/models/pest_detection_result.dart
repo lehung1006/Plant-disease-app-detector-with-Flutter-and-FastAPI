@@ -1,11 +1,16 @@
 import 'package:app/models/history_item.dart';
 import 'package:app/models/item.dart';
 
-class PestDetectionResult {
-  List<List<Item>>? pests;
+abstract class PestDetectionResult {
   String? img;
 
-  PestDetectionResult({this.pests, this.img});
+  PestDetectionResult(this.img);
+}
+
+class PestDetectingSuccess extends PestDetectionResult {
+  List<List<Item>>? pests;
+
+  PestDetectingSuccess({this.pests, String? img}) : super(img);
 
   static Map<String, dynamic> pestDetectionJsonParser(data) {
     List detectionList = data["pests"];
@@ -22,8 +27,8 @@ class PestDetectionResult {
     return {"pests": pests, "img": image};
   }
 
-  factory PestDetectionResult.fromMap(Map<String, dynamic> map) {
-    return PestDetectionResult(pests: map["pests"], img: map["img"]);
+  factory PestDetectingSuccess.fromMap(Map<String, dynamic> map) {
+    return PestDetectingSuccess(pests: map["pests"], img: map["img"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -50,4 +55,8 @@ class PestDetectionResult {
           '${date.day.toString()}/${date.month.toString()}/${date.year.toString()}'
     };
   }
+}
+
+class PestDetectingFailed extends PestDetectionResult {
+  PestDetectingFailed(String? img) : super(img);
 }

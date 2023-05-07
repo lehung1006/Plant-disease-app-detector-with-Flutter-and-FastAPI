@@ -40,7 +40,7 @@ async def classify_plants(im: Im):
     im_file = BytesIO(imgdata)
     img = Image.open(im_file)
     label = classify(img)
-    if label == "Uknown":
+    if label == "Unknown":
         return ResponseModel({}, "classify successfully")
     elif label == "NULL":
         return ResponseModel(None, "classify successfully")

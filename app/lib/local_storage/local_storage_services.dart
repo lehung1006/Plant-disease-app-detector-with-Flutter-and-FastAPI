@@ -45,7 +45,8 @@ class LocalStorageServices {
   void saveDetectionHistory(PestDetectionResult detectionResult) async {
     try {
       prefs ??= await SharedPreferences.getInstance();
-      var historyItemJson = detectionResult.toHistoryItemJson();
+      var historyItemJson =
+          (detectionResult as PestDetectingSuccess).toHistoryItemJson();
       var identifyHistoryList = await getIdentifyHistoryList();
       identifyHistoryList.add(jsonEncode(historyItemJson));
       await prefs!.setStringList(_identifyHistoryKey, identifyHistoryList);

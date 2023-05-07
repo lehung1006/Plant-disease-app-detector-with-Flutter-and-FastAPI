@@ -52,7 +52,7 @@ class IdentifyHistoryRepoImpl extends IdentifyHistoryRepo {
         }
         pestsItem.add(temp);
       }
-      return PestDetectionResult.fromMap(
+      return PestDetectingSuccess.fromMap(
           {"pests": pestsItem, "img": historyDetailJson["img"]});
     }
     return ClassifySuccessResult.fromJson(historyDetailJson, 2, null);

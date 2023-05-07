@@ -67,7 +67,7 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
             child: const Icon(FontAwesomeIcons.bug, color: Color(0xff2ecc71)),
             labelWidget: const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-              child: Text('Nhận diện sâu bọ',
+              child: Text('Nhận diện sâu bệnh',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,

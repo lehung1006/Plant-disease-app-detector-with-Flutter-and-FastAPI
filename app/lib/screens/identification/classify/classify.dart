@@ -25,9 +25,8 @@ class _ClassifyState extends State<Classify> {
     if (widget.result is ClassifySuccessResult) {
       classifyWidget =
           ClassifySuccessWidget(result: widget.result as ClassifySuccessResult);
-    } else if (widget.result is NoPlantInImageResult) {
-      classifyWidget =
-          NoPlantInImageWidget(result: widget.result as NoPlantInImageResult);
+    } else {
+      classifyWidget = ClassifyFailedWidget(result: widget.result);
     }
   }
 

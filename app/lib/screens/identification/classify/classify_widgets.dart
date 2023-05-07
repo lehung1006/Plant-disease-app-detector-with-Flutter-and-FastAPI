@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/models/classify_result.dart';
 import 'package:app/router/routes.dart';
 import 'package:app/screens/identification/bloc/identification_bloc.dart';
+import 'package:app/widgets/my_floating_action_button/bloc/floating_action_button_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +41,7 @@ class ClassifySuccessWidget extends StatelessWidget {
                         const Text('Tên khoa học: ',
                             style: TextStyle(
                                 color: Color(0xff7f8c8d), fontSize: 16)),
-                        Text(result.scienceName ?? ' ',
+                        Text(result.scienceName ?? '',
                             style: const TextStyle(fontSize: 16))
                       ])
                     ]))),
@@ -84,19 +85,50 @@ class ClassifySuccessWidget extends StatelessWidget {
   }
 }
 
-class ClassifyFailed extends StatelessWidget {
-  const ClassifyFailed({super.key});
+class ClassifyFailedWidget extends StatefulWidget {
+  const ClassifyFailedWidget({super.key, required this.result});
+
+  final ClassifyResult result;
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  State<ClassifyFailedWidget> createState() => _ClassifyFailedWidgetState();
 }
 
-class NoPlantInImageWidget extends StatelessWidget {
-  const NoPlantInImageWidget({super.key, required this.result});
+class _ClassifyFailedWidgetState extends State<ClassifyFailedWidget> {
+  late final String notification;
 
-  final NoPlantInImageResult result;
+  @override
+  void initState() {
+    super.initState();
+    var type = context.read<FloatingActionButtonBloc>().type;
+    switch (widget.result.runtimeType) {
+      case NoPlantInImageResult:
+        {
+          if (type == 0) {
+            notification = 'Không phát hiện lá cây trong ảnh';
+          } else {
+            notification = 'Không có thực vật trong ảnh';
+          }
+          break;
+        }
+      case ClassifyFailedResult:
+        {
+          if (type == 0) {
+            notification =
+                'Hiện tại ứng dụng vẫn chưa có dữ liệu về loại bệnh này, vui lòng thử lại sau';
+          } else {
+            notification =
+                'Hiện tại ứng dụng vẫn chưa có dữ liệu về loài thực vật, vui lòng thử lại sau';
+          }
+          break;
+        }
+      case HealthyPlantResult:
+        {
+          notification = 'Cây của bạn khỏe mạnh';
+          break;
+        }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,15 +137,15 @@ class NoPlantInImageWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 300,
           child: Image.memory(
-            base64Decode(result.img!),
+            base64Decode(widget.result.img!),
             fit: BoxFit.cover,
           )),
-      const CustomContainer(
+      CustomContainer(
           child: Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Text(
-                'Không có thực vật trong ảnh',
-                style: TextStyle(color: Color(0xffe74c3c)),
+                notification,
+                style: const TextStyle(color: Color(0xffe74c3c)),
               ))),
       Expanded(
         flex: 1,

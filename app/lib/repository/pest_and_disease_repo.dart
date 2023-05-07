@@ -1,3 +1,4 @@
+import 'package:app/models/classify_result.dart';
 import 'package:app/models/item.dart';
 import 'package:app/models/pest_detection_result.dart';
 import 'package:app/network/api_services.dart';
@@ -7,7 +8,7 @@ import 'package:dio/dio.dart';
 abstract class PestAndDiseaseRepo {
   Future<List<Item>> getPestList();
   Future<List<Item>> getDiseaseList();
-  Future<Item> getDiseasesClassifyResult(String imgBase64);
+  Future<ClassifyResult> getDiseasesClassifyResult(String imgBase64);
   Future<PestDetectionResult> getPestDetectionResult(String imgBase64);
 }
 
@@ -49,11 +50,18 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
   }
 
   @override
-  Future<Item> getDiseasesClassifyResult(String imgBase64) async {
+  Future<ClassifyResult> getDiseasesClassifyResult(String imgBase64) async {
     try {
       final response = await _apiServices.getDiseasesClassifyResult(imgBase64);
       var data = response.data["data"];
-      return Item.fromJson(data);
+      if(data == null) {
+        return NoPlantInImageResult(imgBase64);
+      } else if (data == {}) {
+        return ClassifyFailedResult(imgBase64);
+      } else if (data == "") {
+        return HealthyPlantResult(imgBase64);
+      }
+      return ClassifySuccessResult.fromJson(data, 0, imgBase64);
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }
@@ -65,9 +73,12 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
       final response = await _apiServices.getPestDetectionResult(imgBase64);
 
       var data = response.data["data"];
+      if (data.inEmpty) {
+        return PestDetectingFailed(imgBase64);
+      }
       final Map<String, dynamic> dataParsed =
-          PestDetectionResult.pestDetectionJsonParser(data);
-      return PestDetectionResult.fromMap(dataParsed);
+          PestDetectingSuccess.pestDetectionJsonParser(data);
+      return PestDetectingSuccess.fromMap(dataParsed);
     } on DioError catch (e) {
       throw DioExceptions.toException(e);
     }

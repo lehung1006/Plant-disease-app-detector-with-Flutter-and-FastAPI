@@ -47,10 +47,10 @@ class ApiServices {
 
   Future<Response> getPlantsClassifyResult(String imgBase64) async {
     try {
-      print(imgBase64);
       final Response response = await dioClient
           .post(ApiPaths.plantsClassify, data: {'img': imgBase64});
-      print("response: $response");
+
+      print(response);
       return response;
     } catch (e) {
       rethrow;
