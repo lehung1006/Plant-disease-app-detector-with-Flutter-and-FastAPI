@@ -2,7 +2,7 @@
 from PIL import Image
 from numpy.linalg import norm
 import numpy as np
-from utils.detect.featureextract import encode_image
+from utils_model.detect.featureextract import encode_image
 import pickle
 import torch
 import cv2 as cv

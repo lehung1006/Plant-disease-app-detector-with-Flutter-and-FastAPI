@@ -11,7 +11,7 @@ from model.plant import (
     Im,
     ErrorResponseModel,
     ResponseModel,)
-from utils.classify.leafdisease.leafdiseaseclassify import classify
+from utils_model.classify.leafdisease.leafdiseaseclassify import classify
 CLASSIFYDIR = "./ultils/classify/images"
 
 router = APIRouter()

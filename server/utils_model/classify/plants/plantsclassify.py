@@ -28,6 +28,7 @@ def classify(img):
     x = x/255.0
     pred = model.predict(x)
     # ko có kết quả
+    print(np.max(pred))
     if np.max(pred) < 0.5:
         return "Unknown"
     elif labels[np.argmax(pred)] == "NULL":
