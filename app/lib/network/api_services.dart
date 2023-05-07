@@ -71,6 +71,7 @@ class ApiServices {
     try {
       final Response response = await dioClient
           .post(ApiPaths.pestDetectionRoute, data: {"img": imgBase64});
+      print("response: $response");
       return response;
     } catch (e) {
       rethrow;

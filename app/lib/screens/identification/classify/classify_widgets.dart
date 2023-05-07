@@ -159,7 +159,7 @@ class _ClassifyFailedWidgetState extends State<ClassifyFailedWidget> {
                 context.read<IdentificationBloc>().add(IdentifyResetEvent());
               },
               child: const Text(
-                'Chụp lại',
+                'Thử lại',
                 style: TextStyle(color: Color(0xff2ecc71), fontSize: 15),
               ),
             ),

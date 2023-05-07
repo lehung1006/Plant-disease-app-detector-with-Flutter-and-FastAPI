@@ -47,7 +47,7 @@ class ItemWidget extends StatelessWidget {
                       children: [
                         Text(item.name ?? '',
                             style: const TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 19)),
+                                fontWeight: FontWeight.w500, fontSize: 16)),
                         const SizedBox(
                           height: 10,
                         ),
@@ -57,7 +57,7 @@ class ItemWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 91, 100, 100),
-                              fontSize: 15),
+                              fontSize: 14),
                         )
                       ],
                     ),

@@ -63,15 +63,10 @@ class DetectingSuccessWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: 300,
             child: Image.memory(base64Decode(result.img!), fit: BoxFit.cover)),
-        Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(10),
-            color: Colors.white,
-            child: const Text('Các đối tượng trong ảnh có thể là',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ))),
+        const CustomContainer(
+            child: Text(
+          'Các đối tượng trong ảnh có thể là',
+        )),
         Material(
           color: Colors.white,
           child: TabBar(
@@ -87,8 +82,7 @@ class DetectingSuccessWidget extends StatelessWidget {
                 for (var i = 1; i <= result.pests!.length; i++) ...[
                   Tab(
                       child: Text(i.toString(),
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)))
+                          style: const TextStyle(fontWeight: FontWeight.w500)))
                 ]
               ]),
         ),
@@ -127,14 +121,34 @@ class DetectingFailedWidget extends StatelessWidget {
       SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 300,
-          child: Image.memory(base64Decode(result.img!), fit: BoxFit.cover)),
+          child: Image.memory(
+            base64Decode(result.img!),
+            fit: BoxFit.cover,
+          )),
       const CustomContainer(
+          child: Text(
+        "Không phát hiện thấy đối tượng nào trong ảnh",
+        style: TextStyle(color: Color(0xffe74c3c)),
+      )),
+      Expanded(
+        flex: 1,
+        child: Align(
+          alignment: Alignment.bottomCenter,
           child: Padding(
-              padding: EdgeInsets.all(15),
-              child: Text(
-                "Không phát hiện thấy đối tượng nào trong ảnh",
-                style: TextStyle(color: Color(0xffe74c3c)),
-              )))
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+            child: TextButton(
+              onPressed: () {
+                context.pop();
+                context.read<IdentificationBloc>().add(IdentifyResetEvent());
+              },
+              child: const Text(
+                'Thử lại',
+                style: TextStyle(color: Color(0xff2ecc71), fontSize: 15),
+              ),
+            ),
+          ),
+        ),
+      )
     ]);
   }
 }

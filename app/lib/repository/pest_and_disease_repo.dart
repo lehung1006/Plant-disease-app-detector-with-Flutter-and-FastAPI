@@ -54,7 +54,7 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
     try {
       final response = await _apiServices.getDiseasesClassifyResult(imgBase64);
       var data = response.data["data"];
-      if(data == null) {
+      if (data == null) {
         return NoPlantInImageResult(imgBase64);
       } else if (data == {}) {
         return ClassifyFailedResult(imgBase64);
@@ -73,7 +73,7 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
       final response = await _apiServices.getPestDetectionResult(imgBase64);
 
       var data = response.data["data"];
-      if (data.inEmpty) {
+      if(data.isEmpty) {
         return PestDetectingFailed(imgBase64);
       }
       final Map<String, dynamic> dataParsed =
