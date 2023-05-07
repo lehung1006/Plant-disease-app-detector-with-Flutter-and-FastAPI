@@ -11,7 +11,7 @@ from model.plant import (
     Im,
     ResponseModel,
 )
-from utils.detect.pestdetection import detect
+from utils_model.detect.pestdetection import detect
 
 router = APIRouter()
 

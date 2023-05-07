@@ -12,7 +12,7 @@ from model.plant import (
     ResponseModel,
     Im
 )
-from utils.classify.plants.plantsclassify import classify
+from utils_model.classify.plants.plantsclassify import classify
 router = APIRouter()
 
 
