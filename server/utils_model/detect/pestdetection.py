@@ -51,6 +51,7 @@ def detect(im):
         cropimage = results.crop(save=False)
         for bbx in cropimage:
             # convert list tensor to numpy array
+            print("confidence: ", bbx['conf'])
             img = Image.fromarray(cropimage[0]['im'])
             img = img.convert('RGB')
             vec = encode_image(img)
