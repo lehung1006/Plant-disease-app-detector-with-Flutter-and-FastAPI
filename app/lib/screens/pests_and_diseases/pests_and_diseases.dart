@@ -68,7 +68,7 @@ class _PestsAndDiseasesState extends State<PestsAndDiseases>
               BlocBuilder<PestsAndDiseasesBloc, PestsAndDiseasesState>(
                 builder: (context, state) {
                   if (state is GetPestsAndDiseasesSuccess) {
-                    return CustomListView(list: state.diseases);
+                    return CustomListView(list: state.diseases, type: 0);
                   }
                   return const SliverFillRemaining(
                     child: Center(
@@ -86,7 +86,7 @@ class _PestsAndDiseasesState extends State<PestsAndDiseases>
               BlocBuilder<PestsAndDiseasesBloc, PestsAndDiseasesState>(
                 builder: (context, state) {
                   if (state is GetPestsAndDiseasesSuccess) {
-                    return CustomListView(list: state.pests);
+                    return CustomListView(list: state.pests, type: 1);
                   }
                   return const SliverFillRemaining(
                     child: Center(

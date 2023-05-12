@@ -46,7 +46,7 @@ class _PlantsState extends State<Plants> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(10),
               separatorBuilder: (context, index) => const SizedBox(height: 5),
               itemBuilder: (context, index) {
-                return ItemWidget(item: list[index], type: 0);
+                return ItemWidget(item: list[index], type: 2);
               },
             );
           }

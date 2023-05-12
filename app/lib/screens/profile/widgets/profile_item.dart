@@ -4,25 +4,28 @@ import 'package:go_router/go_router.dart';
 
 // ignore: must_be_immutable
 class ProfileItem extends StatelessWidget {
-  ProfileItem(
-      {super.key,
-      this.iconData,
-      this.image,
-      this.color,
-      required this.label,
-      required this.path});
+  ProfileItem({
+    super.key,
+    this.iconData,
+    this.image,
+    this.color,
+    this.path,
+    required this.label,
+  });
 
   IconData? iconData;
   Color? color;
   Image? image;
+  String? path;
   final String label;
-  final String path;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.push(path);
+        if (path != null) {
+          context.push(path!);
+        }
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),

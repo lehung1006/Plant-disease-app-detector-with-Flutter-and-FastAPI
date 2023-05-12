@@ -70,15 +70,16 @@ class ItemWidget extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   switch (type) {
-                    case 0:
+                    case 2:
                       {
                         context.pushNamed(RoutesPath.plantDetailRoute,
-                            params: {"plantId": item.id ?? ''});
+                            params: {"plantId": item.id!});
                         break;
                       }
-                    case 1:
+                    default:
                       {
-                        context.push(RoutesPath.pestAndDiseaseDetailRoute);
+                        context.pushNamed(RoutesPath.pestAndDiseaseDetailRoute,
+                            params: {'id': item.id!, 'type': type.toString()});
                         break;
                       }
                   }

@@ -1,5 +1,6 @@
 import 'package:app/models/classify_result.dart';
 import 'package:app/models/item.dart';
+import 'package:app/models/pest_and_disease_detail.dart';
 import 'package:app/models/pest_detection_result.dart';
 import 'package:app/network/api_services.dart';
 import 'package:app/network/dio_exception.dart';
@@ -8,6 +9,8 @@ import 'package:dio/dio.dart';
 abstract class PestAndDiseaseRepo {
   Future<List<Item>> getPestList();
   Future<List<Item>> getDiseaseList();
+  Future<PestAndDiseaseDetail> getDiseaseDetail(String id);
+  Future<PestAndDiseaseDetail> getPestDetail(String id);
   Future<ClassifyResult> getDiseasesClassifyResult(String imgBase64);
   Future<PestDetectionResult> getPestDetectionResult(String imgBase64);
 }
@@ -50,6 +53,28 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
   }
 
   @override
+  Future<PestAndDiseaseDetail> getDiseaseDetail(String id) async {
+    try {
+      final response = await _apiServices.getDiseaseDetail(id);
+      var data = response.data["data"];
+      return PestAndDiseaseDetail.fromJson(data);
+    } on DioError catch (e) {
+      throw Exception(DioExceptions.fromDioError(e).toString());
+    }
+  }
+
+  @override
+  Future<PestAndDiseaseDetail> getPestDetail(String id) async {
+    try {
+      final response = await _apiServices.getPestDetail(id);
+      var data = response.data["data"];
+      return PestAndDiseaseDetail.fromJson(data);
+    } on DioError catch (e) {
+      throw Exception(DioExceptions.fromDioError(e).toString());
+    }
+  }
+
+  @override
   Future<ClassifyResult> getDiseasesClassifyResult(String imgBase64) async {
     try {
       final response = await _apiServices.getDiseasesClassifyResult(imgBase64);
@@ -73,7 +98,7 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
       final response = await _apiServices.getPestDetectionResult(imgBase64);
 
       var data = response.data["data"];
-      if(data.isEmpty) {
+      if (data.isEmpty) {
         return PestDetectingFailed(imgBase64);
       }
       final Map<String, dynamic> dataParsed =

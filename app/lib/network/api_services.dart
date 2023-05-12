@@ -45,12 +45,30 @@ class ApiServices {
     }
   }
 
+  Future<Response> getDiseaseDetail(String id) async {
+    try {
+      final response = await dioClient
+          .get(ApiPaths.getDiseaseDetail, queryParameters: {'id': id});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Response> getPestDetail(String id) async {
+    try {
+      final response = await dioClient
+          .get(ApiPaths.getPestDetail, queryParameters: {'id': id});
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<Response> getPlantsClassifyResult(String imgBase64) async {
     try {
       final Response response = await dioClient
           .post(ApiPaths.plantsClassify, data: {'img': imgBase64});
-
-      print(response);
       return response;
     } catch (e) {
       rethrow;
@@ -71,7 +89,6 @@ class ApiServices {
     try {
       final Response response = await dioClient
           .post(ApiPaths.pestDetectionRoute, data: {"img": imgBase64});
-      print("response: $response");
       return response;
     } catch (e) {
       rethrow;

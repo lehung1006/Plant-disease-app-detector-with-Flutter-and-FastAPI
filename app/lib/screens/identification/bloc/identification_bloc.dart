@@ -12,6 +12,8 @@ part 'identification_state.dart';
 
 class IdentificationBloc
     extends Bloc<IdentificationEvent, IdentificationState> {
+  List<HistoryItem> historyList = [];
+
   IdentificationBloc() : super(IdentificationInitial()) {
     on<IdentificationEvent>((event, emit) async {
       if (event is GetClassifyResultEvent) {
@@ -50,6 +52,8 @@ class IdentificationBloc
         try {
           final List<HistoryItem> result =
               await ApiRepository.identifyHistoryRepo.getHistoryList();
+          historyList.addAll(
+              result.where((b) => !historyList.any((a) => a.key == b.key)));
           emit(GetIdentifyHistoryListSuccess(historyList: result));
         } on Exception catch (e) {
           emit(GetIdentifyHistoryListFailure(e: e));
@@ -74,6 +78,7 @@ class IdentificationBloc
       } else if (event is ClearAllHistoryEvent) {
         try {
           ApiRepository.identifyHistoryRepo.clearAllHistory();
+          historyList.clear();
         } on Exception {
           rethrow;
         }

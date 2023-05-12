@@ -24,6 +24,7 @@ class _ImageCaptureState extends State<ImageCapture> {
   @override
   void initState() {
     // TODO: implement initState
+    print(widget.cameras.length);
     appBarTitle = context.read<FloatingActionButtonBloc>().getTitle();
     _cameraController =
         CameraController(widget.cameras.first, ResolutionPreset.max);

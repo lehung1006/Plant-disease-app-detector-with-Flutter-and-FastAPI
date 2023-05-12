@@ -27,40 +27,69 @@ class _IdentifyHistoryState extends State<IdentifyHistory> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Lịch sử nhận diện',
+          'Lịch sử',
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                context.read<IdentificationBloc>().add(ClearAllHistoryEvent());
-              },
+              onPressed: () => _dialogBuilder(context),
               icon: const Icon(Icons.clear))
         ],
       ),
-      body: BlocListener<IdentificationBloc, IdentificationState>(
-        listener: (context, state) {
-          if (state is GetIdentifyHistoryListSuccess) {
-            setState(() {
-              historyList = state.historyList;
-            });
-          }
-        },
-        child: historyList != null
-            ? historyList!.isNotEmpty
-                ? ListView.separated(
-                    padding: const EdgeInsets.all(10),
-                    itemCount: historyList!.length,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 5),
-                    itemBuilder: (context, index) =>
-                        HistoryItemWidget(historyItem: historyList![index]),
-                  )
-                : const Center(child: Text('Bạn chưa có lịch sử'))
-            : const Center(
-                child: CircularProgressIndicator(
-                color: Color(0xff2ecc71),
-              )),
-      ),
+      body: BlocBuilder<IdentificationBloc, IdentificationState>(
+          builder: (context, state) {
+        if (state is GetIdentifyHistoryListSuccess) {
+          var historyList = context.read<IdentificationBloc>().historyList;
+
+          return historyList.isNotEmpty
+              ? ListView.separated(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: historyList.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 5),
+                  itemBuilder: (context, index) =>
+                      HistoryItemWidget(historyItem: historyList[index]),
+                )
+              : const Center(child: Text('Bạn chưa có lịch sử'));
+        }
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Color(0xff2ecc71),
+        ));
+      }),
     );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Bạn có chắc muốn xóa toàn bộ lịch sử ?"),
+            actions: [
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('Không'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('Có'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  context.read<IdentificationBloc>()
+                    ..add(ClearAllHistoryEvent())
+                    ..add(GetIdentifyHistoryListEvent());
+                  setState(() {});
+                },
+              ),
+            ],
+          );
+        });
   }
 }

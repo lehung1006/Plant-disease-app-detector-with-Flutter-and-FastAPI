@@ -71,9 +71,13 @@ class ClassifySuccessWidget extends StatelessWidget {
             onPressed: () {
               if (result.type == 2) {
                 context.pushNamed(RoutesPath.plantDetailRoute,
-                    params: {'plantId': (result).objectId!});
+                    params: {'plantId': result.objectId!});
               } else {
-                context.pushNamed(RoutesPath.pestAndDiseaseDetailRoute);
+                context.pushNamed(RoutesPath.pestAndDiseaseDetailRoute,
+                    params: {
+                      'id': result.objectId!,
+                      'type': result.type.toString()
+                    });
               }
             },
             child: const Text(

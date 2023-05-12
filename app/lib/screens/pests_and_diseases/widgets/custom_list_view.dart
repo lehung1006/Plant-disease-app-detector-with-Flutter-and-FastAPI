@@ -3,9 +3,10 @@ import 'package:app/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomListView extends StatelessWidget {
-  const CustomListView({super.key, required this.list});
+  const CustomListView({super.key, required this.list, required this.type});
 
   final List<Item> list;
+  final int type;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomListView extends StatelessWidget {
             child: Column(
               children: [
                 for (var item in list) ...[
-                  ItemWidget(item: item, type: 1),
+                  ItemWidget(item: item, type: type),
                   const SizedBox(height: 5)
                 ]
               ],

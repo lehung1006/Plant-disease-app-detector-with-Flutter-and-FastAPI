@@ -55,7 +55,8 @@ class IdentifyHistoryRepoImpl extends IdentifyHistoryRepo {
       return PestDetectingSuccess.fromMap(
           {"pests": pestsItem, "img": historyDetailJson["img"]});
     }
-    return ClassifySuccessResult.fromJson(historyDetailJson, 2, null);
+    return ClassifySuccessResult.fromJson(
+        historyDetailJson, historyDetailJson['type'], null);
   }
 
   @override

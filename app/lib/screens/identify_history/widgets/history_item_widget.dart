@@ -61,9 +61,12 @@ class HistoryItemWidget extends StatelessWidget {
                               fontSize: 14),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 16,
                         ),
-                        Text(historyItem.date ?? '')
+                        Text(
+                          historyItem.date ?? '',
+                          style: const TextStyle(fontSize: 12),
+                        )
                       ],
                     ),
                   )),

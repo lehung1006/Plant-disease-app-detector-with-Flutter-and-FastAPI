@@ -61,7 +61,9 @@ class _IdentificationState extends State<Identification> {
                 child: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
                   context.pop();
-                  context.read<IdentificationBloc>().add(IdentifyResetEvent());
+                  context.read<IdentificationBloc>()
+                    ..add(IdentifyResetEvent())
+                    ..add(GetIdentifyHistoryListEvent());
                 })),
         body: BlocBuilder<IdentificationBloc, IdentificationState>(
           builder: (context, state) {

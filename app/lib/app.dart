@@ -85,9 +85,14 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: RoutesPath.pestAndDiseaseDetailRoute,
-              pageBuilder: (context, state) =>
-                  const MaterialPage(child: PestAndDiseaseDetail())),
+              path: '${RoutesPath.pestAndDiseaseDetailRoute}/:id/:type',
+              name: RoutesPath.pestAndDiseaseDetailRoute,
+              pageBuilder: (context, state) {
+                var id = state.params['id'] as String;
+                var type = state.params['type'] as String;
+                return MaterialPage(
+                    child: PestAndDiseaseDetail(id: id, type: int.parse(type)));
+              }),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: RoutesPath.loginRoute,
@@ -136,7 +141,7 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
               name: RoutesPath.identificationRoute,
               pageBuilder: (context, state) {
                 var imgBytes = base64Decode(state.params['img']!);
-                
+
                 return MaterialPage(
                     child: state.extra == null
                         ? Identification(imgBytes: imgBytes)
@@ -160,9 +165,11 @@ class _MainFlowWidgetState extends State<MainFlowWidget> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+            lazy: false,
             create: (BuildContext context) =>
                 PlantsBloc()..add(GetPlantsEvent())),
         BlocProvider(
+            lazy: false,
             create: (BuildContext context) =>
                 PestsAndDiseasesBloc()..add(GetPestsAndDiseasesEvent())),
         BlocProvider(
