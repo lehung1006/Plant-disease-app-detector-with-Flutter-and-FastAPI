@@ -28,6 +28,7 @@ class _ImageCaptureState extends State<ImageCapture> {
     appBarTitle = context.read<FloatingActionButtonBloc>().getTitle();
     _cameraController =
         CameraController(widget.cameras.first, ResolutionPreset.max);
+    _cameraController.setFlashMode(FlashMode.off);
     _cameraController.initialize().then((_) {
       if (!mounted) {
         return;

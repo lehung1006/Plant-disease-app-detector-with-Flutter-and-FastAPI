@@ -29,7 +29,12 @@ class ProfileItem extends StatelessWidget {
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-        leading: image ?? FaIcon(iconData, color: color),
+        leading: image ??
+            FaIcon(
+              iconData,
+              color: color,
+              size: 20,
+            ),
         title: Text(label, style: const TextStyle(fontWeight: FontWeight.w400)),
         trailing: const FaIcon(FontAwesomeIcons.chevronRight,
             size: 14, color: Color(0xff95a5a6)),

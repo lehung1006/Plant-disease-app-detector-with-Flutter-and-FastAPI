@@ -13,7 +13,7 @@ class ForumPost extends StatelessWidget {
           ListTile(
               contentPadding: const EdgeInsets.all(0),
               leading: const CircleAvatar(
-                  backgroundImage: AssetImage('lib/images/avatar.jpg')),
+                  backgroundImage: AssetImage('lib/images/apple.jpg')),
               title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
@@ -24,7 +24,7 @@ class ForumPost extends StatelessWidget {
           const Text(
               'Typically used with a users profile image, or, in the absence of such an image, the users initials. A given users initials should always be paired with the same background color, for consistency.'),
           const SizedBox(height: 10),
-          Image.asset('lib/images/khuyenmai.jpg'),
+          Image.asset('lib/images/apple.jpg'),
           const SizedBox(height: 20),
           const Divider(height: 1, thickness: 1),
           Padding(

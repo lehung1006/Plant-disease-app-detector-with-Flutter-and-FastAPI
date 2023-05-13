@@ -78,8 +78,8 @@ class _ProfileState extends State<Profile> {
                   // color: const Color(0xff0984e3),
                   image: Image.asset(
                     'lib/images/flower.png',
-                    width: 24,
-                    height: 24,
+                    width: 22,
+                    height: 22,
                   ),
                   label: 'Vườn của tôi',
                 ),
@@ -126,23 +126,23 @@ class _ProfileState extends State<Profile> {
               ),
             ]),
           ),
-          Expanded(
-              child: Container(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
-            alignment: Alignment.center,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: const Color(0xff2ecc71),
-                    minimumSize: const Size.fromHeight(40),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2))),
-                onPressed: () {},
-                child: const Text(
-                  'Đăng xuất',
-                  style: TextStyle(color: Colors.white),
-                )),
-          ))
+          // Expanded(
+          //     child: Container(
+          //   padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
+          //   alignment: Alignment.center,
+          //   child: ElevatedButton(
+          //       style: ElevatedButton.styleFrom(
+          //           elevation: 0,
+          //           backgroundColor: const Color(0xff2ecc71),
+          //           minimumSize: const Size.fromHeight(40),
+          //           shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(2))),
+          //       onPressed: () {},
+          //       child: const Text(
+          //         'Đăng xuất',
+          //         style: TextStyle(color: Colors.white),
+          //       )),
+          // ))
         ],
       ),
     );

@@ -20,7 +20,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         initLocation: RoutesPath.homeRoute,
         icon: const FaIcon(FontAwesomeIcons.house)),
     MyNavigationBarItem(
-      label: 'Cây cối',
+      label: 'Thực vật',
       initLocation: RoutesPath.plantsRoute,
       icon: const FaIcon(FontAwesomeIcons.plantWilt),
     ),
