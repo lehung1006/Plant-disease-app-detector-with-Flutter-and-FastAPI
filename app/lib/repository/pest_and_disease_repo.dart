@@ -81,7 +81,7 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
       var data = response.data["data"];
       if (data == null) {
         return NoPlantInImageResult(imgBase64);
-      } else if (data == {}) {
+      } else if (data.isEmpty) {
         return ClassifyFailedResult(imgBase64);
       } else if (data == "") {
         return HealthyPlantResult(imgBase64);

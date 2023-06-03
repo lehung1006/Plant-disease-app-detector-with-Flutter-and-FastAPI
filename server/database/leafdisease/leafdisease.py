@@ -36,7 +36,8 @@ def leaf_disease_classify_helper(plant) -> dict:
 async def retrieve_leaf_diseaes():
     leaf_disease = []
     async for disease in leaf_disease_collection.find():
-        leaf_disease.append(leaf_disease_helper(disease))
+        if 'healthy' not in disease['labels']:
+            leaf_disease.append(leaf_disease_helper(disease))
     return leaf_disease
 
 

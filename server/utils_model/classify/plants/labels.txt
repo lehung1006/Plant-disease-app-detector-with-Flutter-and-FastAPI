@@ -1,21 +1,31 @@
-Bạc hà, húng lủi
-Cúc tần
-Dâu tằm
-Dừa cạn
-Lá lốt
-Nghệ
-Ngải cứu
-Rau Má
-Rau sam
-Cam
-Cherry
-Dâu tây
-Khoai tây
-Lúa
-Ngô
-Nho
-Sầu riêng
-Việt quất
-Xoài
-Đu đủ
-Ổi
+Cây Bạc Hà
+Cây Cúc Tần
+Cây Dâu Tằm
+Cây Dừa Cạn
+Cây Lá Lốt
+Cây Nghệ
+Cây Ngải Cứu
+Cây Rau Má
+Cây Rau Sam
+Cây bưởi
+Cây cam
+Cây chanh
+Cây cherry
+Cây chuối
+Cây cà chua
+Cây dâu tây
+Cây dưa hấu
+Cây dưa leo
+Cây khoai tây
+Cây lúa
+Cây ngô
+Cây nho
+Cây sầu riêng
+Cây táo
+Cây việt quất
+Cây xoài
+Cây đu đủ
+Cây đào
+Cây đậu nành
+Cây Ổi
+No plant

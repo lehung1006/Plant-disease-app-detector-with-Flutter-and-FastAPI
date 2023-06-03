@@ -48,7 +48,9 @@ async def leafdisease_classify(im: Im):
     im_file = BytesIO(imgdata)
     img = Image.open(im_file)
     label = classify(img)
-    if label == "Uknown":
+    print(label)
+    if label == "Unknown":
+        print("Unknown")
         return ResponseModel({}, "Not sure")
     elif label == "NULL":
         return ResponseModel(None, "No leaf in picture")

@@ -14,7 +14,7 @@ from config import settings
 def get_model():
     model = torch.hub.load(settings.YOLO_REPO_PATH, 'custom',
                            path=settings.YOLO_WEIGHTS_PATH, source='local')
-    model.conf = 0.5
+    model.conf = 0.4
     return model
 
 

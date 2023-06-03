@@ -25,7 +25,6 @@ def classify(img):
     img = img.resize((224, 224))
     x = np.array(img)
     x = np.expand_dims(x, axis=0)
-    x = x/255.0
     pred = model.predict(x)
     if np.max(pred) < 0.5:
         return "Unknown"
