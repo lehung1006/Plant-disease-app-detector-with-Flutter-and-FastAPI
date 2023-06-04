@@ -57,7 +57,7 @@ def plant_detail(plant) -> dict:
 async def retrieve_plants():
     plants = []
     async for plant in plants_collection.find():
-        if plant["name"] !='No plant':
+        if plant["name"] != 'No plant':
             plants.append(plant_helper(plant))
     return plants
 # get info of plant by id
@@ -65,6 +65,7 @@ async def retrieve_plants():
 
 async def retrieve_plant_by_id(id: str) -> dict:
     plant = await plants_collection.find_one({"_id": id})
+    print(plant)
     if plant:
         return plant_detail(plant)
 

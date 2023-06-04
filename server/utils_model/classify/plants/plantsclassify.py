@@ -30,7 +30,7 @@ def classify(img):
     print(np.max(pred))
     if np.max(pred) < 0.5:
         return "Unknown"
-    elif labels[np.argmax(pred)] == "NULL":
+    elif labels[np.argmax(pred)] == "No plant":
         return "NULL"
     else:
         return labels[np.argmax(pred)]
