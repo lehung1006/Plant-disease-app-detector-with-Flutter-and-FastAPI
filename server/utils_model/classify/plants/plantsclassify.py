@@ -26,8 +26,7 @@ def classify(img):
     x = np.array(img)
     x = np.expand_dims(x, axis=0)
     pred = model.predict(x)
-    # ko có kết quả
-    print(np.max(pred))
+    print(labels[np.argmax(pred)])
     if np.max(pred) < 0.5:
         return "Unknown"
     elif labels[np.argmax(pred)] == "No plant":

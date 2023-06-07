@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 3.0,
           shadowColor: Colors.black,
           title:
-              const Text('AppName', style: TextStyle(color: Color(0xff2ecc71))),
+              const Text('AgriAssitant', style: TextStyle(color: Color(0xff2ecc71))),
           actions: [
             IconButton(
                 onPressed: () {

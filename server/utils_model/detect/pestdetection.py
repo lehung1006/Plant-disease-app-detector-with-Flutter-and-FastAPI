@@ -69,7 +69,6 @@ def detect(im):
                             cv.FONT_HERSHEY_SIMPLEX, .4, (255, 255, 255), 1, cv.LINE_AA)
             i += 1
         im = cv.cvtColor(im, cv.COLOR_BGR2RGB)
-        # convert numpy array to base64
         _, im = cv.imencode('.jpg', im)
         im = base64.b64encode(im)
         im = im.decode('utf-8')
