@@ -1,7 +1,7 @@
 class ApiPaths {
   // static const String baseUrl = 'https://b269-2405-4802-b229-efb0-6803-b85f-10da-66d4.ngrok-free.app';
 
-  static const String baseUrl = 'https://839f-2405-4802-9118-f0a0-85e5-6e2a-d3ab-f63f.ngrok-free.app';
+  static const String baseUrl = 'http://10.0.2.2:8000';
   static const String getPlantList = '/plants';
   static const String getPlantDetail = '/plants/plant';
   static const String plantsClassify = '/plants/plants_classify';

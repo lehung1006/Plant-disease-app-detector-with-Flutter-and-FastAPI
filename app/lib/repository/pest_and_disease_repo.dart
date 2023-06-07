@@ -79,11 +79,12 @@ class PestAndDiseaseRepoImpl extends PestAndDiseaseRepo {
     try {
       final response = await _apiServices.getDiseasesClassifyResult(imgBase64);
       var data = response.data["data"];
+      print("data: $data");
       if (data == null) {
         return NoPlantInImageResult(imgBase64);
-      } else if (data.isEmpty) {
-        return ClassifyFailedResult(imgBase64);
       } else if (data == "") {
+        return ClassifyFailedResult(imgBase64);
+      } else if (data.isEmpty) {
         return HealthyPlantResult(imgBase64);
       }
       return ClassifySuccessResult.fromJson(data, 0, imgBase64);
